@@ -1,12 +1,13 @@
 package com.adilson.dummy
 
+import com.example.managerbookfreelancer.adapter.core.JobsRepository
 import com.example.managerbookfreelancer.model.EngagedModel
 import com.example.managerbookfreelancer.model.JobModel
 import com.example.managerbookfreelancer.model.WeedingDayModel
 import com.example.managerbookfreelancer.model.OwnerJob
 
 
-object MockFreelas{
+object MockFreelas : JobsRepository {
 
 
     val freelancerJobsList: MutableList<JobModel> = mutableListOf(
@@ -80,6 +81,8 @@ object MockFreelas{
 
 
         )
+
+    override fun fetchListJobs(): List<JobModel> = freelancerJobsList.map { it.copy() }
 
 
 }

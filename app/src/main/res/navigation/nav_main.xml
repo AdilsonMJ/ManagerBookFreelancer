@@ -7,16 +7,33 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.managerbookfreelancer.HomeFragment"
+        android:name="com.example.managerbookfreelancer.fragments.HomeFragment"
         tools:layout="@layout/fragment_home"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_recyclerViewFragment"
             app:destination="@id/recyclerViewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recyclerViewFragment_old_jobs"
+            app:destination="@id/recyclerViewFragment_old_jobs" />
     </fragment>
     <fragment
         android:id="@+id/recyclerViewFragment"
-        android:name="com.example.managerbookfreelancer.RecyclerViewFragment"
+        android:name="com.example.managerbookfreelancer.fragments.RecyclerViewFragment"
         tools:layout="@layout/fragment_recycler_view_jobs"
-        android:label="RecyclerViewFragment" />
+        android:label="RecyclerViewFragment" >
+        <action
+            android:id="@+id/action_recyclerViewFragment_to_detailsJobFragment"
+            app:destination="@id/detailsJobFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsJobFragment"
+        android:name="com.example.managerbookfreelancer.fragments.DetailsJobFragment"
+        android:label="DetailsJobFragment"
+        tools:layout="@layout/fragment_details_job"/>
+    <fragment android:id="@+id/recyclerViewFragment_old_jobs" >
+        <action
+            android:id="@+id/action_recyclerViewFragment_old_jobs_to_detailsJobFragment"
+            app:destination="@id/detailsJobFragment" />
+    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.managerbookfreelancer
+package com.example.managerbookfreelancer.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
