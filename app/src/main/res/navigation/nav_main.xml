@@ -14,8 +14,8 @@
             android:id="@+id/action_homeFragment_to_recyclerViewFragment"
             app:destination="@id/recyclerViewFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_recyclerViewFragment_old_jobs"
-            app:destination="@id/recyclerViewFragment_old_jobs" />
+            android:id="@+id/action_homeFragment_to_formNewJobFragment"
+            app:destination="@id/formNewJobFragment" />
     </fragment>
     <fragment
         android:id="@+id/recyclerViewFragment"
@@ -25,15 +25,25 @@
         <action
             android:id="@+id/action_recyclerViewFragment_to_detailsJobFragment"
             app:destination="@id/detailsJobFragment" />
+        <argument
+            android:name="jobModelObjectToSave"
+            app:argType="com.example.managerbookfreelancer.model.Job"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/detailsJobFragment"
         android:name="com.example.managerbookfreelancer.fragments.DetailsJobFragment"
         android:label="DetailsJobFragment"
         tools:layout="@layout/fragment_details_job"/>
-    <fragment android:id="@+id/recyclerViewFragment_old_jobs" >
+    <fragment
+        android:id="@+id/formNewJobFragment"
+        android:name="com.example.managerbookfreelancer.fragments.FormNewJobFragment"
+        android:label="FormNewJobFragment"
+        tools:layout="@layout/fragment_form_new_job">
         <action
-            android:id="@+id/action_recyclerViewFragment_old_jobs_to_detailsJobFragment"
-            app:destination="@id/detailsJobFragment" />
+            android:id="@+id/action_formNewJobFragment_to_recyclerViewFragment"
+            app:destination="@id/recyclerViewFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 </navigation>

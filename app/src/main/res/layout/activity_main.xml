@@ -28,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/navigation_bottom_main" />
+            app:menu="@menu/menu_navigation_bottom_main" />
 
 
 

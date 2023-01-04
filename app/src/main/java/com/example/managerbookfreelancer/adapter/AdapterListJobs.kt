@@ -6,47 +6,51 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.managerbookfreelancer.databinding.FragmentItemJobBinding
-import com.example.managerbookfreelancer.model.JobModel
-import com.example.managerbookfreelancer.viewModel.JobsViewModel
 
-class AdapterListJobs(private val viewModel: JobsViewModel) : RecyclerView.Adapter<AdapterListJobs.viewHolder>() {
+class AdapterListJobs(
+    private val onClick: (JobModel) -> Unit
+): RecyclerView.Adapter<AdapterListJobs.viewHolder>() {
 
 
     private val asyncListDiff : AsyncListDiffer<JobModel> = AsyncListDiffer(this, DiffCalback)
 
-    class viewHolder(
+
+    inner class viewHolder(
         private val binding: FragmentItemJobBinding,
-        private val viewModel: JobsViewModel
-    ):
-        RecyclerView.ViewHolder(binding.root) {
+    ): RecyclerView.ViewHolder(binding.root)  {
+
+        fun bind(jobModel: JobModel, onClick: (JobModel) -> Unit) {
+
+            binding.tvData.text = jobModel.weedingDay
+            binding.tvHour.text = jobModel.weedingTime
+            binding.tvOwner.text = jobModel.ownerName
+            binding.tvLocalization.text = jobModel.weedingCity
 
 
-        fun bind(job: JobModel) {
-            binding.tvData.text = job.weedingDay.data
-            binding.tvHour.text = job.weedingDay.hours
-            binding.tvOwner.text = job.ownerJob.owner_name
-            binding.tvLocalization.text = job.weedingDay.district
+            binding.root.setOnClickListener{
+                onClick(jobModel)
+            }
+
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = FragmentItemJobBinding.inflate(layoutInflater, parent, false)
-        return viewHolder(binding, viewModel)
+        return viewHolder(binding)
 
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        holder.bind(asyncListDiff.currentList[position])
+        holder.bind(asyncListDiff.currentList[position], onClick)
     }
 
     override fun getItemCount(): Int = asyncListDiff.currentList.size
 
 
-    fun upDateJobs(job : List<JobModel>){
-        asyncListDiff.submitList(job)
+    fun upDateJobs(jobModel : List<JobModel>){
+        asyncListDiff.submitList(jobModel)
     }
 
 

@@ -1,7 +1,8 @@
 package com.example.managerbookfreelancer.viewModel
 
-import com.example.managerbookfreelancer.model.JobModel
+import androidx.lifecycle.LiveData
+import com.example.managerbookfreelancer.model.JobModelEntity
 
 data class JobsListUiState(
-    val jobsList: List<JobModel>
+    val jobsList: LiveData<List<JobModelEntity>>
 )

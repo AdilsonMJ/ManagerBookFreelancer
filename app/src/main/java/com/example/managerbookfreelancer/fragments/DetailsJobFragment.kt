@@ -5,6 +5,4 @@ import com.example.managerbookfreelancer.R
 
 class DetailsJobFragment : Fragment(R.layout.fragment_details_job) {
 
-
-
 }

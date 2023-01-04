@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">ManagerBookFreelancer</string>
     <string name="fragment_home_Button_go_to_List">Go To List</string>
+
+    <string name="Remove">Remove</string>
+    <string name="Edit">Edit</string>
+    <string name="OwnerJob">Owner</string>
+    <string name="bride_name">Name Bride</string>
+    <string name="bridegroom_name">Name bridegroom</string>
+    <string name="ContactOwner">Contact</string>
+    <string name="LocationWedding">Location</string>
+    <string name="date">Date</string>
+    <string name="HoursWedding">Hours</string>
+    <string name="Savejob">Salve</string>
+    <string name="pending">Pending</string>
+    <string name="old_freelas">Old Freelas</string>
+
 </resources>
