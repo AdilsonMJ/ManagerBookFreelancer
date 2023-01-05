@@ -1,13 +1,13 @@
-package com.example.managerbookfreelancer.DATABASE
+package com.example.managerbookfreelancer.dataBase
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.managerbookfreelancer.model.JobModelEntity
+import com.example.managerbookfreelancer.model.JobEntity
 
 
-@Database(version = 1, entities = [ JobModelEntity::class])
+@Database(version = 1, entities = [ JobEntity::class])
 abstract class JobAppDataBase : RoomDatabase(){
 
     abstract fun JobDAO() : JobDAO

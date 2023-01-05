@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "job")
-data class JobModelEntity(
+data class JobEntity(
     @PrimaryKey @ColumnInfo(name = "id") val id : String = UUID.randomUUID().toString(),
 
     @ColumnInfo(name = "engaged")
@@ -24,3 +24,5 @@ data class JobModelEntity(
     @ColumnInfo(name = "weedingCity")
     val weedingCity: String
 )
+
+
