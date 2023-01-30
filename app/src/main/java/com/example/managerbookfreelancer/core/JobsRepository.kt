@@ -1,6 +1,6 @@
 package com.example.managerbookfreelancer.core
 
-import com.example.managerbookfreelancer.model.JobEntity
+import com.example.managerbookfreelancer.core.model.JobEntity
 import kotlinx.coroutines.flow.Flow
 
 

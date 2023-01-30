@@ -1,4 +1,4 @@
-package com.example.managerbookfreelancer.model
+package com.example.managerbookfreelancer.core.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

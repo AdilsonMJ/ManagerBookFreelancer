@@ -10,10 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.managerbookfreelancer.R
-import com.example.managerbookfreelancer.core.JobsDbDataSource
-import com.example.managerbookfreelancer.dataBase.JobAppDataBase
+import com.example.managerbookfreelancer.core.JobsRepositoryImpl
+import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
+import com.example.managerbookfreelancer.core.model.JobEntity
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
-import com.example.managerbookfreelancer.model.JobEntity
+import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -30,15 +31,15 @@ class FormNewJobFragment : Fragment() {
 
     private var _binding: FragmentFormNewJobBinding? = null
     private val binding get() = _binding!!
-    private  var time: String? = null
-    private  var date: String? = null
+    private var time: String? = null
+    private var date: String? = null
 
-    private val viewModel: JobsViewModel by activityViewModels(
+    private val viewModel: FormNewJobViewModel by activityViewModels(
         factoryProducer = {
             val database = JobAppDataBase.getInstance(requireContext())
 
-            JobsViewModel.Factory(
-                repository = JobsDbDataSource(database.JobDAO())
+            FormNewJobViewModel.Factory(
+                repository = JobsRepositoryImpl(database.JobDAO())
             )
         }
     )
@@ -88,12 +89,13 @@ class FormNewJobFragment : Fragment() {
                 ownerName = ownerJob,
                 weedingDay = date,
                 weedingTime = time,
-                weedingCity = weedingLocation)
+                weedingCity = weedingLocation
+            )
 
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel.insert(jobEntity = jobModel)
             }
-           findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
+            findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
 
 
         }

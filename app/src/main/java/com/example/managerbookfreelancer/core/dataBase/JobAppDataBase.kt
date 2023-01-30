@@ -1,10 +1,10 @@
-package com.example.managerbookfreelancer.dataBase
+package com.example.managerbookfreelancer.core.dataBase
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.managerbookfreelancer.model.JobEntity
+import com.example.managerbookfreelancer.core.model.JobEntity
 
 
 @Database(version = 1, entities = [ JobEntity::class])

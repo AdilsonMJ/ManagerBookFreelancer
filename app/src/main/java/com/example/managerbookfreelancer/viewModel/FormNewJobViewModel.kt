@@ -1,28 +1,28 @@
 package com.example.managerbookfreelancer.viewModel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.managerbookfreelancer.core.JobsRepository
 import com.example.managerbookfreelancer.core.model.JobEntity
 import kotlinx.coroutines.launch
 
-class JobsViewModel(
+class FormNewJobViewModel(
     private val repository: JobsRepository
-) : ViewModel() {
+) : ViewModel(){
 
-    val allJobs: LiveData<List<JobEntity>> = repository.fetchHabits().asLiveData()
-
-
-    fun delet(jobEntity: JobEntity) {
+    fun insert(jobEntity: JobEntity) {
 
         viewModelScope.launch {
-            repository.delete(jobEntity)
+            repository.insert(jobEntity)
         }
+
     }
 
 
     class Factory(private val repository: JobsRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return JobsViewModel(repository) as T
+            return FormNewJobViewModel(repository) as T
         }
     }
 

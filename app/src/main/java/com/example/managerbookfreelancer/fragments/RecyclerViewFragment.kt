@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.managerbookfreelancer.adapter.AdapterListJobs
-import com.example.managerbookfreelancer.core.JobsDbDataSource
-import com.example.managerbookfreelancer.dataBase.JobAppDataBase
+import com.example.managerbookfreelancer.core.JobsRepositoryImpl
+import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewJobsBinding
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -28,7 +28,7 @@ class RecyclerViewFragment : Fragment() {
             val database = JobAppDataBase.getInstance(requireContext())
 
             JobsViewModel.Factory(
-                repository = JobsDbDataSource(database.JobDAO())
+                repository = JobsRepositoryImpl(database.JobDAO())
             )
         }
     )
