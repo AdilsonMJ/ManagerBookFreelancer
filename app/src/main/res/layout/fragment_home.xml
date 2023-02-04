@@ -1,66 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvnextFreelancer"
+    <TextView android:id="@+id/tvnextFreelancer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        tools:text="Next Freelance"
+        android:layout_marginStart="16dp"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvData"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Next Freelance" />
 
-    <TextView
-        android:id="@+id/tvData"
+    <TextView android:id="@+id/tvData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_weight="1"
-        tools:text="01/01/2021"
-        app:layout_constraintBottom_toTopOf="@+id/tvOwner"
         app:layout_constraintStart_toStartOf="@+id/tvnextFreelancer"
-        app:layout_constraintTop_toBottomOf="@+id/tvnextFreelancer" />
+        app:layout_constraintTop_toBottomOf="@+id/tvnextFreelancer"
+        tools:text="01/01/2021" />
 
-    <TextView
-        android:id="@+id/tvLocalization"
+    <TextView android:id="@+id/tvLocalization"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_weight="1"
-        tools:text="Betim"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvOwner"
-        app:layout_constraintStart_toStartOf="@+id/tvHours"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="297dp" />
+        app:layout_constraintStart_toEndOf="@+id/tvHours"
+        tools:text="Betim" />
 
-    <TextView
-        android:id="@+id/tvOwner"
+    <TextView android:id="@+id/tvOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
         android:layout_weight="1"
-        tools:text="Nilton"
-        app:layout_constraintStart_toStartOf="@+id/tvData"
-        app:layout_constraintTop_toBottomOf="@+id/tvData" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvData"
+        app:layout_constraintStart_toEndOf="@+id/tvData"
+        tools:text="Nilton" />
 
-    <TextView
-        android:id="@+id/tvHours"
+    <TextView android:id="@+id/tvHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="10:00 pm"
+        android:layout_marginStart="16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvData"
-        app:layout_constraintStart_toEndOf="@+id/tvnextFreelancer" />
+        app:layout_constraintStart_toEndOf="@+id/tvOwner"
+        tools:text="10:00 pm" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <Button
+        android:id="@+id/btnNewJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/btn_New_Job"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button android:id="@+id/btnNewProfessional"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/Btn_new_professional"
+        app:layout_constraintEnd_toEndOf="@+id/btnNewJob"
+        app:layout_constraintStart_toStartOf="@+id/btnNewJob"
+        app:layout_constraintTop_toBottomOf="@+id/btnNewJob" />
+
+    <Button android:id="@+id/btnShowEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/btn_show_jobs"
+        app:layout_constraintEnd_toEndOf="@+id/btnNewProfessional"
+        app:layout_constraintStart_toStartOf="@+id/btnNewProfessional"
+        app:layout_constraintTop_toBottomOf="@+id/btnNewProfessional" />
+
+    <Button
+        android:id="@+id/btnShowProfessional"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/btn_show_professional"
+        app:layout_constraintEnd_toEndOf="@+id/btnShowEvents"
+        app:layout_constraintStart_toStartOf="@+id/btnShowEvents"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowEvents" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

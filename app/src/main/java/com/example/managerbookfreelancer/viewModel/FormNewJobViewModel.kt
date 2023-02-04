@@ -3,7 +3,7 @@ package com.example.managerbookfreelancer.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.managerbookfreelancer.core.JobsRepository
+import com.example.managerbookfreelancer.core.repository.JobsRepository
 import com.example.managerbookfreelancer.core.model.JobEntity
 import kotlinx.coroutines.launch
 

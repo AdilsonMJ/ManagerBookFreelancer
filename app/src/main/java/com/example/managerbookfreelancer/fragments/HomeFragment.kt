@@ -28,6 +28,23 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        binding.btnShowEvents.setOnClickListener (
+            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_recyclerViewJobsFragment)
+        )
+
+        binding.btnShowProfessional.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_recyclerViewProfessionalFragment)
+        )
+
+        binding.btnNewJob.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_formNewJobFragment)
+        )
+
+        binding.btnNewProfessional.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_newProfessional)
+        )
+
     }
 
     override fun onDestroy() {

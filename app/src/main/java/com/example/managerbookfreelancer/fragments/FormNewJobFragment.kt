@@ -10,12 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.managerbookfreelancer.R
-import com.example.managerbookfreelancer.core.JobsRepositoryImpl
+import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
 import com.example.managerbookfreelancer.core.model.JobEntity
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
-import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -85,6 +84,7 @@ class FormNewJobFragment : Fragment() {
             }
 
             val jobModel = JobEntity(
+                id = UUID.randomUUID().toString(),
                 engaged = coupleName,
                 ownerName = ownerJob,
                 weedingDay = date,
@@ -95,7 +95,7 @@ class FormNewJobFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel.insert(jobEntity = jobModel)
             }
-            findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
+           findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
 
 
         }

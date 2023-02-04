@@ -19,19 +19,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setUpBottonNavigationView()
+        //setUpBottonNavigationView()
 
     }
 
 
-
-    private fun setUpBottonNavigationView() {
-
-        val navHostFragment = getNavHostFragment()
-        binding.bottomAppBar.setupWithNavController(navHostFragment.navController)
-    }
-
-    private fun getNavHostFragment(): NavHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as NavHostFragment
+//
+//    private fun setUpBottonNavigationView() {
+//
+//        val navHostFragment = getNavHostFragment()
+//        binding.bottomAppBar.setupWithNavController(navHostFragment.navController)
+//    }
+//
+//    private fun getNavHostFragment(): NavHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as NavHostFragment
 
 
 }

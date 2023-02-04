@@ -4,13 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.managerbookfreelancer.core.dataBase.dao.JobDAO
+import com.example.managerbookfreelancer.core.dataBase.dao.ProfessionalDAO
 import com.example.managerbookfreelancer.core.model.JobEntity
+import com.example.managerbookfreelancer.core.model.ProfessionalEntity
 
 
-@Database(version = 1, entities = [ JobEntity::class])
+@Database(version = 1, entities = [ JobEntity::class, ProfessionalEntity::class])
 abstract class JobAppDataBase : RoomDatabase(){
 
     abstract fun JobDAO() : JobDAO
+    abstract  fun ProfessionalDAO(): ProfessionalDAO
 
     companion object{
         private const val DATABASE_NAME = "dataBase_Jobs"

@@ -14,5 +14,16 @@
     <string name="Savejob">Salve</string>
     <string name="pending">Pending</string>
     <string name="old_freelas">Old Freelas</string>
+    <string name="btn_New_Job">New Job</string>
+    <string name="Btn_new_professional">New Professional</string>
+    <string name="btn_show_jobs">Show Jobs</string>
+    <string name="btn_show_professional">Show Professional</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_name_form_new_profissional">name</string>
+    <string name="hint_email_form_new_profissional">Email</string>
+    <string name="hint_cellphone_form_new_profissional">cellphone</string>
+    <string name="btnSaveFormNewProfessional">save</string>
+    <string name="btnBackFormNewProfessional">Back</string>
 
 </resources>

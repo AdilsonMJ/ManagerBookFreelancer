@@ -1,7 +1,7 @@
 package com.example.managerbookfreelancer.viewModel
 
 import androidx.lifecycle.*
-import com.example.managerbookfreelancer.core.JobsRepository
+import com.example.managerbookfreelancer.core.repository.JobsRepository
 import com.example.managerbookfreelancer.core.model.JobEntity
 import kotlinx.coroutines.launch
 
@@ -9,7 +9,7 @@ class JobsViewModel(
     private val repository: JobsRepository
 ) : ViewModel() {
 
-    val allJobs: LiveData<List<JobEntity>> = repository.fetchHabits().asLiveData()
+    val allJobs: LiveData<List<JobEntity>> = repository.fetchJobs().asLiveData()
 
 
     fun delet(jobEntity: JobEntity) {

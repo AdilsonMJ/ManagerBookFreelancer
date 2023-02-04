@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "job")
 data class JobEntity(
-    @PrimaryKey @ColumnInfo(name = "id") val id : String = UUID.randomUUID().toString(),
+    @PrimaryKey @ColumnInfo(name = "id") val id : String,
 
     @ColumnInfo(name = "engaged")
     val engaged : String,

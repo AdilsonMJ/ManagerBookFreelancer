@@ -1,4 +1,4 @@
-package com.example.managerbookfreelancer.core
+package com.example.managerbookfreelancer.core.repository
 
 import com.example.managerbookfreelancer.core.model.JobEntity
 import kotlinx.coroutines.flow.Flow
@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface JobsRepository{
 
-     fun fetchHabits() : Flow<List<JobEntity>>
+     fun fetchJobs() : Flow<List<JobEntity>>
 
     suspend fun insert(jobEntity: JobEntity)
 

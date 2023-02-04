@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_host"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.managerbookfreelancer.fragments.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_recyclerViewJobsFragment"
+            app:destination="@id/recyclerViewJobsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recyclerViewProfessionalFragment"
+            app:destination="@id/recyclerViewProfessionalFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_newProfessional"
+            app:destination="@id/newProfessional" />
+        <action
+            android:id="@+id/action_homeFragment_to_formNewJobFragment"
+            app:destination="@id/formNewJobFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recyclerViewJobsFragment"
+        android:name="com.example.managerbookfreelancer.fragments.RecyclerViewJobsFragment"
+        android:label="RecyclerViewFragment"
+        tools:layout="@layout/fragment_recycler_view_jobs"/>
+    <fragment
+        android:id="@+id/recyclerViewProfessionalFragment"
+        android:name="com.example.managerbookfreelancer.fragments.RecyclerViewProfessionalFragment"
+        android:label="fragment_recycler_view_professional"
+        tools:layout="@layout/fragment_recycler_view_professional" />
+    <fragment
+        android:id="@+id/newProfessional"
+        android:name="com.example.managerbookfreelancer.fragments.NewProfessionalFragment"
+        android:label="fragment_new_professional"
+        tools:layout="@layout/fragment_new_professional" >
+        <action
+            android:id="@+id/action_newProfessional_to_recyclerViewProfessionalFragment"
+            app:destination="@id/recyclerViewProfessionalFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formNewJobFragment"
+        android:name="com.example.managerbookfreelancer.fragments.FormNewJobFragment"
+        android:label="FormNewJobFragment"
+        tools:layout="@layout/fragment_form_new_job">
+        <action
+            android:id="@+id/action_formNewJobFragment_to_recyclerViewFragment"
+            app:destination="@id/recyclerViewJobsFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+</navigation>

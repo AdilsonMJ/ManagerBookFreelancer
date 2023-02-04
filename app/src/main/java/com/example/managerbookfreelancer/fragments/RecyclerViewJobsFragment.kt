@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.managerbookfreelancer.adapter.AdapterListJobs
-import com.example.managerbookfreelancer.core.JobsRepositoryImpl
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
+import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewJobsBinding
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class RecyclerViewFragment : Fragment() {
+class RecyclerViewJobsFragment : Fragment() {
 
     private var _binding: FragmentRecyclerViewJobsBinding? = null
     private val binding get() = _binding!!
@@ -56,8 +56,7 @@ class RecyclerViewFragment : Fragment() {
 
         binding.RCFragmentListJobs.layoutManager = LinearLayoutManager(requireContext())
         binding.RCFragmentListJobs.adapter = adapter
-
-            viewModel.allJobs.observe(viewLifecycleOwner) { state ->
+        viewModel.allJobs.observe(viewLifecycleOwner) { state ->
                 adapter.upDateJobs(state)
             }
 
