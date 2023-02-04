@@ -1,13 +1,13 @@
 package com.example.managerbookfreelancer.core.model
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "job")
 data class JobEntity(
-    @PrimaryKey @ColumnInfo(name = "id") val id : String,
+    @PrimaryKey @ColumnInfo(name = "idJob") val idJob : String,
 
     @ColumnInfo(name = "engaged")
     val engaged : String,
@@ -22,7 +22,9 @@ data class JobEntity(
     val weedingTime: String ? = null,
 
     @ColumnInfo(name = "weedingCity")
-    val weedingCity: String
+    val weedingCity: String,
+
+    @Embedded val professional: ProfessionalEntity
 )
 
 

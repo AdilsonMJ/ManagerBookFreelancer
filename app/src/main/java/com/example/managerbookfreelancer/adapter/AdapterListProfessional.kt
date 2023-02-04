@@ -44,7 +44,7 @@ class AdapterListProfessional : RecyclerView.Adapter<AdapterListProfessional.vie
             oldItem: ProfessionalEntity,
             newItem: ProfessionalEntity
         ): Boolean {
-            return  oldItem.id == newItem.id
+            return  oldItem.idProfessional == newItem.idProfessional
         }
 
         override fun areContentsTheSame(

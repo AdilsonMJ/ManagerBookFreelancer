@@ -6,13 +6,18 @@ import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.managerbookfreelancer.R
-import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
 import com.example.managerbookfreelancer.core.model.JobEntity
+import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
+import com.example.managerbookfreelancer.core.repository.ProfessionalRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
 import com.google.android.material.datepicker.CalendarConstraints
@@ -26,19 +31,22 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class FormNewJobFragment : Fragment() {
 
     private var _binding: FragmentFormNewJobBinding? = null
     private val binding get() = _binding!!
     private var time: String? = null
     private var date: String? = null
+    private var professionalEntity: ProfessionalEntity? = null
 
     private val viewModel: FormNewJobViewModel by activityViewModels(
         factoryProducer = {
             val database = JobAppDataBase.getInstance(requireContext())
 
             FormNewJobViewModel.Factory(
-                repository = JobsRepositoryImpl(database.JobDAO())
+                repository = JobsRepositoryImpl(database.JobDAO()),
+                repositoryProfessionalRepository = ProfessionalRepositoryImpl(database.ProfessionalDAO())
             )
         }
     )
@@ -53,6 +61,12 @@ class FormNewJobFragment : Fragment() {
     }
 
 
+
+    override fun onResume() {
+        super.onResume()
+        setSpinner()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,14 +74,8 @@ class FormNewJobFragment : Fragment() {
         getDate()
         getTime()
 
-        binding.BTNSave.setOnClickListener {
 
-            val ownerJob = binding.editTextOwner.text.toString().trim()
-            if (ownerJob.isEmpty()) {
-                binding.editTextOwner.error = "Please put a name"
-                binding.editTextOwner.requestFocus()
-                return@setOnClickListener
-            }
+        binding.BTNSave.setOnClickListener {
 
             val coupleName = binding.editTextBrideName.text.toString().trim()
             if (coupleName.isEmpty()) {
@@ -83,22 +91,78 @@ class FormNewJobFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            if (professionalEntity == null || professionalEntity!!.idProfessional == "-1" ){
+                binding.spinnerProfessional.requestFocus()
+                Toast.makeText(requireContext(), "Select or creat a professional", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+
+            }
+
             val jobModel = JobEntity(
-                id = UUID.randomUUID().toString(),
+                idJob = UUID.randomUUID().toString(),
                 engaged = coupleName,
-                ownerName = ownerJob,
+                ownerName = professionalEntity!!.name,
                 weedingDay = date,
                 weedingTime = time,
-                weedingCity = weedingLocation
+                weedingCity = weedingLocation,
+                professional = professionalEntity!!
             )
 
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel.insert(jobEntity = jobModel)
             }
-           findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
+            findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
 
 
         }
+
+
+    }
+
+    private fun setSpinner() {
+
+        val listSppiner = ArrayList<ProfessionalEntity>()
+        val spinnerAdapter = ArrayAdapter<ProfessionalEntity>(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            listSppiner
+        )
+
+        viewModel.allProfessional.observe(
+            viewLifecycleOwner
+        ) { p ->
+            if (p.isEmpty()){
+                listSppiner.add(index = 0, ProfessionalEntity("-1", name = "Create a new Usuario.", contact = "-1", email = "-1"))
+            }
+            for (prof in p) {
+                listSppiner.add(prof)
+            }
+
+            spinnerAdapter.notifyDataSetChanged()
+        }
+
+        binding.spinnerProfessional.adapter = spinnerAdapter
+        binding.spinnerProfessional.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    professionalEntity = ProfessionalEntity(
+                        idProfessional = listSppiner[position].idProfessional,
+                        name = listSppiner[position].name,
+                        contact = listSppiner[position].contact,
+                        email = listSppiner[position].email
+                    )
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+            }
 
 
     }

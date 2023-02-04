@@ -57,7 +57,7 @@ class AdapterListJobs(
 
     object DiffCalback : DiffUtil.ItemCallback<JobEntity>(){
         override fun areItemsTheSame(oldItem: JobEntity, newItem: JobEntity): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.idJob == newItem.idJob
         }
 
         override fun areContentsTheSame(oldItem: JobEntity, newItem: JobEntity): Boolean {

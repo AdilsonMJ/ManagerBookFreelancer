@@ -35,9 +35,9 @@
         tools:layout="@layout/fragment_recycler_view_professional" />
     <fragment
         android:id="@+id/newProfessional"
-        android:name="com.example.managerbookfreelancer.fragments.NewProfessionalFragment"
+        android:name="com.example.managerbookfreelancer.fragments.FormNewProfessionalFragment"
         android:label="fragment_new_professional"
-        tools:layout="@layout/fragment_new_professional" >
+        tools:layout="@layout/fragment_form_new_professional" >
         <action
             android:id="@+id/action_newProfessional_to_recyclerViewProfessionalFragment"
             app:destination="@id/recyclerViewProfessionalFragment"
