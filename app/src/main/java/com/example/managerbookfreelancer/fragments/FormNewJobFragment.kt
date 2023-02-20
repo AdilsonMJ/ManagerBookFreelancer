@@ -169,7 +169,6 @@ class FormNewJobFragment : Fragment() {
 
     private fun getTime() {
 
-
         binding.timePickerButton.setOnClickListener {
             val isSystem24Hour = is24HourFormat(context)
             val clockFormat = if (isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
@@ -182,37 +181,18 @@ class FormNewJobFragment : Fragment() {
             picker.show(parentFragmentManager, "TimePicker")
 
             picker.addOnPositiveButtonClickListener {
-                val H = picker.hour
-                val M = picker.minute
 
-                this.time = getFormatHours(H, M)
+                this.time = getFormattedTime(hours = picker.hour, minutes = picker.minute)
                 binding.timePickerButton.text = time
             }
         }
 
     }
 
-    private fun getFormatHours(hours: Int, min: Int): String {
-
-        val hour: String
-        val minutes: String
-
-
-        if (hours in 0..9) {
-            hour = "0$hours"
-        } else {
-            hour = hours.toString()
-        }
-
-        if (min in 0..9) {
-            minutes = "0$min"
-        } else {
-            minutes = min.toString()
-        }
-
-        return "$hour : $minutes"
-
-
+    private fun getFormattedTime(hours: Int, minutes: Int): String {
+        val hourString = if (hours < 10) "0$hours" else hours.toString()
+        val minuteString = if (minutes < 10) "0$minutes" else minutes.toString()
+        return "$hourString:$minuteString"
     }
 
     @SuppressLint("SimpleDateFormat")
