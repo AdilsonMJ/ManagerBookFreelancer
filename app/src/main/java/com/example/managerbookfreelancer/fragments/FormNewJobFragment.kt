@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -61,7 +62,6 @@ class FormNewJobFragment : Fragment() {
     }
 
 
-
     override fun onResume() {
         super.onResume()
         setSpinner()
@@ -77,29 +77,20 @@ class FormNewJobFragment : Fragment() {
 
         binding.BTNSave.setOnClickListener {
 
-            val coupleName = binding.editTextBrideName.text.toString().trim()
-            if (coupleName.isEmpty()) {
-                binding.editTextBrideName.error = "please insert the couple names"
-                binding.editTextBrideName.requestFocus()
-                return@setOnClickListener
-            }
+            val coupleName = binding.editTextBrideName.requireText()
+            val weedingLocation = binding.editTextLocation.requireText()
 
-            val weedingLocation = binding.editTextLocation.text.toString().trim()
-            if (weedingLocation.isEmpty()) {
-                binding.FildEditTextLocation.error = "Please insert the City"
-                binding.FildEditTextLocation.requestFocus()
-                return@setOnClickListener
-            }
-
-            if (professionalEntity == null || professionalEntity!!.idProfessional == "-1" ){
+            if (professionalEntity?.contact == "-1") {
                 binding.spinnerProfessional.requestFocus()
-                Toast.makeText(requireContext(), "Select or creat a professional", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Select or create a professional",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
-
             }
 
             val jobModel = JobEntity(
-                idJob = UUID.randomUUID().toString(),
                 engaged = coupleName,
                 ownerName = professionalEntity!!.name,
                 weedingDay = date,
@@ -116,30 +107,30 @@ class FormNewJobFragment : Fragment() {
 
         }
 
+    }
 
+    private fun EditText.requireText(): String {
+
+        val text = this.text.toString().trim()
+        if (text.isEmpty()) {
+            this.error = "Please fill this field"
+            this.requestFocus()
+        }
+
+        return text
     }
 
     private fun setSpinner() {
 
-        val listSppiner = ArrayList<ProfessionalEntity>()
+        val listSpinner = ArrayList<ProfessionalEntity>()
+
         val spinnerAdapter = ArrayAdapter<ProfessionalEntity>(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
-            listSppiner
+            listSpinner
         )
 
-        viewModel.allProfessional.observe(
-            viewLifecycleOwner
-        ) { p ->
-            if (p.isEmpty()){
-                listSppiner.add(index = 0, ProfessionalEntity("-1", name = "Create a new Usuario.", contact = "-1", email = "-1"))
-            }
-            for (prof in p) {
-                listSppiner.add(prof)
-            }
 
-            spinnerAdapter.notifyDataSetChanged()
-        }
 
         binding.spinnerProfessional.adapter = spinnerAdapter
         binding.spinnerProfessional.onItemSelectedListener =
@@ -151,18 +142,28 @@ class FormNewJobFragment : Fragment() {
                     id: Long
                 ) {
                     professionalEntity = ProfessionalEntity(
-                        idProfessional = listSppiner[position].idProfessional,
-                        name = listSppiner[position].name,
-                        contact = listSppiner[position].contact,
-                        email = listSppiner[position].email
+                        idProfessional = listSpinner[position].idProfessional,
+                        name = listSpinner[position].name,
+                        contact = listSpinner[position].contact,
+                        email = listSpinner[position].email
                     )
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-
                 }
-
             }
+
+        viewModel.allProfessional.observe(
+            viewLifecycleOwner
+        ) { professional ->
+            if (professional.isNotEmpty()) {
+                listSpinner.addAll(professional)
+            } else {
+                val message = ProfessionalEntity( name = "Create a new Usuario.", contact = "-1", email = "-1")
+                listSpinner.add(message)
+            }
+
+            spinnerAdapter.notifyDataSetChanged()
+        }
 
 
     }
@@ -189,6 +190,7 @@ class FormNewJobFragment : Fragment() {
                 binding.timePickerButton.text = time
             }
         }
+
 
     }
 

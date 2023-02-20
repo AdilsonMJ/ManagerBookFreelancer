@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "job")
 data class JobEntity(
-    @PrimaryKey @ColumnInfo(name = "idJob") val idJob : String,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "idJob") val idJob : Long = 0,
 
     @ColumnInfo(name = "engaged")
     val engaged : String,
