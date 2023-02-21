@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ManagerBookFreelancer</string>
+    <string name="app_name">Freelance Planner</string>
     <string name="fragment_home_Button_go_to_List">Go To List</string>
 
     <string name="Remove">Remove</string>

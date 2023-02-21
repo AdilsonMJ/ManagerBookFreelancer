@@ -21,7 +21,6 @@ import com.example.managerbookfreelancer.core.repository.ProfessionalRepositoryI
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
 import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -120,15 +119,13 @@ class FormNewJobFragment : Fragment() {
 
     private fun setSpinner() {
 
-
         val listSppiner = ArrayList<ProfessionalEntity>()
+        listSppiner.clear()
         val spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
             listSppiner
         )
-
-        listSppiner.clear()
         viewModel.allProfessional.observe(
             viewLifecycleOwner
         ) { p ->
@@ -161,14 +158,9 @@ class FormNewJobFragment : Fragment() {
                         email = listSppiner[position].email
                     )
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-
                 }
-
             }
-
-
     }
 
     private fun getTime() {
@@ -183,7 +175,6 @@ class FormNewJobFragment : Fragment() {
                 .build()
 
             picker.show(parentFragmentManager, "TimePicker")
-
             picker.addOnPositiveButtonClickListener {
 
                 this.weddingTimePickup =
@@ -205,7 +196,7 @@ class FormNewJobFragment : Fragment() {
 
         binding.datePickerButton.setOnClickListener {
             val calendarConstraintBuild = CalendarConstraints.Builder()
-            calendarConstraintBuild.setValidator(DateValidatorPointForward.now())
+           // calendarConstraintBuild.setValidator(DateValidatorPointForward.now())
 
 
             val datePicker = MaterialDatePicker.Builder.datePicker()

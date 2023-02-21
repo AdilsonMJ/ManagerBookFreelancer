@@ -1,19 +1,18 @@
 package com.example.managerbookfreelancer.resource
 
 import android.icu.util.Calendar
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
+import java.util.*
 
 object Resoucers {
 
     fun fromLongToString(date: Long): String{
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return simpleDateFormat.format(date)
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
+
     fun getDateInMillesWithoutTime(): Long{
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
