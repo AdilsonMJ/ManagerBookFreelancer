@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.managerbookfreelancer.databinding.FragmentItemJobBinding
 import com.example.managerbookfreelancer.core.model.JobEntity
+import com.example.managerbookfreelancer.resource.Resoucers
 
 class AdapterListJobs(
     private val onClick: (JobEntity) -> Unit
@@ -22,7 +23,7 @@ class AdapterListJobs(
 
         fun bind(jobModel: JobEntity, onClick: (JobEntity) -> Unit) {
 
-            binding.tvData.text = jobModel.weedingDay
+            binding.tvData.text = Resoucers.fromLongToString(jobModel.weedingDay)
             binding.tvHour.text = jobModel.weedingTime
             binding.tvOwner.text = jobModel.ownerName
             binding.tvLocalization.text = jobModel.weedingCity

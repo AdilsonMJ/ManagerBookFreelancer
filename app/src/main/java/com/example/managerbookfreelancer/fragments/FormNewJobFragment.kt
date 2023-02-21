@@ -36,8 +36,8 @@ class FormNewJobFragment : Fragment() {
 
     private var _binding: FragmentFormNewJobBinding? = null
     private val binding get() = _binding!!
-    private var time: String? = null
-    private var date: String? = null
+    private var weddingTimePickup: String? = null
+    private var weddingDatePickup: Long? = null
     private var professionalEntity: ProfessionalEntity? = null
 
     private val viewModel: FormNewJobViewModel by activityViewModels(
@@ -59,7 +59,6 @@ class FormNewJobFragment : Fragment() {
         _binding = FragmentFormNewJobBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
 
     override fun onResume() {
@@ -91,9 +90,13 @@ class FormNewJobFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (professionalEntity == null || professionalEntity!!.idProfessional == "-1" ){
+            if (professionalEntity == null || professionalEntity!!.contact == "-1") {
                 binding.spinnerProfessional.requestFocus()
-                Toast.makeText(requireContext(), "Select or creat a professional", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Select or creat a professional",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
 
             }
@@ -102,37 +105,38 @@ class FormNewJobFragment : Fragment() {
                 idJob = UUID.randomUUID().toString(),
                 engaged = coupleName,
                 ownerName = professionalEntity!!.name,
-                weedingDay = date,
-                weedingTime = time,
+                weedingDay = weddingDatePickup!!,
+                weedingTime = weddingTimePickup,
                 weedingCity = weedingLocation,
-                professional = professionalEntity!!
+                professionalId = professionalEntity!!.idProfessional
             )
 
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel.insert(jobEntity = jobModel)
             }
             findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
-
-
         }
-
-
     }
 
     private fun setSpinner() {
 
+
         val listSppiner = ArrayList<ProfessionalEntity>()
-        val spinnerAdapter = ArrayAdapter<ProfessionalEntity>(
+        val spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
             listSppiner
         )
 
+        listSppiner.clear()
         viewModel.allProfessional.observe(
             viewLifecycleOwner
         ) { p ->
-            if (p.isEmpty()){
-                listSppiner.add(index = 0, ProfessionalEntity("-1", name = "Create a new Usuario.", contact = "-1", email = "-1"))
+            if (p.isEmpty()) {
+                listSppiner.add(
+                    index = 0,
+                    ProfessionalEntity(name = "Create a new Usuario.", contact = "-1", email = "-1")
+                )
             }
             for (prof in p) {
                 listSppiner.add(prof)
@@ -182,8 +186,9 @@ class FormNewJobFragment : Fragment() {
 
             picker.addOnPositiveButtonClickListener {
 
-                this.time = getFormattedTime(hours = picker.hour, minutes = picker.minute)
-                binding.timePickerButton.text = time
+                this.weddingTimePickup =
+                    getFormattedTime(hours = picker.hour, minutes = picker.minute)
+                binding.timePickerButton.text = weddingTimePickup
             }
         }
 
@@ -211,8 +216,8 @@ class FormNewJobFragment : Fragment() {
             datePicker.show(parentFragmentManager, "DatePicker")
 
             datePicker.addOnPositiveButtonClickListener {
-                this.date = SimpleDateFormat("dd/MM/yyyy").format(Date(it))
-                binding.datePickerButton.text = date
+                this.weddingDatePickup = it
+                binding.datePickerButton.text = SimpleDateFormat("dd/MM/yyyy").format(Date(it))
             }
 
         }

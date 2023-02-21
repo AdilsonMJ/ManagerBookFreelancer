@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "professional")
 data class ProfessionalEntity(
-    @PrimaryKey @ColumnInfo(name = "idProfessional") val idProfessional: String,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "idProfessional") val idProfessional: Long = 0,
 
     @ColumnInfo(name = "name")
     val name:String,

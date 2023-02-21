@@ -72,7 +72,6 @@ class FormNewProfessionalFragment : Fragment() {
             }
 
             val professional = ProfessionalEntity(
-                idProfessional = UUID.randomUUID().toString(),
                 name = name,
                 contact = cellphone,
                 email = email

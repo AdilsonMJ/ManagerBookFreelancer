@@ -1,9 +1,11 @@
 package com.example.managerbookfreelancer.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,10 +13,12 @@ import com.example.managerbookfreelancer.adapter.AdapterListJobs
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
 import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewJobsBinding
+import com.example.managerbookfreelancer.resource.Resoucers
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 
 class RecyclerViewJobsFragment : Fragment() {
@@ -37,7 +41,7 @@ class RecyclerViewJobsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         adapter = AdapterListJobs(onClick = {
             CoroutineScope(Dispatchers.IO).launch {
-                viewModel.delet(jobEntity = it)
+                viewModel.delete(jobEntity = it)
             }
         })
     }
@@ -51,12 +55,17 @@ class RecyclerViewJobsFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        var showOldItens: Boolean = false
+
         binding.RCFragmentListJobs.layoutManager = LinearLayoutManager(requireContext())
         binding.RCFragmentListJobs.adapter = adapter
-        viewModel.allJobs.observe(viewLifecycleOwner) { state ->
+        viewModel.getAllJobs(currentDay = Resoucers.getDateInMillesWithoutTime(), showOlditens = showOldItens)
+            .observe(viewLifecycleOwner) { state ->
                 adapter.upDateJobs(state)
             }
 

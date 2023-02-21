@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface JobsRepository{
 
-     fun fetchJobs() : Flow<List<JobEntity>>
+     fun fetchJobs(currentDay: Long, showOlditens: Boolean) : Flow<List<JobEntity>>
 
     suspend fun insert(jobEntity: JobEntity)
 

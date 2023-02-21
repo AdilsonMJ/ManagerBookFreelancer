@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProfessionalDAO {
 
-    @Query("Select * FROM professional ORDER BY name DESC")
+    @Query("Select * FROM professional ORDER BY name ASC")
     fun getAll(): Flow<List<ProfessionalEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

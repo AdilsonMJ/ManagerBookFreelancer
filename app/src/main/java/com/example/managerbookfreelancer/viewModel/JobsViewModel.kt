@@ -9,10 +9,14 @@ class JobsViewModel(
     private val repository: JobsRepository
 ) : ViewModel() {
 
-    val allJobs: LiveData<List<JobEntity>> = repository.fetchJobs().asLiveData()
 
 
-    fun delet(jobEntity: JobEntity) {
+    fun getAllJobs(currentDay: Long, showOlditens: Boolean): LiveData<List<JobEntity>> {
+        return repository.fetchJobs(currentDay = currentDay, showOlditens = showOlditens).asLiveData()
+    }
+
+
+    fun delete(jobEntity: JobEntity) {
 
         viewModelScope.launch {
             repository.delete(jobEntity)

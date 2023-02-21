@@ -8,7 +8,7 @@ class JobsRepositoryImpl(
     private val jobDao: JobDAO
 ) : JobsRepository {
 
-        override fun fetchJobs(): Flow<List<JobEntity>> = jobDao.getAll()
+        override fun fetchJobs(currentDay: Long, showOlditens: Boolean): Flow<List<JobEntity>> = jobDao.getAll(currentDay, showOlditens)
 
         override suspend fun insert(jobEntity: JobEntity) {
             jobDao.insert(jobEntity)
