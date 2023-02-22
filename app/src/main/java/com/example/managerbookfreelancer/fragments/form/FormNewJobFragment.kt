@@ -1,4 +1,4 @@
-package com.example.managerbookfreelancer.fragments
+package com.example.managerbookfreelancer.fragments.form
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -14,8 +14,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.model.JobEntity
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
 import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
 import com.example.managerbookfreelancer.core.repository.ProfessionalRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
@@ -104,9 +104,9 @@ class FormNewJobFragment : Fragment() {
                 idJob = UUID.randomUUID().toString(),
                 engaged = coupleName,
                 ownerName = professionalEntity!!.name,
-                weedingDay = weddingDatePickup!!,
-                weedingTime = weddingTimePickup,
-                weedingCity = weedingLocation,
+                weddingDay = weddingDatePickup!!,
+                weddingTime = weddingTimePickup,
+                weddingCity = weedingLocation,
                 professionalId = professionalEntity!!.idProfessional
             )
 
@@ -187,7 +187,7 @@ class FormNewJobFragment : Fragment() {
 
     private fun getFormattedTime(hours: Int, minutes: Int): String {
         val hourString = if (hours < 10) "0$hours" else hours.toString()
-        val minuteString = if (minutes < 10) "0$minutes" else minutes.toString()
+        val minuteString = if (minutes < 10) "0$minutes AM" else "$minutes PM"
         return "$hourString:$minuteString"
     }
 

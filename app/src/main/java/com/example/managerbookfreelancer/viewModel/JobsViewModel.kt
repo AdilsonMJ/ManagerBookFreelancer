@@ -2,7 +2,7 @@ package com.example.managerbookfreelancer.viewModel
 
 import androidx.lifecycle.*
 import com.example.managerbookfreelancer.core.repository.JobsRepository
-import com.example.managerbookfreelancer.core.model.JobEntity
+import com.example.managerbookfreelancer.core.entity.JobEntity
 import kotlinx.coroutines.launch
 
 class JobsViewModel(
@@ -14,6 +14,8 @@ class JobsViewModel(
     fun getAllJobs(currentDay: Long, showOlditens: Boolean): LiveData<List<JobEntity>> {
         return repository.fetchJobs(currentDay = currentDay, showOlditens = showOlditens).asLiveData()
     }
+
+    suspend fun getNextEvent(currentDay: Long): JobEntity = repository.getNextJob(currentDay)
 
 
     fun delete(jobEntity: JobEntity) {

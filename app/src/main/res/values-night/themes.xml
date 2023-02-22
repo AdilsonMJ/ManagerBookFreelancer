@@ -13,4 +13,14 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CardViewStyle" parent="Theme.AppCompat.Light">
+        <item name="cardElevation">5dp</item>
+        <item name="cardMaxElevation">7dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">30dp</item>
+        <item name="cardPreventCornerOverlap">true</item>
+
+    </style>
+
 </resources>

@@ -5,8 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.managerbookfreelancer.core.model.JobEntity
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

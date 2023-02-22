@@ -1,4 +1,4 @@
-package com.example.managerbookfreelancer.fragments
+package com.example.managerbookfreelancer.fragments.form
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +9,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
 import com.example.managerbookfreelancer.core.repository.ProfessionalRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentFormNewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.FormNewProfessionalViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 class FormNewProfessionalFragment : Fragment() {

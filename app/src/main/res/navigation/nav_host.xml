@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_recycler_view_professional" />
     <fragment
         android:id="@+id/newProfessional"
-        android:name="com.example.managerbookfreelancer.fragments.FormNewProfessionalFragment"
+        android:name="com.example.managerbookfreelancer.fragments.form.FormNewProfessionalFragment"
         android:label="fragment_new_professional"
         tools:layout="@layout/fragment_form_new_professional" >
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/formNewJobFragment"
-        android:name="com.example.managerbookfreelancer.fragments.FormNewJobFragment"
+        android:name="com.example.managerbookfreelancer.fragments.form.FormNewJobFragment"
         android:label="FormNewJobFragment"
         tools:layout="@layout/fragment_form_new_job">
         <action

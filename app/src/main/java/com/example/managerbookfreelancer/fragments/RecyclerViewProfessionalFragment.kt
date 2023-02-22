@@ -24,12 +24,10 @@ class RecyclerViewProfessionalFragment : Fragment() {
     private val viewModel: ProfessionalViewModel by activityViewModels(
         factoryProducer = {
             val dataBase = JobAppDataBase.getInstance(requireContext())
-
             ProfessionalViewModel.Factory(repository = ProfessionalRepositoryImpl(dataBase.ProfessionalDAO()))
 
         }
     )
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

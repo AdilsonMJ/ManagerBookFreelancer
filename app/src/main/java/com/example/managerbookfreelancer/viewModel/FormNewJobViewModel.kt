@@ -2,8 +2,8 @@ package com.example.managerbookfreelancer.viewModel
 
 import androidx.lifecycle.*
 import com.example.managerbookfreelancer.core.repository.JobsRepository
-import com.example.managerbookfreelancer.core.model.JobEntity
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
 import com.example.managerbookfreelancer.core.repository.ProfessionalRepository
 import kotlinx.coroutines.launch
 
