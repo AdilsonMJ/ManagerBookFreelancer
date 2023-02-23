@@ -27,7 +27,11 @@
         android:id="@+id/recyclerViewJobsFragment"
         android:name="com.example.managerbookfreelancer.fragments.RecyclerViewJobsFragment"
         android:label="RecyclerViewFragment"
-        tools:layout="@layout/fragment_recycler_view_jobs"/>
+        tools:layout="@layout/fragment_recycler_view_jobs">
+        <action
+            android:id="@+id/action_recyclerViewJobsFragment_to_formNewJobFragment"
+            app:destination="@id/formNewJobFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recyclerViewProfessionalFragment"
         android:name="com.example.managerbookfreelancer.fragments.RecyclerViewProfessionalFragment"
@@ -52,5 +56,9 @@
             android:id="@+id/action_formNewJobFragment_to_recyclerViewFragment"
             app:destination="@id/recyclerViewJobsFragment"
             app:popUpTo="@id/homeFragment" />
+        <argument
+            android:name="jobId"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 </navigation>

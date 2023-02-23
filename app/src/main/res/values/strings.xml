@@ -5,7 +5,7 @@
     <string name="Remove">Remove</string>
     <string name="Edit">Edit</string>
     <string name="OwnerJob">Owner</string>
-    <string name="bride_name">Name Bride</string>
+    <string name="couple_name">Couple Name</string>
     <string name="bridegroom_name">Name bridegroom</string>
     <string name="ContactOwner">Contact</string>
     <string name="LocationWedding">Location</string>
@@ -19,11 +19,14 @@
     <string name="btn_show_jobs">Show Jobs</string>
     <string name="btn_show_professional">Show Professional</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="hint_name_form_new_profissional">name</string>
     <string name="hint_email_form_new_profissional">Email</string>
     <string name="hint_cellphone_form_new_profissional">cellphone</string>
     <string name="btnSaveFormNewProfessional">save</string>
     <string name="btnBackFormNewProfessional">Back</string>
+    <string name="menu_option_edit_job">Edit job</string>
+    <string name="menu_option_delete_job">Delete Job</string>
+    <string name="btn_save_job_form">Save</string>
 
 </resources>

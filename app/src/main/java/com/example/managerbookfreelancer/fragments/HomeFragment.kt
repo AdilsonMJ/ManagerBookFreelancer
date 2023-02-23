@@ -57,7 +57,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         viewLifecycleOwner.lifecycleScope.launch {
             val nextEvent = viewModel.getNextEvent(Resoucers.getDateInMillesWithoutTime())
             upDateUi(nextEvent)

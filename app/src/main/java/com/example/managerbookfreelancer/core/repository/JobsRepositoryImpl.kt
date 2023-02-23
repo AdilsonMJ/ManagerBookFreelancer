@@ -8,15 +8,17 @@ class JobsRepositoryImpl(
     private val jobDao: JobDAO
 ) : JobsRepository {
 
-        override fun fetchJobs(currentDay: Long, showOlditens: Boolean): Flow<List<JobEntity>> = jobDao.getAll(currentDay, showOlditens)
+    override fun fetchJobs(currentDay: Long, showOlditens: Boolean): Flow<List<JobEntity>> = jobDao.getAll(currentDay, showOlditens)
 
-        override suspend fun getNextJob(currentDay: Long): JobEntity = jobDao.getNextEvent(currentDay = currentDay)
+    override suspend fun getNextJob(currentDay: Long): JobEntity = jobDao.getNextEvent(currentDay = currentDay)
 
-        override suspend fun insert(jobEntity: JobEntity) {
-            jobDao.insert(jobEntity)
-        }
+    override suspend fun getJobById(idJob: Long): JobEntity = jobDao.getJobById(idjob = idJob)
 
-        override suspend fun delete(jobEntity: JobEntity) {
-            jobDao.delete(jobEntity)
-        }
+    override suspend fun insert(jobEntity: JobEntity) {
+        jobDao.insert(jobEntity)
     }
+
+    override suspend fun delete(jobEntity: JobEntity) {
+        jobDao.delete(jobEntity)
+    }
+}

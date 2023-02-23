@@ -9,11 +9,13 @@ import kotlinx.coroutines.launch
 
 class FormNewJobViewModel(
     private val repository: JobsRepository,
-    private val repositoryProfessionalRepository: ProfessionalRepository
+    repositoryProfessionalRepository: ProfessionalRepository
 ) : ViewModel(){
 
-
     val allProfessional: LiveData<List<ProfessionalEntity>> = repositoryProfessionalRepository.fetchProfessional().asLiveData()
+
+    suspend fun getJobById(idJob: Long): JobEntity = repository.getJobById(idJob)
+
 
     fun insert(jobEntity: JobEntity) {
 
@@ -22,7 +24,6 @@ class FormNewJobViewModel(
         }
 
     }
-
 
     class Factory(private val repository: JobsRepository, private val repositoryProfessionalRepository: ProfessionalRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

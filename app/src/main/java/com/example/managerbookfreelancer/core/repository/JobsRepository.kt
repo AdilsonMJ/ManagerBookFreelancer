@@ -10,6 +10,8 @@ interface JobsRepository{
 
     suspend fun getNextJob(currentDay: Long) : JobEntity
 
+    suspend fun getJobById(idJob: Long) : JobEntity
+
     suspend fun insert(jobEntity: JobEntity)
 
     suspend fun delete(jobEntity: JobEntity)

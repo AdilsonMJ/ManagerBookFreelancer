@@ -24,11 +24,12 @@
         android:id="@+id/tvLocalization"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
-        tools:text="Betim"
+        android:maxLength="10"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvData"
-        app:layout_constraintStart_toEndOf="@+id/tvData" />
+        app:layout_constraintStart_toEndOf="@+id/tvData"
+        tools:text="Betimmmmmmmmmmmm" />
 
     <TextView
         android:id="@+id/tvOwner"
@@ -44,8 +45,9 @@
         android:id="@+id/tvHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="10:00Pm"
+        android:layout_marginStart="8dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvOwner"
-        app:layout_constraintStart_toStartOf="@+id/tvLocalization" />
+        app:layout_constraintStart_toEndOf="@+id/tvOwner"
+        tools:text="10:00Pm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

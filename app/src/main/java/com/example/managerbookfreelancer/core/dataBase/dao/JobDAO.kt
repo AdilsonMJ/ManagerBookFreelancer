@@ -21,6 +21,9 @@ interface JobDAO {
         }
     }
 
+    @Query("SELECT * FROM job WHERE idJob = :idjob")
+    suspend fun getJobById(idjob: Long) : JobEntity
+
 
     @Query("SELECT * FROM job WHERE weddingDay >= :currentDay ORDER BY weddingDay ASC LIMIT 1")
     suspend fun getNextEvent(currentDay: Long) : JobEntity

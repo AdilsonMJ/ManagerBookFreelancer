@@ -9,8 +9,6 @@ class JobsViewModel(
     private val repository: JobsRepository
 ) : ViewModel() {
 
-
-
     fun getAllJobs(currentDay: Long, showOlditens: Boolean): LiveData<List<JobEntity>> {
         return repository.fetchJobs(currentDay = currentDay, showOlditens = showOlditens).asLiveData()
     }

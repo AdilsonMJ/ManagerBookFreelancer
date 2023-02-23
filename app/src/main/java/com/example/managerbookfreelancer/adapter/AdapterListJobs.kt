@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.managerbookfreelancer.databinding.FragmentItemJobBinding
 import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.databinding.FragmentItemJobBinding
 import com.example.managerbookfreelancer.resource.Resoucers
 
 class AdapterListJobs(
@@ -27,8 +27,6 @@ class AdapterListJobs(
             binding.tvHour.text = jobModel.weddingTime
             binding.tvOwner.text = jobModel.ownerName
             binding.tvLocalization.text = jobModel.weddingCity
-
-
             binding.root.setOnClickListener{
                 onClick(jobModel)
             }
