@@ -49,18 +49,19 @@ class RecyclerViewJobsFragment : Fragment() {
         adapter = AdapterListJobs(onClick = {
             val dialog = AlertDialog.Builder(requireContext())
                 .setCancelable(true)
-                .setTitle("Do you want to delete or edit this job")
+                .setTitle("Do you want to delete or edite this job")
                 .setMessage("Professional: ${it.client} Date: ${Resoucers.fromLongToString(it.dateOfEvent)}")
                 .setPositiveButton("Delete") { _, _ ->
                     CoroutineScope(Dispatchers.IO).launch {
                         viewModel.delete(jobEntity = it)
                     }
-                }.setNeutralButton("Cancel"){ _, _ ->
+                }.setNeutralButton("Cancel") { _, _ ->
                 }
                 .setNegativeButton("Edite") { _, _ ->
-                    val action = RecyclerViewJobsFragmentDirections.actionRecyclerViewJobsFragmentToFormNewJobFragment(
-                        it.idJob
-                    )
+                    val action =
+                        RecyclerViewJobsFragmentDirections.actionRecyclerViewJobsFragmentToFormNewJobFragment(
+                            it.idJob
+                        )
                     findNavController().navigate(action)
                 }.create()
 
@@ -134,7 +135,7 @@ class RecyclerViewJobsFragment : Fragment() {
         super.onDestroy()
         _binding = null
 
-        // esconde a action bar
+        // hider action bar
         val activity = activity as AppCompatActivity?
         if (activity != null) {
             activity.supportActionBar?.hide()

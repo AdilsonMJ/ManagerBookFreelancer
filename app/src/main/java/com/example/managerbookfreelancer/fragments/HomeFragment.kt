@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
     ): View {
 
 
-        // esconde a action bar
+        // hider a action bar
         val activity = activity as AppCompatActivity?
         if (activity != null) {
             activity.supportActionBar?.hide()
@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
 
-        // mostra a action bar
+        // show action bar
         val activity = activity as AppCompatActivity?
         if (activity != null) {
             activity.supportActionBar?.show()

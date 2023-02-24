@@ -72,9 +72,9 @@ class FormNewProfessionalFragment : Fragment() {
     }
 
 
-    fun EditText.requireText(): String{
+    fun EditText.requireText(): String {
         val text = this.text.toString().trim()
-        if (text.isEmpty()){
+        if (text.isEmpty()) {
             this.error = "Please fill this field"
             this.requestFocus()
         }
