@@ -4,10 +4,10 @@
 
     <item
         android:id="@+id/menu_option_Edit_job"
-        android:title="@string/menu_option_edit_job" />
+        android:title="@string/menu_option_item_edite_job" />
     <item
         android:id="@+id/menu_option_Delete_job"
-        android:title="@string/menu_option_delete_job" />
+        android:title="@string/menu_option_item_delete_job" />
 
 
 </menu>

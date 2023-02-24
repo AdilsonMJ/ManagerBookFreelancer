@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:hint="@string/hint_name_form_new_profissional"
+        android:hint="@string/hint_form_new_professional_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:hint="@string/hint_email_form_new_profissional"
+        android:hint="@string/hint_form_new_profissional_email"
         app:layout_constraintEnd_toEndOf="@+id/FildEditTextName"
         app:layout_constraintStart_toStartOf="@+id/FildEditTextName"
         app:layout_constraintTop_toBottomOf="@+id/FildEditTextName">
@@ -43,7 +43,7 @@
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLength="30"
+            android:maxLength="35"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -54,7 +54,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:hint="@string/hint_cellphone_form_new_profissional"
+        android:hint="@string/hint_form_new_profissional_cellphone"
         app:layout_constraintEnd_toEndOf="@+id/FildEditTextEmail"
         app:layout_constraintStart_toStartOf="@+id/FildEditTextEmail"
         app:layout_constraintTop_toBottomOf="@+id/FildEditTextEmail">
@@ -68,16 +68,22 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/btnSaveFormNewProfessional"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/FildEditTextCellphone"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/FildEditTextCellphone"
-        app:layout_constraintTop_toBottomOf="@+id/FildEditTextCellphone"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/rounded_border"
+        android:text="@string/form_New_Professional_Btn_Save"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FildEditTextCellphone" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package com.example.managerbookfreelancer.fragments.form
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
@@ -8,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -76,28 +76,15 @@ class FormNewJobFragment : Fragment() {
 
         getDate()
         getTime()
-        setDateOnFilds()
-
-
-
+        setDateOnFields()
 
         binding.BTNSave.setOnClickListener {
 
-            val coupleName = binding.editTextCoupleName.text.toString().trim()
-            if (coupleName.isEmpty()) {
-                binding.editTextCoupleName.error = "please insert the couple names"
-                binding.editTextCoupleName.requestFocus()
-                return@setOnClickListener
-            }
+            val customers = binding.editTextCoupleName.requireText()
+            val location = binding.editTextLocation.requireText()
 
-            val weedingLocation = binding.editTextLocation.text.toString().trim()
-            if (weedingLocation.isEmpty()) {
-                binding.FildEditTextLocation.error = "Please insert the City"
-                binding.FildEditTextLocation.requestFocus()
-                return@setOnClickListener
-            }
 
-            if (professionalEntity == null || professionalEntity!!.contact == "-1") {
+            if (professionalEntity?.contact == "-1") {
                 binding.spinnerProfessional.requestFocus()
                 Toast.makeText(
                     requireContext(),
@@ -109,11 +96,11 @@ class FormNewJobFragment : Fragment() {
 
             val jobModel = JobEntity(
                 idJob = args.jobId,
-                engaged = coupleName,
-                ownerName = professionalEntity!!.name,
-                weddingDay = weddingDatePickup!!,
-                weddingTime = weddingTimePickup,
-                weddingCity = weedingLocation,
+                customerEndUser = customers,
+                client = professionalEntity!!.name,
+                dateOfEvent = weddingDatePickup!!,
+                timeOfEvent = weddingTimePickup,
+                locationOfEvent = location,
                 professionalId = professionalEntity!!.idProfessional
             )
 
@@ -124,17 +111,26 @@ class FormNewJobFragment : Fragment() {
         }
     }
 
-    private fun setDateOnFilds() {
+    fun EditText.requireText(): String{
+        val text = this.text.toString().trim()
+        if (text.isEmpty()){
+            this.error = "Please fill this field"
+            this.requestFocus()
+        }
+        return text
+    }
+
+    private fun setDateOnFields() {
         if (args.jobId != 0L) {
             viewLifecycleOwner.lifecycleScope.launch {
                 val job = viewModel.getJobById(args.jobId)
 
-                binding.editTextCoupleName.setText(job.engaged)
-                binding.editTextLocation.setText(job.weddingCity)
-                binding.timePickerButton.text = job.weddingTime
-                weddingTimePickup = job.weddingTime
-                binding.datePickerButton.text = Resoucers.fromLongToString(job.weddingDay)
-                weddingDatePickup = job.weddingDay
+                binding.editTextCoupleName.setText(job.customerEndUser)
+                binding.editTextLocation.setText(job.locationOfEvent)
+                binding.timePickerButton.text = job.timeOfEvent
+                weddingTimePickup = job.timeOfEvent
+                binding.datePickerButton.text = Resoucers.fromLongToString(job.dateOfEvent)
+                weddingDatePickup = job.dateOfEvent
                 setSpinner(idProfessional = job.professionalId)
 
             }
@@ -228,7 +224,6 @@ class FormNewJobFragment : Fragment() {
         return if (hours < 12) "$timeFormatted AM" else "$timeFormatted PM"
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun getDate() {
 
         binding.datePickerButton.setOnClickListener {

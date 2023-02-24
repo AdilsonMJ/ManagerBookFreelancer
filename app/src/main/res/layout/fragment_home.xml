@@ -8,11 +8,11 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_btn_newJob"
+        android:id="@+id/cardViewHomeBTNNewJob"
         style="@style/CardViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/default_margin"
 
         app:cardUseCompatPadding="true"
 
@@ -29,7 +29,6 @@
                 android:id="@+id/image_view"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:src="@drawable/new_job"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +38,9 @@
                 android:id="@+id/title_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="New Job"
+                android:text="@string/TV_Home_Title_Card_New_Job"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_view" />
@@ -51,17 +49,17 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_btn_showJobs"
+        android:id="@+id/cardViewHomeBTNShowJobs"
         style="@style/CardViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/default_margin"
         app:cardUseCompatPadding="true"
 
-        app:layout_constraintEnd_toEndOf="@+id/cardView_btn_newJob"
-        app:layout_constraintStart_toStartOf="@+id/cardView_btn_newJob"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_btn_newJob">
+        app:layout_constraintEnd_toEndOf="@+id/cardViewHomeBTNNewJob"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeBTNNewJob"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewHomeBTNNewJob">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -81,10 +79,9 @@
                 android:id="@+id/title_text_view2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Show Jobs"
+                android:text="@string/TV_Home_Title_Card_Show_Job"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +93,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_btn_newProfessional"
+        android:id="@+id/cardViewHomeBTNNewProfessional"
         style="@style/CardViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/cardView_btn_newJob">
+        app:layout_constraintTop_toTopOf="@+id/cardViewHomeBTNNewJob">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,11 +125,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hyphenationFrequency="none"
-                android:text="@string/Btn_new_professional"
+                android:text="@string/TV_Home_Title_Card_New_Professional"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/black"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_view3" />
@@ -140,19 +136,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_btn_showProfessional"
+        android:id="@+id/cardViewHomeBTNShowProfessional"
         style="@style/CardViewStyle"
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/default_margin"
 
         app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="@+id/cardView_btn_newProfessional"
-        app:layout_constraintStart_toStartOf="@+id/cardView_btn_newProfessional"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_btn_newProfessional">
+        app:layout_constraintEnd_toEndOf="@+id/cardViewHomeBTNNewProfessional"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeBTNNewProfessional"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewHomeBTNNewProfessional">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -174,11 +169,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hyphenationFrequency="none"
-                android:text="@string/btn_show_professional"
+                android:text="@string/TV_Home_Title_Card_Show_Professional"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/black"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_view4" />
@@ -198,15 +192,15 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <TextView
-        android:id="@+id/textViewNextJobTitle"
+        android:id="@+id/tvNextJobTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Next Job"
+        android:text="@string/tv_home_title_next_job"
         android:textSize="20sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/cardView_btn_showJobs"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_btn_showJobs" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeBTNShowJobs"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewHomeBTNShowJobs" />
 
 
     <androidx.cardview.widget.CardView
@@ -218,9 +212,9 @@
         android:layout_marginTop="8dp"
 
         app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="@+id/cardView_btn_showProfessional"
-        app:layout_constraintStart_toStartOf="@+id/textViewNextJobTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNextJobTitle">
+        app:layout_constraintEnd_toEndOf="@+id/cardViewHomeBTNShowProfessional"
+        app:layout_constraintStart_toStartOf="@+id/tvNextJobTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvNextJobTitle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="379dp"
@@ -236,26 +230,26 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_home_name_next_job"
+                android:id="@+id/tvHomeCardViewNextJobName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:textSize="17sp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_home_day_next_job"
+                app:layout_constraintBottom_toTopOf="@+id/tvHomeCardViewNextJobDate"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:text="Adilson Jager" />
 
             <TextView
-                android:id="@+id/tv_home_day_next_job"
+                android:id="@+id/tvHomeCardViewNextJobDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="17sp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_home_time_next_job"
-                app:layout_constraintStart_toStartOf="@+id/tv_home_name_next_job"
-                app:layout_constraintTop_toBottomOf="@+id/tv_home_name_next_job"
+                app:layout_constraintBottom_toTopOf="@+id/tvHomeCardViewNextJobTime"
+                app:layout_constraintStart_toStartOf="@+id/tvHomeCardViewNextJobName"
+                app:layout_constraintTop_toBottomOf="@+id/tvHomeCardViewNextJobName"
                 tools:text="21/12/2023" />
 
             <ImageView
@@ -264,23 +258,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/hours"
-                app:layout_constraintStart_toStartOf="@+id/tv_home_day_next_job"
-                app:layout_constraintTop_toBottomOf="@+id/tv_home_day_next_job" />
+                app:layout_constraintStart_toStartOf="@+id/tvHomeCardViewNextJobDate"
+                app:layout_constraintTop_toBottomOf="@+id/tvHomeCardViewNextJobDate" />
 
             <TextView
-                android:id="@+id/tv_home_time_next_job"
+                android:id="@+id/tvHomeCardViewNextJobTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="@dimen/default_margin"
                 android:layout_marginTop="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/tv_home_day_next_job"
+                app:layout_constraintTop_toBottomOf="@+id/tvHomeCardViewNextJobDate"
                 tools:text="10:20 PM" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.cardview.widget.CardView>
 

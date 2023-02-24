@@ -23,10 +23,10 @@ class AdapterListJobs(
 
         fun bind(jobModel: JobEntity, onClick: (JobEntity) -> Unit) {
 
-            binding.tvData.text = Resoucers.fromLongToString(jobModel.weddingDay)
-            binding.tvHour.text = jobModel.weddingTime
-            binding.tvOwner.text = jobModel.ownerName
-            binding.tvLocalization.text = jobModel.weddingCity
+            binding.tvItemJobDateEvent.text = Resoucers.fromLongToString(jobModel.dateOfEvent)
+            binding.tvItemJobTimeEvent.text = jobModel.timeOfEvent
+            binding.tvItemJobClient.text = jobModel.client
+            binding.tvItemJobLocation.text = jobModel.locationOfEvent
             binding.root.setOnClickListener{
                 onClick(jobModel)
             }

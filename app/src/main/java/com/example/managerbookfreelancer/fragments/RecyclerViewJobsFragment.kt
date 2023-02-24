@@ -49,8 +49,8 @@ class RecyclerViewJobsFragment : Fragment() {
         adapter = AdapterListJobs(onClick = {
             val dialog = AlertDialog.Builder(requireContext())
                 .setCancelable(true)
-                .setTitle("Are your want delete or cancel this job:")
-                .setMessage("Professional: ${it.ownerName} Date: ${Resoucers.fromLongToString(it.weddingDay)}")
+                .setTitle("Do you want to delete or edit this job")
+                .setMessage("Professional: ${it.client} Date: ${Resoucers.fromLongToString(it.dateOfEvent)}")
                 .setPositiveButton("Delete") { _, _ ->
                     CoroutineScope(Dispatchers.IO).launch {
                         viewModel.delete(jobEntity = it)
