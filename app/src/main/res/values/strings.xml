@@ -1,32 +1,33 @@
 <resources>
     <string name="app_name">Freelance Planner</string>
-    <string name="fragment_home_Button_go_to_List">Go To List</string>
+    <string name="TvRCTitleName">Future Jobs</string>
 
-    <string name="Remove">Remove</string>
-    <string name="Edit">Edit</string>
-    <string name="OwnerJob">Owner</string>
-    <string name="couple_name">Couple Name</string>
-    <string name="bridegroom_name">Name bridegroom</string>
-    <string name="ContactOwner">Contact</string>
-    <string name="LocationWedding">Location</string>
-    <string name="date">Date</string>
-    <string name="HoursWedding">Hours</string>
-    <string name="Savejob">Salve</string>
-    <string name="pending">Pending</string>
-    <string name="old_freelas">Old Freelas</string>
-    <string name="btn_New_Job">New Job</string>
-    <string name="Btn_new_professional">Professional</string>
-    <string name="btn_show_jobs">Show Jobs</string>
-    <string name="btn_show_professional">Show Professional</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- titles to Card View from fragment_home -->
+    <string name="TV_Home_Title_Card_New_Job">New Job</string>
+    <string name="TV_Home_Title_Card_Show_Job">Show Jobs</string>
+    <string name="TV_Home_Title_Card_New_Professional">Professional</string>
+    <string name="TV_Home_Title_Card_Show_Professional">Show Professional</string>
+    <string name="tv_home_title_next_job">Next Job</string>
 
-    <string name="hint_name_form_new_profissional">name</string>
-    <string name="hint_email_form_new_profissional">Email</string>
-    <string name="hint_cellphone_form_new_profissional">cellphone</string>
-    <string name="btnSaveFormNewProfessional">save</string>
-    <string name="btnBackFormNewProfessional">Back</string>
-    <string name="menu_option_edit_job">Edit job</string>
-    <string name="menu_option_delete_job">Delete Job</string>
-    <string name="btn_save_job_form">Save</string>
+    <!-- Names on form from fragment_form_new_Professional -->
+    <string name="hint_form_new_professional_name">Name</string>
+    <string name="hint_form_new_profissional_email">Email</string>
+    <string name="hint_form_new_profissional_cellphone">Cellphone</string>
+    <string name="form_New_Professional_Btn_Save">Save</string>
+
+    <!-- Names to hint in form from fragment_form_new_Professional -->
+    <string name="hint_form_new_Job_name_Costumer">Names ( Ex: Fernanda and Jon )</string>
+    <string name="hint_form_new_Job_Location">Location</string>
+    <string name="hint_form_new_Job_Date">Date</string>
+    <string name="hint_form_new_Job_Time">Time</string>
+    <string name="hint_form_new_Job_BTN_Save">Save</string>
+    <string name="hint_form_new_Job_Sppiner_DESCRIPTION">Sppiner responsibility to show all professional</string>
+    <string name="hint_form_new_Job_Button_Save_DESCRIPTION">Save all dates and go to list of jobs</string>
+
+    <!-- Strings from menus -->
+    <string name="menu_option_item_edite_job">Edite</string>
+    <string name="menu_option_item_delete_job">Delete</string>
+
+
 
 </resources>

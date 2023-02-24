@@ -3,19 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/ice_white_backgroud_buttons_home"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/TVTitleInFragmentRC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/TvRCTitleName"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RC_Fragment_List_jobs"
+        android:id="@+id/RCFragmentListJobs"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
+        tools:listitem="@layout/fragment_item_job"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/TVTitleInFragmentRC" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -109,11 +109,11 @@ class FormNewJobFragment : Fragment() {
 
             val jobModel = JobEntity(
                 idJob = args.jobId,
-                engaged = coupleName,
-                ownerName = professionalEntity!!.name,
-                weddingDay = weddingDatePickup!!,
-                weddingTime = weddingTimePickup,
-                weddingCity = weedingLocation,
+                customerEndUser = coupleName,
+                client = professionalEntity!!.name,
+                dateOfEvent = weddingDatePickup!!,
+                timeOfEvent = weddingTimePickup,
+                locationOfEvent = weedingLocation,
                 professionalId = professionalEntity!!.idProfessional
             )
 
@@ -129,12 +129,12 @@ class FormNewJobFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 val job = viewModel.getJobById(args.jobId)
 
-                binding.editTextCoupleName.setText(job.engaged)
-                binding.editTextLocation.setText(job.weddingCity)
-                binding.timePickerButton.text = job.weddingTime
-                weddingTimePickup = job.weddingTime
-                binding.datePickerButton.text = Resoucers.fromLongToString(job.weddingDay)
-                weddingDatePickup = job.weddingDay
+                binding.editTextCoupleName.setText(job.customerEndUser)
+                binding.editTextLocation.setText(job.locationOfEvent)
+                binding.timePickerButton.text = job.timeOfEvent
+                weddingTimePickup = job.timeOfEvent
+                binding.datePickerButton.text = Resoucers.fromLongToString(job.dateOfEvent)
+                weddingDatePickup = job.dateOfEvent
                 setSpinner(idProfessional = job.professionalId)
 
             }

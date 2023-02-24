@@ -16,9 +16,9 @@ class AdapterListProfessional : RecyclerView.Adapter<AdapterListProfessional.vie
     inner class viewHolder(private val binding: FragmentItemProfessionalBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(professionalEntity: ProfessionalEntity){
-            binding.TVNameProfessional.text = professionalEntity.name
-            binding.TVCellphone.text = professionalEntity.contact
-            binding.TVEmailProfessional.text = professionalEntity.email
+            binding.tvItemProfessionalName.text = professionalEntity.name
+            binding.tvItemProfessionalCellphone.text = professionalEntity.contact
+            binding.tvItemProfessionalEmail.text = professionalEntity.email
         }
 
     }

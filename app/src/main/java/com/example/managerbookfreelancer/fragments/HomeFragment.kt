@@ -68,26 +68,27 @@ class HomeFragment : Fragment() {
 
     private fun upDateUi(nextEvent: JobEntity) = if (nextEvent == null){
         binding.CardViewHomeNextJob.visibility = View.GONE
+        binding.tvNextJobTitle.visibility = View.GONE
     } else {
-        binding.tvHomeNameNextJob.text = nextEvent.ownerName
-        binding.tvHomeDayNextJob.text = Resoucers.fromLongToString(nextEvent.weddingDay)
-        binding.tvHomeTimeNextJob.text = nextEvent.weddingTime
+        binding.tvHomeCardViewNextJobName.text = nextEvent.client
+        binding.tvHomeCardViewNextJobTime.text = nextEvent.timeOfEvent
+        binding.tvHomeCardViewNextJobDate.text = Resoucers.fromLongToString(nextEvent.dateOfEvent)
     }
 
     private fun setUpNavigation() {
-        binding.cardViewBtnShowJobs.setOnClickListener(
+        binding.cardViewHomeBTNShowJobs.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_recyclerViewJobsFragment)
         )
 
-        binding.cardViewBtnShowProfessional.setOnClickListener(
+        binding.cardViewHomeBTNShowProfessional.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_recyclerViewProfessionalFragment)
         )
 
-        binding.cardViewBtnNewJob.setOnClickListener(
+        binding.cardViewHomeBTNNewJob.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_formNewJobFragment)
         )
 
-        binding.cardViewBtnNewProfessional.setOnClickListener(
+        binding.cardViewHomeBTNNewProfessional.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_newProfessional)
         )
     }
