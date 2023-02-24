@@ -1,5 +1,6 @@
 package com.example.managerbookfreelancer.fragments.form
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
