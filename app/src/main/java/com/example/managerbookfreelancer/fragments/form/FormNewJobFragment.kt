@@ -42,7 +42,7 @@ class FormNewJobFragment : Fragment() {
     private var weddingTimePickup: String? = null
     private var weddingDatePickup: Long? = null
     private var professionalEntity: ProfessionalEntity? = null
-
+// BRANCH CORRETA
 
     private val args: FormNewJobFragmentArgs by navArgs()
 
@@ -241,7 +241,7 @@ class FormNewJobFragment : Fragment() {
 
             datePicker.addOnPositiveButtonClickListener {
                 this.weddingDatePickup = it
-                binding.datePickerButton.text = SimpleDateFormat("dd/MM/yyyy").format(Date(it))
+                binding.datePickerButton.text = Resoucers.fromLongToString(it)
             }
 
         }
