@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.managerbookfreelancer.core.dataBase.dao.JobDAO
 import com.example.managerbookfreelancer.core.dataBase.dao.ProfessionalDAO
-import com.example.managerbookfreelancer.core.model.JobEntity
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
 
 
 @Database(version = 1, entities = [ JobEntity::class, ProfessionalEntity::class])

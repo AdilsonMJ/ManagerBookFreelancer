@@ -1,6 +1,6 @@
 package com.example.managerbookfreelancer.core.repository
 
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ProfessionalRepository {

@@ -3,100 +3,278 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:backgroundTint="@color/ice_white_backgroud_buttons_home"
     android:layout_height="match_parent">
 
-    <TextView android:id="@+id/tvnextFreelancer"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewHomeBTNNewJob"
+        style="@style/CardViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvData"
+        android:layout_marginTop="@dimen/default_margin"
+
+        app:cardUseCompatPadding="true"
+
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Next Freelance" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView android:id="@+id/tvData"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/new_job"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/TV_Home_Title_Card_New_Job"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewHomeBTNShowJobs"
+        style="@style/CardViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_weight="1"
-        app:layout_constraintStart_toStartOf="@+id/tvnextFreelancer"
-        app:layout_constraintTop_toBottomOf="@+id/tvnextFreelancer"
-        tools:text="01/01/2021" />
 
-    <TextView android:id="@+id/tvLocalization"
+        android:layout_marginTop="@dimen/default_margin"
+        app:cardUseCompatPadding="true"
+
+        app:layout_constraintEnd_toEndOf="@+id/cardViewHomeBTNNewJob"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeBTNNewJob"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewHomeBTNNewJob">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/image_view2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/show_jobs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_text_view2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/TV_Home_Title_Card_Show_Job"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_view2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewHomeBTNNewProfessional"
+        style="@style/CardViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_weight="1"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvOwner"
-        app:layout_constraintStart_toEndOf="@+id/tvHours"
-        tools:text="Betim" />
 
-    <TextView android:id="@+id/tvOwner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_weight="1"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvData"
-        app:layout_constraintStart_toEndOf="@+id/tvData"
-        tools:text="Nilton" />
 
-    <TextView android:id="@+id/tvHours"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/cardViewHomeBTNNewJob">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/image_view3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/new_professional"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_text_view3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hyphenationFrequency="none"
+                android:text="@string/TV_Home_Title_Card_New_Professional"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_view3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewHomeBTNShowProfessional"
+        style="@style/CardViewStyle"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvData"
-        app:layout_constraintStart_toEndOf="@+id/tvOwner"
-        tools:text="10:00 pm" />
+        android:layout_marginTop="@dimen/default_margin"
+
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewHomeBTNNewProfessional"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeBTNNewProfessional"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewHomeBTNNewProfessional">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/image_view4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/show_professional"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_text_view4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hyphenationFrequency="none"
+                android:text="@string/TV_Home_Title_Card_Show_Professional"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_view4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <Button
-        android:id="@+id/btnNewJob"
+    <TextView
+        android:id="@+id/tvNextJobTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/btn_New_Job"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/tv_home_title_next_job"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeBTNShowJobs"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewHomeBTNShowJobs" />
 
-    <Button android:id="@+id/btnNewProfessional"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardView_Home_NextJob"
+        style="@style/Base.CardView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/Btn_new_professional"
-        app:layout_constraintEnd_toEndOf="@+id/btnNewJob"
-        app:layout_constraintStart_toStartOf="@+id/btnNewJob"
-        app:layout_constraintTop_toBottomOf="@+id/btnNewJob" />
 
-    <Button android:id="@+id/btnShowEvents"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/btn_show_jobs"
-        app:layout_constraintEnd_toEndOf="@+id/btnNewProfessional"
-        app:layout_constraintStart_toStartOf="@+id/btnNewProfessional"
-        app:layout_constraintTop_toBottomOf="@+id/btnNewProfessional" />
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
 
-    <Button
-        android:id="@+id/btnShowProfessional"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/btn_show_professional"
-        app:layout_constraintEnd_toEndOf="@+id/btnShowEvents"
-        app:layout_constraintStart_toStartOf="@+id/btnShowEvents"
-        app:layout_constraintTop_toBottomOf="@+id/btnShowEvents" />
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewHomeBTNShowProfessional"
+        app:layout_constraintStart_toStartOf="@+id/tvNextJobTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvNextJobTitle">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="379dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/job_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHomeCardViewNextJobName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvHomeCardViewNextJobDate"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Adilson Jager" />
+
+            <TextView
+                android:id="@+id/tvHomeCardViewNextJobDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvHomeCardViewNextJobTime"
+                app:layout_constraintStart_toStartOf="@+id/tvHomeCardViewNextJobName"
+                app:layout_constraintTop_toBottomOf="@+id/tvHomeCardViewNextJobName"
+                tools:text="21/12/2023" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/hours"
+                app:layout_constraintStart_toStartOf="@+id/tvHomeCardViewNextJobDate"
+                app:layout_constraintTop_toBottomOf="@+id/tvHomeCardViewNextJobDate" />
+
+            <TextView
+                android:id="@+id/tvHomeCardViewNextJobTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/tvHomeCardViewNextJobDate"
+                tools:text="10:20 PM" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

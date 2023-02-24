@@ -1,22 +1,22 @@
-package com.example.managerbookfreelancer.fragments
+package com.example.managerbookfreelancer.fragments.form
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
 import com.example.managerbookfreelancer.core.repository.ProfessionalRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentFormNewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.FormNewProfessionalViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 class FormNewProfessionalFragment : Fragment() {
@@ -50,29 +50,12 @@ class FormNewProfessionalFragment : Fragment() {
 
 
         binding.btnSave.setOnClickListener {
-            val name = binding.editTextName.text.toString().trim()
-            if (name.isEmpty()) {
-                binding.editTextName.error = "Please insert a Name"
-                binding.editTextName.requestFocus()
-                return@setOnClickListener
-            }
+            val name = binding.editTextName.requireText()
+            val cellphone = binding.editTextCellphone.requireText()
+            val email = binding.editTextEmail.requireText()
 
-            val cellphone = binding.editTextCellphone.text.toString().trim()
-            if (cellphone.isEmpty()) {
-                binding.editTextCellphone.error = "Please insert cellphone"
-                binding.editTextCellphone.requestFocus()
-                return@setOnClickListener
-            }
-
-            val email = binding.editTextEmail.text.toString().trim()
-            if (email.isEmpty()) {
-                binding.editTextEmail.error = "please insert Email"
-                binding.editTextEmail.requestFocus()
-                return@setOnClickListener
-            }
 
             val professional = ProfessionalEntity(
-                idProfessional = UUID.randomUUID().toString(),
                 name = name,
                 contact = cellphone,
                 email = email
@@ -86,6 +69,17 @@ class FormNewProfessionalFragment : Fragment() {
 
         }
 
+    }
+
+
+    fun EditText.requireText(): String {
+        val text = this.text.toString().trim()
+        if (text.isEmpty()) {
+            this.error = "Please fill this field"
+            this.requestFocus()
+        }
+
+        return text
     }
 
     override fun onDestroy() {

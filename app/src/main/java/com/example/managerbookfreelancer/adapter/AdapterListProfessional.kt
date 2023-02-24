@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
 import com.example.managerbookfreelancer.databinding.FragmentItemProfessionalBinding
 
 
@@ -16,9 +16,9 @@ class AdapterListProfessional : RecyclerView.Adapter<AdapterListProfessional.vie
     inner class viewHolder(private val binding: FragmentItemProfessionalBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(professionalEntity: ProfessionalEntity){
-            binding.TVNameProfessional.text = professionalEntity.name
-            binding.TVCellphone.text = professionalEntity.contact
-            binding.TVEmailProfessional.text = professionalEntity.email
+            binding.tvItemProfessionalName.text = professionalEntity.name
+            binding.tvItemProfessionalCellphone.text = professionalEntity.contact
+            binding.tvItemProfessionalEmail.text = professionalEntity.email
         }
 
     }

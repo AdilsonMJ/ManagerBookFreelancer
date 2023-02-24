@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Freelance Planner</string>
     <string name="TvRCTitleName">Future Jobs</string>
@@ -9,7 +10,7 @@
     <string name="TV_Home_Title_Card_Show_Professional">Show Professional</string>
     <string name="tv_home_title_next_job">Next Job</string>
 
-    <!-- Names on form from fragment_form_new_Professional -->
+    <!-- Names to hint in form from fragment_form_new_Professional -->
     <string name="hint_form_new_professional_name">Name</string>
     <string name="hint_form_new_profissional_email">Email</string>
     <string name="hint_form_new_profissional_cellphone">Cellphone</string>
@@ -22,11 +23,11 @@
     <string name="hint_form_new_Job_Time">Time</string>
     <string name="hint_form_new_Job_BTN_Save">Save</string>
     <string name="hint_form_new_Job_Sppiner_DESCRIPTION">Sppiner responsibility to show all professional</string>
-    <string name="hint_form_new_Job_Button_Save_DESCRIPTION">Save all dates and go to list of jobs</string>
 
     <!-- Strings from menus -->
     <string name="menu_option_item_edite_job">Edite</string>
     <string name="menu_option_item_delete_job">Delete</string>
+    <string name="hint_form_new_Job_Button_Save_DESCRIPTION">Save all dates and go to list of jobs</string>
 
 
 
