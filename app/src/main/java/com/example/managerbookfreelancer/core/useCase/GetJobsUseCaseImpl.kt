@@ -1,7 +1,7 @@
 package com.example.managerbookfreelancer.core.useCase
 
-import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.core.repository.ClientRepository
 import com.example.managerbookfreelancer.core.repository.JobsRepository
@@ -24,7 +24,7 @@ class GetJobsUseCaseImpl @Inject constructor(
             .map { jobList ->
                 jobList.map { job ->
 
-                    val client = findClient(job.idClient)
+                    val client: ClientModelItem = findClient(job.idClient)
 
                     JobModelItem(
                         idJob = job.idJob,
@@ -45,7 +45,7 @@ class GetJobsUseCaseImpl @Inject constructor(
 
         return if (job != null) {
 
-            val client: ClientEntity = findClient(job.idClient)
+            val client: ClientModelItem = findClient(job.idClient)
 
             JobModelItem(
                 idJob = job.idJob,
@@ -64,25 +64,25 @@ class GetJobsUseCaseImpl @Inject constructor(
         }
     }
 
-    private suspend fun findClient(idClient: Long): ClientEntity {
-        val clients = clientRepository.fetchClient().firstOrNull() ?: return ClientEntity(
+    private suspend fun findClient(idClient: Long): ClientModelItem {
+        val clients = clientRepository.fetchClient().firstOrNull() ?: return ClientModelItem(
             idClient = -1,
-            name = "Não encontrado 1 ",
+            name = "Não encontrado",
             contact = "",
             email = ""
         )
 
         return clients.firstOrNull { client -> client.idClient == idClient }
             ?.let { client ->
-                ClientEntity(
+                ClientModelItem(
                     idClient = client.idClient,
                     name = client.name,
                     contact = client.contact,
                     email = client.email
                 )
-            } ?: ClientEntity(
+            } ?: ClientModelItem(
             idClient = -1,
-            name = "Não encontrado 2 ",
+            name = "Client not found ",
             contact = "",
             email = ""
         )

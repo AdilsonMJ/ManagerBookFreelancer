@@ -1,8 +1,11 @@
 package com.example.managerbookfreelancer.viewModel
 
-import androidx.lifecycle.*
-import com.example.managerbookfreelancer.core.entity.ClientEntity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.core.repository.ClientRepository
 import com.example.managerbookfreelancer.core.repository.JobsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +18,7 @@ class FormNewJobViewModel @Inject constructor(
     repositoryClient: ClientRepository
 ) : ViewModel() {
 
-    val getAllClients: LiveData<List<ClientEntity>> = repositoryClient.fetchClient().asLiveData()
+    val getAllClients: LiveData<List<ClientModelItem>> = repositoryClient.fetchClient().asLiveData()
 
     suspend fun getJobById(idJob: Long): JobEntity = repository.getJobById(idJob)
 

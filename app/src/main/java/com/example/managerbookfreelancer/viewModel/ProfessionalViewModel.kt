@@ -1,7 +1,10 @@
 package com.example.managerbookfreelancer.viewModel
 
-import androidx.lifecycle.*
-import com.example.managerbookfreelancer.core.entity.ClientEntity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.core.repository.ClientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -11,14 +14,14 @@ import javax.inject.Inject
 class ProfessionalViewModel @Inject constructor(private val repository: ClientRepository) : ViewModel(){
 
 
-    fun getAllClients() : LiveData<List<ClientEntity>> {
+    fun getAllClients() : LiveData<List<ClientModelItem>> {
         return repository.fetchClient().asLiveData()
     }
 
 
-    fun delete(professionalEntity: ClientEntity){
+    fun delete(id: Long){
         viewModelScope.launch {
-            repository.delete(professionalEntity)
+            repository.delete(id)
         }
     }
 

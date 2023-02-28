@@ -15,8 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.managerbookfreelancer.R
-import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
 import com.example.managerbookfreelancer.utils.Utils
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
@@ -26,8 +26,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -37,7 +35,7 @@ class FormNewJobFragment : Fragment() {
     private val binding get() = _binding!!
     private var weddingTimePickup: String = "00:00 AM"
     private var weddingDatePickup: Long? = null
-    private var professionalEntity: ClientEntity? = null
+    private var professionalEntity: ClientModelItem? = null
     private val args: FormNewJobFragmentArgs by navArgs()
 
     private lateinit var viewModel: FormNewJobViewModel
@@ -92,17 +90,17 @@ class FormNewJobFragment : Fragment() {
                 dateOfEvent = weddingDatePickup!!,
                 timeOfEvent = weddingTimePickup,
                 locationOfEvent = location,
-                idClient = professionalEntity!!.idClient
+                idClient = professionalEntity?.idClient!!
             )
 
-                viewModel.insert(jobEntity = jobModel)
+            viewModel.insert(jobEntity = jobModel)
             findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
         }
     }
 
-    fun EditText.requireText(): String{
+    fun EditText.requireText(): String {
         val text = this.text.toString().trim()
-        if (text.isEmpty()){
+        if (text.isEmpty()) {
             this.error = "Please fill this field"
             this.requestFocus()
         }
@@ -127,7 +125,7 @@ class FormNewJobFragment : Fragment() {
 
     private fun setSpinner(idClient: Long?) {
 
-        val listSppiner = ArrayList<ClientEntity>()
+        val listSppiner = ArrayList<ClientModelItem>()
         listSppiner.clear()
 
         val spinnerAdapter = ArrayAdapter(
@@ -142,7 +140,7 @@ class FormNewJobFragment : Fragment() {
             if (p.isEmpty()) {
                 listSppiner.add(
                     index = 0,
-                    ClientEntity(name = "Create a new Usuario.", contact = "-1", email = "-1")
+                    ClientModelItem(name = "Create a new Usuario.", contact = "-1", email = "-1")
                 )
             }
 
@@ -150,7 +148,7 @@ class FormNewJobFragment : Fragment() {
                 listSppiner.add(prof)
             }
 
-            if (idClient != null ){
+            if (idClient != null) {
                 val index = listSppiner.indexOfFirst { it.idClient == idClient }
                 binding.spinnerProfessional.setSelection(index)
             }
@@ -167,13 +165,14 @@ class FormNewJobFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    professionalEntity = ClientEntity(
+                    professionalEntity = ClientModelItem(
                         idClient = listSppiner[position].idClient,
                         name = listSppiner[position].name,
                         contact = listSppiner[position].contact,
                         email = listSppiner[position].email
                     )
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }

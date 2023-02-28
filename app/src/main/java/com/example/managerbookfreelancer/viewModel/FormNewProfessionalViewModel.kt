@@ -13,9 +13,9 @@ class FormNewProfessionalViewModel @Inject constructor(
     private val repository: ClientRepository
 ) : ViewModel() {
 
-    fun insert(professionalEntity: ClientEntity) {
+    fun insert(clientEntity: ClientEntity) {
         viewModelScope.launch {
-            repository.insert(professionalEntity = professionalEntity)
+            repository.insert(clientEntity = clientEntity)
         }
     }
 

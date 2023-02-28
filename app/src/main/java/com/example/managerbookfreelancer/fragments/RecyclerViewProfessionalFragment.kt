@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.managerbookfreelancer.adapter.AdapterListProfessional
-import com.example.managerbookfreelancer.core.entity.ClientEntity
+import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.ProfessionalViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,14 +62,17 @@ class RecyclerViewProfessionalFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-    private fun setAlertDialog(it: ClientEntity) {
+    private fun setAlertDialog(it: ClientModelItem) {
         AlertDialog.Builder(requireContext())
             .setCancelable(true)
             .setTitle("Do you want delete this Client? ")
             .setMessage("Client: ${it.name}")
             .setPositiveButton("Yes") { _, _ ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.delete(it)
+
+                if (it.idClient != null){
+                    CoroutineScope(Dispatchers.IO).launch {
+                        viewModel.delete(it.idClient)
+                    }
                 }
             }
             .setNegativeButton("No") { _, _ -> }

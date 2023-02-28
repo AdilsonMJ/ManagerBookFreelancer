@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.managerbookfreelancer.core.entity.ClientEntity
+import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.databinding.FragmentItemProfessionalBinding
 
 
 class AdapterListProfessional(
-    private val onclick: (ClientEntity) -> Unit
+    private val onclick: (ClientModelItem) -> Unit
 ) : RecyclerView.Adapter<AdapterListProfessional.viewHolder>()  {
 
-    private val asyncListDiff : AsyncListDiffer<ClientEntity> = AsyncListDiffer(this, DiffCalback)
+    private val asyncListDiff : AsyncListDiffer<ClientModelItem> = AsyncListDiffer(this, DiffCalback)
 
     inner class viewHolder(
         private val binding: FragmentItemProfessionalBinding
         ) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(professionalEntity: ClientEntity, onclick: (ClientEntity) -> Unit){
-            binding.tvItemProfessionalName.text = professionalEntity.name
-            binding.tvItemProfessionalCellphone.text = professionalEntity.contact
-            binding.tvItemProfessionalEmail.text = professionalEntity.email
+        fun bind(clientModelItem: ClientModelItem, onclick: (ClientModelItem) -> Unit){
+            binding.tvItemProfessionalName.text = clientModelItem.name
+            binding.tvItemProfessionalCellphone.text = clientModelItem.contact
+            binding.tvItemProfessionalEmail.text = clientModelItem.email
             binding.root.setOnClickListener {
-                onclick(professionalEntity)
+                onclick(clientModelItem)
             }
         }
 
@@ -42,21 +42,21 @@ class AdapterListProfessional(
         holder.bind(asyncListDiff.currentList[position], onclick)
     }
 
-    fun upDateProfessional(professionalEntity: List<ClientEntity>){
-        asyncListDiff.submitList(professionalEntity)
+    fun upDateProfessional(clientModelItem: List<ClientModelItem>){
+        asyncListDiff.submitList(clientModelItem)
     }
 
-    object DiffCalback : DiffUtil.ItemCallback<ClientEntity>(){
+    object DiffCalback : DiffUtil.ItemCallback<ClientModelItem>(){
         override fun areItemsTheSame(
-            oldItem: ClientEntity,
-            newItem: ClientEntity
+            oldItem: ClientModelItem,
+            newItem: ClientModelItem
         ): Boolean {
             return  oldItem.idClient == newItem.idClient
         }
 
         override fun areContentsTheSame(
-            oldItem: ClientEntity,
-            newItem: ClientEntity
+            oldItem: ClientModelItem,
+            newItem: ClientModelItem
         ): Boolean {
             return oldItem == newItem
         }
