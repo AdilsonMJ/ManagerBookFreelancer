@@ -1,8 +1,6 @@
 package com.example.managerbookfreelancer.viewModel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.core.entity.JobEntity
 import com.example.managerbookfreelancer.core.repository.ClientRepository
@@ -14,18 +12,10 @@ import javax.inject.Inject
 @HiltViewModel
 class FormNewJobViewModel @Inject constructor(
     private val repository: JobsRepository,
-    private val repositoryClient: ClientRepository
+    repositoryClient: ClientRepository
 ) : ViewModel() {
 
-    fun getAllClients(): MutableLiveData<List<ClientEntity>> {
-
-        val resultLiveData = MutableLiveData<List<ClientEntity>>()
-        viewModelScope.launch {
-            resultLiveData.postValue(repositoryClient.fetchClient())
-        }
-
-        return resultLiveData
-    }
+    val getAllClients: LiveData<List<ClientEntity>> = repositoryClient.fetchClient().asLiveData()
 
     suspend fun getJobById(idJob: Long): JobEntity = repository.getJobById(idJob)
 

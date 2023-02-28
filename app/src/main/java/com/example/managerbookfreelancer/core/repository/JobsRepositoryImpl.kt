@@ -2,13 +2,15 @@ package com.example.managerbookfreelancer.core.repository
 
 import com.example.managerbookfreelancer.core.dataBase.dao.JobDAO
 import com.example.managerbookfreelancer.core.entity.JobEntity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class JobsRepositoryImpl @Inject constructor(
     private val jobDao: JobDAO
 ) : JobsRepository {
 
-    override suspend fun fetchJobs(currentDay: Long, showOlditens: Boolean): List<JobEntity> = jobDao.getAll(currentDay, showOlditens)
+    override  fun fetchJobs(currentDay: Long, showOlditens: Boolean): Flow<List<JobEntity>> =
+        jobDao.getAll(currentDay, showOlditens)
 
     override suspend fun getNextJob(currentDay: Long): JobEntity = jobDao.getNextEvent(currentDay = currentDay)
 

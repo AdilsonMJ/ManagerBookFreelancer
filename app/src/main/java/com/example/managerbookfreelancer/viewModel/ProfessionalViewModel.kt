@@ -11,14 +11,8 @@ import javax.inject.Inject
 class ProfessionalViewModel @Inject constructor(private val repository: ClientRepository) : ViewModel(){
 
 
-    fun getAllClients() : MutableLiveData<List<ClientEntity>> {
-
-        val resultLiveData = MutableLiveData<List<ClientEntity>>()
-        viewModelScope.launch {
-            resultLiveData.postValue(repository.fetchClient())
-        }
-
-        return resultLiveData
+    fun getAllClients() : LiveData<List<ClientEntity>> {
+        return repository.fetchClient().asLiveData()
     }
 
 

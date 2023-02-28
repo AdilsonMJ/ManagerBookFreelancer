@@ -1,10 +1,11 @@
 package com.example.managerbookfreelancer.core.repository
 
 import com.example.managerbookfreelancer.core.entity.ClientEntity
+import kotlinx.coroutines.flow.Flow
 
 interface ClientRepository {
 
-    suspend fun fetchClient(): List<ClientEntity>
+     fun fetchClient(): Flow<List<ClientEntity>>
 
     suspend fun insert(professionalEntity: ClientEntity)
 

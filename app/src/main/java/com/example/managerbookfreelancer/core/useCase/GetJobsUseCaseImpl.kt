@@ -6,6 +6,9 @@ import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.core.repository.ClientRepository
 import com.example.managerbookfreelancer.core.repository.JobsRepository
 import com.example.managerbookfreelancer.utils.Utils
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
@@ -15,11 +18,32 @@ class GetJobsUseCaseImpl @Inject constructor(
 
     private val time = Utils.getDateInMillesWithoutTime()
 
-    override suspend fun invoke(showOlditens: Boolean): List<JobModelItem> {
+    override fun invoke(showOlditens: Boolean): Flow<List<JobModelItem>> {
 
-        val jobs = jobsRepository.fetchJobs(time, showOlditens)
+        return jobsRepository.fetchJobs(time, showOlditens)
+            .map { jobList ->
+                jobList.map { job ->
 
-        return jobs.map { job ->
+                    val client = findClient(job.idJob)
+
+                    JobModelItem(
+                        idJob = job.idJob,
+                        clientName = client.name,
+                        date = Utils.formatDate(job.dateOfEvent),
+                        time = job.timeOfEvent,
+                        city = job.locationOfEvent
+                    )
+
+                }
+            }
+    }
+
+    override suspend fun invokeNexEvent(): JobModelItem {
+
+        val job: JobEntity = jobsRepository.getNextJob(time)
+
+
+        return if (job != null) {
 
             val client: ClientEntity = findClient(job.idClient)
 
@@ -29,45 +53,40 @@ class GetJobsUseCaseImpl @Inject constructor(
                 date = Utils.formatDate(job.dateOfEvent),
                 time = job.timeOfEvent,
                 city = job.locationOfEvent
-            )
+
+            )} else{
+                JobModelItem(
+                    idJob = -1L,
+                    clientName = null,
+                    date = "null"
+                )
+            }
         }
-    }
-
-    override suspend fun invokeNexEvent(): JobModelItem {
-
-        val job: JobEntity = jobsRepository.getNextJob(time)
-
-        if (job != null){
-            val client: ClientEntity = findClient(job.idClient)
-
-            return JobModelItem(
-                idJob = job.idJob,
-                clientName = client.name,
-                date = Utils.formatDate(job.dateOfEvent),
-                time = job.timeOfEvent,
-                city = job.locationOfEvent
-
-            )
-        } else{
-            return JobModelItem(
-                idJob = -1L,
-                date = "null",
-            )
-        }
-
-
-    }
 
     private suspend fun findClient(jobId: Long): ClientEntity {
+        val clients = clientRepository.fetchClient().firstOrNull() ?: return ClientEntity(
+            idClient = -1,
+            name = "Não encontrado",
+            contact = "",
+            email = ""
+        )
 
-
-       return clientRepository.fetchClient().firstOrNull { it.idClient == jobId }?.let {
+        return clients
+            .filter { client -> client.idClient == jobId }
+            .firstOrNull()
+            ?.let { client ->
                 ClientEntity(
-                    idClient = it.idClient, name = it.name, contact = it.contact, email = it.email
+                    idClient = client.idClient,
+                    name = client.name,
+                    contact = client.contact,
+                    email = client.email
                 )
             } ?: ClientEntity(
-                idClient = -1, name = "does not exist", contact = "null", email = "null"
-            )
+            idClient = -1,
+            name = "Não encontrado",
+            contact = "",
+            email = ""
+        )
     }
 
 }

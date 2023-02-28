@@ -137,7 +137,8 @@ class FormNewJobFragment : Fragment() {
             android.R.layout.simple_spinner_dropdown_item,
             listSppiner
         )
-        viewModel.getAllClients().observe(
+
+        viewModel.getAllClients.observe(
             viewLifecycleOwner
         ) { p ->
             if (p.isEmpty()) {

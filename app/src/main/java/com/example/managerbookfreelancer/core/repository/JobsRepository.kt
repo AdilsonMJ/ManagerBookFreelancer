@@ -1,11 +1,12 @@
 package com.example.managerbookfreelancer.core.repository
 
 import com.example.managerbookfreelancer.core.entity.JobEntity
+import kotlinx.coroutines.flow.Flow
 
 
 interface JobsRepository{
 
-    suspend fun fetchJobs(currentDay: Long, showOlditens: Boolean) : List<JobEntity>
+     fun fetchJobs(currentDay: Long, showOlditens: Boolean) : Flow<List<JobEntity>>
 
     suspend fun getNextJob(currentDay: Long) : JobEntity
 

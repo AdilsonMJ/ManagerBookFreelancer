@@ -1,6 +1,8 @@
 package com.example.managerbookfreelancer.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.core.repository.JobsRepository
@@ -16,8 +18,8 @@ class JobsViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    suspend fun getAllJobs(showOlditens: Boolean): List<JobModelItem> {
-        return getJobsUseCase.invoke( showOlditens = showOlditens)
+    fun getAllJobs(showOlditens: Boolean): LiveData<List<JobModelItem>> {
+        return getJobsUseCase.invoke(showOlditens = showOlditens).asLiveData()
     }
 
     suspend fun getNextEvent(): JobModelItem = getJobsUseCase.invokeNexEvent()

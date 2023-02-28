@@ -8,7 +8,6 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -97,8 +96,8 @@ class RecyclerViewJobsFragment : Fragment() {
     }
 
     private fun observeJobs() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            adapter.upDateJobs(viewModel.getAllJobs(showOldItens))
+        viewModel.getAllJobs(showOldItens).observe(viewLifecycleOwner){
+            adapter.upDateJobs(it)
         }
     }
 

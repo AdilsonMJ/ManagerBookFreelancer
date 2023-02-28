@@ -2,17 +2,18 @@ package com.example.managerbookfreelancer.core.dataBase.dao
 
 import androidx.room.*
 import com.example.managerbookfreelancer.core.entity.JobEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface JobDAO {
 
     @Query("SELECT * FROM job WHERE dateOfEvent <= :currentDay ORDER BY dateOfEvent, timeOfEvent DESC")
-    suspend fun getOldJobs(currentDay: Long): List<JobEntity>
+     fun getOldJobs(currentDay: Long): Flow<List<JobEntity>>
 
     @Query("SELECT * FROM job WHERE dateOfEvent >= :currentDay ORDER BY dateOfEvent, timeOfEvent ASC")
-    suspend fun getFutureJobs(currentDay: Long): List<JobEntity>
+     fun getFutureJobs(currentDay: Long): Flow<List<JobEntity>>
 
-    suspend fun getAll(currentDay: Long, showOlditens: Boolean): List<JobEntity> {
+     fun getAll(currentDay: Long, showOlditens: Boolean): Flow<List<JobEntity>> {
         return if (showOlditens) {
             getOldJobs(currentDay)
         } else {

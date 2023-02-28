@@ -13,9 +13,6 @@ import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.databinding.FragmentFormNewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.FormNewProfessionalViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FormNewProfessionalFragment : Fragment() {
@@ -36,7 +33,7 @@ class FormNewProfessionalFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         _binding = FragmentFormNewProfessionalBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,16 +55,13 @@ class FormNewProfessionalFragment : Fragment() {
                 email = email
             )
 
-            CoroutineScope(Dispatchers.IO).launch {
-                viewModel.insert(professional)
-            }
+            viewModel.insert(professional)
 
             findNavController().navigate(R.id.action_newProfessional_to_recyclerViewProfessionalFragment)
 
         }
 
     }
-
 
     fun EditText.requireText(): String {
         val text = this.text.toString().trim()
