@@ -8,15 +8,17 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.adapter.AdapterListJobs
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
+import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
 import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
+import com.example.managerbookfreelancer.core.useCase.GetJobsUseCaseImpl
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewJobsBinding
-import com.example.managerbookfreelancer.resource.Resoucers
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +37,8 @@ class RecyclerViewJobsFragment : Fragment() {
         factoryProducer = {
             val database = JobAppDataBase.getInstance(requireContext())
             JobsViewModel.Factory(
-                repository = JobsRepositoryImpl(database.JobDAO())
+                repository = JobsRepositoryImpl(database.JobDAO()),
+                getJobsUseCase = GetJobsUseCaseImpl(JobsRepositoryImpl(database.JobDAO()), ClientRepositoryImpl(database.ClientDAO()))
             )
         }
     )
@@ -50,10 +53,10 @@ class RecyclerViewJobsFragment : Fragment() {
             val dialog = AlertDialog.Builder(requireContext())
                 .setCancelable(true)
                 .setTitle("Do you want to delete or edite this job")
-                .setMessage("Professional: ${it.client} Date: ${Resoucers.fromLongToString(it.dateOfEvent)}")
+                .setMessage("Client: ${it.clientName} - Date: ${it.date}")
                 .setPositiveButton("Delete") { _, _ ->
                     CoroutineScope(Dispatchers.IO).launch {
-                        viewModel.delete(jobEntity = it)
+                        viewModel.delete(id = it.idJob)
                     }
                 }.setNeutralButton("Cancel") { _, _ ->
                 }
@@ -98,17 +101,16 @@ class RecyclerViewJobsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpToolBar()
         observeJobs()
+
+
     }
 
     private fun observeJobs() {
-        viewModel.getAllJobs(
-            currentDay = Resoucers.getDateInMillesWithoutTime(),
-            showOlditens = showOldItens
-        )
-            .observe(viewLifecycleOwner) { state ->
-                adapter.upDateJobs(state)
-            }
+        viewLifecycleOwner.lifecycleScope.launch {
+            adapter.upDateJobs(viewModel.getAllJobs(showOldItens))
+        }
     }
+
 
     private fun setUpToolBar() {
         val activity = requireActivity()

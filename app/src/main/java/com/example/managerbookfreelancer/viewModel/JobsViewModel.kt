@@ -1,32 +1,36 @@
 package com.example.managerbookfreelancer.viewModel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.core.repository.JobsRepository
-import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.useCase.GetJobsUseCase
 import kotlinx.coroutines.launch
 
 class JobsViewModel(
-    private val repository: JobsRepository
+    private val repository: JobsRepository,
+    private val getJobsUseCase: GetJobsUseCase
 ) : ViewModel() {
 
-    fun getAllJobs(currentDay: Long, showOlditens: Boolean): LiveData<List<JobEntity>> {
-        return repository.fetchJobs(currentDay = currentDay, showOlditens = showOlditens).asLiveData()
+
+    suspend fun getAllJobs(showOlditens: Boolean): List<JobModelItem> {
+        return getJobsUseCase.invoke( showOlditens = showOlditens)
     }
 
-    suspend fun getNextEvent(currentDay: Long): JobEntity = repository.getNextJob(currentDay)
+    suspend fun getNextEvent(): JobModelItem = getJobsUseCase.invokeNexEvent()
 
 
-    fun delete(jobEntity: JobEntity) {
-
+    fun delete(id: Long) {
         viewModelScope.launch {
-            repository.delete(jobEntity)
+            repository.delete(id)
         }
     }
 
 
-    class Factory(private val repository: JobsRepository) : ViewModelProvider.Factory {
+    class Factory(private val repository: JobsRepository, private val getJobsUseCase: GetJobsUseCase) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return JobsViewModel(repository) as T
+            return JobsViewModel(repository, getJobsUseCase) as T
         }
     }
 

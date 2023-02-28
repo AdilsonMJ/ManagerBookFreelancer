@@ -5,32 +5,29 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.databinding.FragmentItemJobBinding
-import com.example.managerbookfreelancer.resource.Resoucers
 
 class AdapterListJobs(
-    private val onClick: (JobEntity) -> Unit
+    private val onClick: (JobModelItem) -> Unit,
 ): RecyclerView.Adapter<AdapterListJobs.viewHolder>() {
 
-
-    private val asyncListDiff : AsyncListDiffer<JobEntity> = AsyncListDiffer(this, DiffCalback)
-
+    private val asyncListDiff : AsyncListDiffer<JobModelItem> = AsyncListDiffer(this, DiffCalback)
 
     inner class viewHolder(
         private val binding: FragmentItemJobBinding,
     ): RecyclerView.ViewHolder(binding.root)  {
 
-        fun bind(jobModel: JobEntity, onClick: (JobEntity) -> Unit) {
+        fun bind(jobModel: JobModelItem, onClick: (JobModelItem) -> Unit) {
 
-            binding.tvItemJobDateEvent.text = Resoucers.fromLongToString(jobModel.dateOfEvent)
-            binding.tvItemJobTimeEvent.text = jobModel.timeOfEvent
-            binding.tvItemJobClient.text = jobModel.client
-            binding.tvItemJobLocation.text = jobModel.locationOfEvent
-            binding.root.setOnClickListener{
+            binding.tvItemJobDateEvent.text = jobModel.date
+            binding.tvItemJobTimeEvent.text = jobModel.time
+            binding.tvItemJobClient.text = jobModel.clientName
+            binding.tvItemJobLocation.text = jobModel.city
+
+            binding.root.setOnClickListener(){
                 onClick(jobModel)
             }
-
         }
     }
 
@@ -49,21 +46,19 @@ class AdapterListJobs(
     override fun getItemCount(): Int = asyncListDiff.currentList.size
 
 
-    fun upDateJobs(jobModel : List<JobEntity>){
+    fun upDateJobs(jobModel : List<JobModelItem>){
         asyncListDiff.submitList(jobModel)
     }
 
 
-    object DiffCalback : DiffUtil.ItemCallback<JobEntity>(){
-        override fun areItemsTheSame(oldItem: JobEntity, newItem: JobEntity): Boolean {
+    object DiffCalback : DiffUtil.ItemCallback<JobModelItem>(){
+        override fun areItemsTheSame(oldItem: JobModelItem, newItem: JobModelItem): Boolean {
             return oldItem.idJob == newItem.idJob
         }
 
-        override fun areContentsTheSame(oldItem: JobEntity, newItem: JobEntity): Boolean {
+        override fun areContentsTheSame(oldItem: JobModelItem, newItem: JobModelItem): Boolean {
             return oldItem == newItem
         }
 
     }
-
-
 }

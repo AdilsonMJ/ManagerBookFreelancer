@@ -5,9 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "professional")
-data class ProfessionalEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "idProfessional") val idProfessional: Long = 0,
+@Entity(tableName = "client")
+data class ClientEntity(
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id_Client") val idClient: Long = 0,
     val name:String,
     val contact : String,
     val email : String,

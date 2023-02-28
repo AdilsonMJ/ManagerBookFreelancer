@@ -1,6 +1,5 @@
 package com.example.managerbookfreelancer.fragments.form
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
@@ -18,21 +17,20 @@ import androidx.navigation.fragment.navArgs
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
 import com.example.managerbookfreelancer.core.entity.JobEntity
-import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
-import com.example.managerbookfreelancer.core.repository.ProfessionalRepositoryImpl
+import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
-import com.example.managerbookfreelancer.resource.Resoucers
+import com.example.managerbookfreelancer.utils.Utils
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
 import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class FormNewJobFragment : Fragment() {
@@ -41,10 +39,9 @@ class FormNewJobFragment : Fragment() {
     private val binding get() = _binding!!
     private var weddingTimePickup: String? = null
     private var weddingDatePickup: Long? = null
-    private var professionalEntity: ProfessionalEntity? = null
-// BRANCH CORRETA
-
+    private var professionalEntity: ClientEntity? = null
     private val args: FormNewJobFragmentArgs by navArgs()
+
 
     private val viewModel: FormNewJobViewModel by activityViewModels(
 
@@ -52,7 +49,7 @@ class FormNewJobFragment : Fragment() {
             val database = JobAppDataBase.getInstance(requireContext())
             FormNewJobViewModel.Factory(
                 repository = JobsRepositoryImpl(database.JobDAO()),
-                repositoryProfessionalRepository = ProfessionalRepositoryImpl(database.ProfessionalDAO())
+                repositoryClient = ClientRepositoryImpl(database.ClientDAO())
             )
         }
     )
@@ -68,7 +65,7 @@ class FormNewJobFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        setSpinner(idProfessional = null)
+        setSpinner(idClient = null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,11 +95,10 @@ class FormNewJobFragment : Fragment() {
             val jobModel = JobEntity(
                 idJob = args.jobId,
                 customerEndUser = customers,
-                client = professionalEntity!!.name,
                 dateOfEvent = weddingDatePickup!!,
                 timeOfEvent = weddingTimePickup,
                 locationOfEvent = location,
-                professionalId = professionalEntity!!.idProfessional
+                idClient = professionalEntity!!.idClient
             )
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -130,17 +126,16 @@ class FormNewJobFragment : Fragment() {
                 binding.editTextLocation.setText(job.locationOfEvent)
                 binding.timePickerButton.text = job.timeOfEvent
                 weddingTimePickup = job.timeOfEvent
-                binding.datePickerButton.text = Resoucers.fromLongToString(job.dateOfEvent)
-                weddingDatePickup = job.dateOfEvent
-                setSpinner(idProfessional = job.professionalId)
+                binding.datePickerButton.text = Utils.formatDate(job.dateOfEvent)
+                setSpinner(idClient = job.idClient)
 
             }
         }
     }
 
-    private fun setSpinner(idProfessional: Long?) {
+    private fun setSpinner(idClient: Long?) {
 
-        val listSppiner = ArrayList<ProfessionalEntity>()
+        val listSppiner = ArrayList<ClientEntity>()
         listSppiner.clear()
 
         val spinnerAdapter = ArrayAdapter(
@@ -148,13 +143,13 @@ class FormNewJobFragment : Fragment() {
             android.R.layout.simple_spinner_dropdown_item,
             listSppiner
         )
-        viewModel.allProfessional.observe(
+        viewModel.getAllClients().observe(
             viewLifecycleOwner
         ) { p ->
             if (p.isEmpty()) {
                 listSppiner.add(
                     index = 0,
-                    ProfessionalEntity(name = "Create a new Usuario.", contact = "-1", email = "-1")
+                    ClientEntity(name = "Create a new Usuario.", contact = "-1", email = "-1")
                 )
             }
 
@@ -162,8 +157,8 @@ class FormNewJobFragment : Fragment() {
                 listSppiner.add(prof)
             }
 
-            if (idProfessional != null ){
-                val index = listSppiner.indexOfFirst { it.idProfessional == idProfessional }
+            if (idClient != null ){
+                val index = listSppiner.indexOfFirst { it.idClient == idClient }
                 binding.spinnerProfessional.setSelection(index)
             }
 
@@ -179,8 +174,8 @@ class FormNewJobFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    professionalEntity = ProfessionalEntity(
-                        idProfessional = listSppiner[position].idProfessional,
+                    professionalEntity = ClientEntity(
+                        idClient = listSppiner[position].idClient,
                         name = listSppiner[position].name,
                         contact = listSppiner[position].contact,
                         email = listSppiner[position].email
@@ -190,8 +185,7 @@ class FormNewJobFragment : Fragment() {
                 }
             }
 
-
-        val index = listSppiner.indexOfFirst { it.idProfessional == idProfessional }
+        val index = listSppiner.indexOfFirst { it.idClient == idClient }
         binding.spinnerProfessional.setSelection(index)
 
     }
@@ -215,7 +209,6 @@ class FormNewJobFragment : Fragment() {
                 binding.timePickerButton.text = weddingTimePickup
             }
         }
-
     }
 
     private fun getFormattedTime(hours: Int, minutes: Int): String {
@@ -229,7 +222,7 @@ class FormNewJobFragment : Fragment() {
 
         binding.datePickerButton.setOnClickListener {
             val calendarConstraintBuild = CalendarConstraints.Builder()
-           // calendarConstraintBuild.setValidator(DateValidatorPointForward.now())
+            calendarConstraintBuild.setValidator(DateValidatorPointForward.now())
 
 
             val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -241,7 +234,7 @@ class FormNewJobFragment : Fragment() {
 
             datePicker.addOnPositiveButtonClickListener {
                 this.weddingDatePickup = it
-                binding.datePickerButton.text = Resoucers.fromLongToString(it)
+                binding.datePickerButton.text = Utils.formatDate(it)
             }
 
         }

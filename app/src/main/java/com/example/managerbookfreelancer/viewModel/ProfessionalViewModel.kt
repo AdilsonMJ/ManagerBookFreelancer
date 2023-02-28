@@ -1,23 +1,31 @@
 package com.example.managerbookfreelancer.viewModel
 
 import androidx.lifecycle.*
-import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
-import com.example.managerbookfreelancer.core.repository.ProfessionalRepository
+import com.example.managerbookfreelancer.core.entity.ClientEntity
+import com.example.managerbookfreelancer.core.repository.ClientRepository
 import kotlinx.coroutines.launch
 
-class ProfessionalViewModel(private val repository: ProfessionalRepository) : ViewModel(){
+class ProfessionalViewModel(private val repository: ClientRepository) : ViewModel(){
 
 
-    val allProfessional: LiveData<List<ProfessionalEntity>> = repository.fetchProfessional().asLiveData()
+    fun getAllClients() : MutableLiveData<List<ClientEntity>> {
+
+        val resultLiveData = MutableLiveData<List<ClientEntity>>()
+        viewModelScope.launch {
+            resultLiveData.postValue(repository.fetchClient())
+        }
+
+        return resultLiveData
+    }
 
 
-    fun delete(professionalEntity: ProfessionalEntity){
+    fun delete(professionalEntity: ClientEntity){
         viewModelScope.launch {
             repository.delete(professionalEntity)
         }
     }
 
-    class Factory(private val repository: ProfessionalRepository) : ViewModelProvider.Factory{
+    class Factory(private val repository: ClientRepository) : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return ProfessionalViewModel(repository) as T
         }

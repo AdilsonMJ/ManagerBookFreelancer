@@ -3,21 +3,21 @@ package com.example.managerbookfreelancer.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
-import com.example.managerbookfreelancer.core.repository.ProfessionalRepository
+import com.example.managerbookfreelancer.core.entity.ClientEntity
+import com.example.managerbookfreelancer.core.repository.ClientRepository
 import kotlinx.coroutines.launch
 
 class FormNewProfessionalViewModel(
-    private val repository: ProfessionalRepository
+    private val repository: ClientRepository
 ) : ViewModel() {
 
-    fun insert(professionalEntity: ProfessionalEntity){
+    fun insert(professionalEntity: ClientEntity){
         viewModelScope.launch {
             repository.insert(professionalEntity = professionalEntity)
         }
     }
 
-    class Factory(private val repository: ProfessionalRepository) : ViewModelProvider.Factory{
+    class Factory(private val repository: ClientRepository) : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return FormNewProfessionalViewModel(repository) as T
         }

@@ -8,12 +8,12 @@ import androidx.room.PrimaryKey
 data class JobEntity(
 
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id_job") val idJob : Long = 0,
+    val idClient: Long,
+
     val customerEndUser : String,
-    val client : String,
     val dateOfEvent : Long,
     val timeOfEvent: String ? = null,
-    val locationOfEvent: String,
-    val professionalId: Long
+    val locationOfEvent: String
 
 )
 
