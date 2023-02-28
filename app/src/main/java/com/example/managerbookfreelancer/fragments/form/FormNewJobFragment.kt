@@ -1,6 +1,5 @@
-package com.example.managerbookfreelancer.fragments
+package com.example.managerbookfreelancer.fragments.form
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
@@ -12,14 +11,17 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.model.JobEntity
-import com.example.managerbookfreelancer.core.model.ProfessionalEntity
+import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
-import com.example.managerbookfreelancer.core.repository.ProfessionalRepositoryImpl
+import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
+import com.example.managerbookfreelancer.utils.Utils
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -29,25 +31,25 @@ import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class FormNewJobFragment : Fragment() {
 
     private var _binding: FragmentFormNewJobBinding? = null
     private val binding get() = _binding!!
-    private var time: String? = null
-    private var date: String? = null
-    private var professionalEntity: ProfessionalEntity? = null
+    private var weddingTimePickup: String? = null
+    private var weddingDatePickup: Long? = null
+    private var professionalEntity: ClientEntity? = null
+    private val args: FormNewJobFragmentArgs by navArgs()
+
 
     private val viewModel: FormNewJobViewModel by activityViewModels(
+
         factoryProducer = {
             val database = JobAppDataBase.getInstance(requireContext())
-
             FormNewJobViewModel.Factory(
                 repository = JobsRepositoryImpl(database.JobDAO()),
-                repositoryProfessionalRepository = ProfessionalRepositoryImpl(database.ProfessionalDAO())
+                repositoryClient = ClientRepositoryImpl(database.ClientDAO())
             )
         }
     )
@@ -61,10 +63,9 @@ class FormNewJobFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onResume() {
         super.onResume()
-        setSpinner()
+        setSpinner(idClient = null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,64 +74,96 @@ class FormNewJobFragment : Fragment() {
 
         getDate()
         getTime()
-
+        setDateOnFields()
 
         binding.BTNSave.setOnClickListener {
 
-            val coupleName = binding.editTextBrideName.requireText()
-            val weedingLocation = binding.editTextLocation.requireText()
+            val customers = binding.editTextCoupleName.requireText()
+            val location = binding.editTextLocation.requireText()
+
 
             if (professionalEntity?.contact == "-1") {
                 binding.spinnerProfessional.requestFocus()
                 Toast.makeText(
                     requireContext(),
-                    "Select or create a professional",
+                    "Select or creat a professional",
                     Toast.LENGTH_LONG
                 ).show()
                 return@setOnClickListener
             }
 
             val jobModel = JobEntity(
-                engaged = coupleName,
-                ownerName = professionalEntity!!.name,
-                weedingDay = date,
-                weedingTime = time,
-                weedingCity = weedingLocation,
-                professional = professionalEntity!!
+                idJob = args.jobId,
+                customerEndUser = customers,
+                dateOfEvent = weddingDatePickup!!,
+                timeOfEvent = weddingTimePickup,
+                locationOfEvent = location,
+                idClient = professionalEntity!!.idClient
             )
 
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel.insert(jobEntity = jobModel)
             }
             findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
-
-
         }
-
     }
 
-    private fun EditText.requireText(): String {
-
+    fun EditText.requireText(): String{
         val text = this.text.toString().trim()
-        if (text.isEmpty()) {
+        if (text.isEmpty()){
             this.error = "Please fill this field"
             this.requestFocus()
         }
-
         return text
     }
 
-    private fun setSpinner() {
+    private fun setDateOnFields() {
+        if (args.jobId != 0L) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                val job = viewModel.getJobById(args.jobId)
 
-        val listSpinner = ArrayList<ProfessionalEntity>()
+                binding.editTextCoupleName.setText(job.customerEndUser)
+                binding.editTextLocation.setText(job.locationOfEvent)
+                binding.timePickerButton.text = job.timeOfEvent
+                weddingTimePickup = job.timeOfEvent
+                binding.datePickerButton.text = Utils.formatDate(job.dateOfEvent)
+                setSpinner(idClient = job.idClient)
 
-        val spinnerAdapter = ArrayAdapter<ProfessionalEntity>(
+            }
+        }
+    }
+
+    private fun setSpinner(idClient: Long?) {
+
+        val listSppiner = ArrayList<ClientEntity>()
+        listSppiner.clear()
+
+        val spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
-            listSpinner
+            listSppiner
         )
+        viewModel.getAllClients().observe(
+            viewLifecycleOwner
+        ) { p ->
+            if (p.isEmpty()) {
+                listSppiner.add(
+                    index = 0,
+                    ClientEntity(name = "Create a new Usuario.", contact = "-1", email = "-1")
+                )
+            }
 
+            for (prof in p) {
+                listSppiner.add(prof)
+            }
 
+            if (idClient != null ){
+                val index = listSppiner.indexOfFirst { it.idClient == idClient }
+                binding.spinnerProfessional.setSelection(index)
+            }
+
+            spinnerAdapter.notifyDataSetChanged()
+        }
 
         binding.spinnerProfessional.adapter = spinnerAdapter
         binding.spinnerProfessional.onItemSelectedListener =
@@ -141,30 +174,19 @@ class FormNewJobFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    professionalEntity = ProfessionalEntity(
-                        idProfessional = listSpinner[position].idProfessional,
-                        name = listSpinner[position].name,
-                        contact = listSpinner[position].contact,
-                        email = listSpinner[position].email
+                    professionalEntity = ClientEntity(
+                        idClient = listSppiner[position].idClient,
+                        name = listSppiner[position].name,
+                        contact = listSppiner[position].contact,
+                        email = listSppiner[position].email
                     )
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
 
-        viewModel.allProfessional.observe(
-            viewLifecycleOwner
-        ) { professional ->
-            if (professional.isNotEmpty()) {
-                listSpinner.addAll(professional)
-            } else {
-                val message = ProfessionalEntity( name = "Create a new Usuario.", contact = "-1", email = "-1")
-                listSpinner.add(message)
-            }
-
-            spinnerAdapter.notifyDataSetChanged()
-        }
-
+        val index = listSppiner.indexOfFirst { it.idClient == idClient }
+        binding.spinnerProfessional.setSelection(index)
 
     }
 
@@ -180,24 +202,22 @@ class FormNewJobFragment : Fragment() {
                 .build()
 
             picker.show(parentFragmentManager, "TimePicker")
-
             picker.addOnPositiveButtonClickListener {
 
-                this.time = getFormattedTime(hours = picker.hour, minutes = picker.minute)
-                binding.timePickerButton.text = time
+                this.weddingTimePickup =
+                    getFormattedTime(hours = picker.hour, minutes = picker.minute)
+                binding.timePickerButton.text = weddingTimePickup
             }
         }
-
-
     }
 
     private fun getFormattedTime(hours: Int, minutes: Int): String {
         val hourString = if (hours < 10) "0$hours" else hours.toString()
-        val minuteString = if (minutes < 10) "0$minutes" else minutes.toString()
-        return "$hourString:$minuteString"
+        val minuteString = if (minutes < 10) "0$minutes" else "$minutes"
+        val timeFormatted = "$hourString:$minuteString"
+        return if (hours < 12) "$timeFormatted AM" else "$timeFormatted PM"
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun getDate() {
 
         binding.datePickerButton.setOnClickListener {
@@ -213,8 +233,8 @@ class FormNewJobFragment : Fragment() {
             datePicker.show(parentFragmentManager, "DatePicker")
 
             datePicker.addOnPositiveButtonClickListener {
-                this.date = SimpleDateFormat("dd/MM/yyyy").format(Date(it))
-                binding.datePickerButton.text = date
+                this.weddingDatePickup = it
+                binding.datePickerButton.text = Utils.formatDate(it)
             }
 
         }

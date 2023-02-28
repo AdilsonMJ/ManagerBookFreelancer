@@ -10,8 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.entity.ProfessionalEntity
-import com.example.managerbookfreelancer.core.repository.ProfessionalRepositoryImpl
+import com.example.managerbookfreelancer.core.entity.ClientEntity
+import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentFormNewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.FormNewProfessionalViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +29,7 @@ class FormNewProfessionalFragment : Fragment() {
             val database = JobAppDataBase.getInstance(requireContext())
 
             FormNewProfessionalViewModel.Factory(
-                repository = ProfessionalRepositoryImpl(database.ProfessionalDAO())
+                repository = ClientRepositoryImpl(database.ClientDAO())
             )
 
         })
@@ -39,7 +39,7 @@ class FormNewProfessionalFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         _binding = FragmentFormNewProfessionalBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -55,7 +55,7 @@ class FormNewProfessionalFragment : Fragment() {
             val email = binding.editTextEmail.requireText()
 
 
-            val professional = ProfessionalEntity(
+            val professional = ClientEntity(
                 name = name,
                 contact = cellphone,
                 email = email

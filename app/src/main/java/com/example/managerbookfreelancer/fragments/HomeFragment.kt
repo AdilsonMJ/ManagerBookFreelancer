@@ -11,24 +11,29 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.entity.JobEntity
+import com.example.managerbookfreelancer.core.model.JobModelItem
+import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
 import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
+import com.example.managerbookfreelancer.core.useCase.GetJobsUseCaseImpl
 import com.example.managerbookfreelancer.databinding.FragmentHomeBinding
-import com.example.managerbookfreelancer.resource.Resoucers
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
 
-    private var _binding : FragmentHomeBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: JobsViewModel by activityViewModels(
         factoryProducer = {
             val database = JobAppDataBase.getInstance(requireContext())
             JobsViewModel.Factory(
-                repository = JobsRepositoryImpl(database.JobDAO())
+                repository = JobsRepositoryImpl(database.JobDAO()),
+                getJobsUseCase = GetJobsUseCaseImpl(
+                    JobsRepositoryImpl(database.JobDAO()),
+                    ClientRepositoryImpl(database.ClientDAO())
+                )
             )
         }
     )
@@ -58,21 +63,22 @@ class HomeFragment : Fragment() {
 
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val nextEvent = viewModel.getNextEvent(Resoucers.getDateInMillesWithoutTime())
+            val nextEvent = viewModel.getNextEvent()
             upDateUi(nextEvent)
+
         }
 
         setUpNavigation()
 
     }
 
-    private fun upDateUi(nextEvent: JobEntity) = if (nextEvent == null){
+    private fun upDateUi(nextEvent: JobModelItem) = if (nextEvent.idJob == -1L) {
         binding.CardViewHomeNextJob.visibility = View.GONE
         binding.tvNextJobTitle.visibility = View.GONE
     } else {
-        binding.tvHomeCardViewNextJobName.text = nextEvent.client
-        binding.tvHomeCardViewNextJobTime.text = nextEvent.timeOfEvent
-        binding.tvHomeCardViewNextJobDate.text = Resoucers.fromLongToString(nextEvent.dateOfEvent)
+        binding.tvHomeCardViewNextJobName.text = nextEvent.clientName
+        binding.tvHomeCardViewNextJobTime.text = nextEvent.time
+        binding.tvHomeCardViewNextJobDate.text = nextEvent.date
     }
 
     private fun setUpNavigation() {
