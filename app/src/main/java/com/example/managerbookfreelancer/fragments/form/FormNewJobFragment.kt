@@ -35,7 +35,7 @@ class FormNewJobFragment : Fragment() {
 
     private var _binding: FragmentFormNewJobBinding? = null
     private val binding get() = _binding!!
-    private var weddingTimePickup: String? = null
+    private var weddingTimePickup: String = "00:00 AM"
     private var weddingDatePickup: Long? = null
     private var professionalEntity: ClientEntity? = null
     private val args: FormNewJobFragmentArgs by navArgs()
@@ -95,9 +95,7 @@ class FormNewJobFragment : Fragment() {
                 idClient = professionalEntity!!.idClient
             )
 
-            CoroutineScope(Dispatchers.IO).launch {
                 viewModel.insert(jobEntity = jobModel)
-            }
             findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
         }
     }
@@ -119,7 +117,7 @@ class FormNewJobFragment : Fragment() {
                 binding.editTextCoupleName.setText(job.customerEndUser)
                 binding.editTextLocation.setText(job.locationOfEvent)
                 binding.timePickerButton.text = job.timeOfEvent
-                weddingTimePickup = job.timeOfEvent
+                weddingTimePickup = job.timeOfEvent.toString()
                 binding.datePickerButton.text = Utils.formatDate(job.dateOfEvent)
                 setSpinner(idClient = job.idClient)
 

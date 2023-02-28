@@ -24,7 +24,7 @@ class GetJobsUseCaseImpl @Inject constructor(
             .map { jobList ->
                 jobList.map { job ->
 
-                    val client = findClient(job.idJob)
+                    val client = findClient(job.idClient)
 
                     JobModelItem(
                         idJob = job.idJob,
@@ -54,26 +54,25 @@ class GetJobsUseCaseImpl @Inject constructor(
                 time = job.timeOfEvent,
                 city = job.locationOfEvent
 
-            )} else{
-                JobModelItem(
-                    idJob = -1L,
-                    clientName = null,
-                    date = "null"
-                )
-            }
+            )
+        } else {
+            JobModelItem(
+                idJob = -1L,
+                clientName = null,
+                date = "null"
+            )
         }
+    }
 
-    private suspend fun findClient(jobId: Long): ClientEntity {
+    private suspend fun findClient(idClient: Long): ClientEntity {
         val clients = clientRepository.fetchClient().firstOrNull() ?: return ClientEntity(
             idClient = -1,
-            name = "Não encontrado",
+            name = "Não encontrado 1 ",
             contact = "",
             email = ""
         )
 
-        return clients
-            .filter { client -> client.idClient == jobId }
-            .firstOrNull()
+        return clients.firstOrNull { client -> client.idClient == idClient }
             ?.let { client ->
                 ClientEntity(
                     idClient = client.idClient,
@@ -83,10 +82,9 @@ class GetJobsUseCaseImpl @Inject constructor(
                 )
             } ?: ClientEntity(
             idClient = -1,
-            name = "Não encontrado",
+            name = "Não encontrado 2 ",
             contact = "",
             email = ""
         )
     }
-
 }
