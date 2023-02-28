@@ -2,8 +2,9 @@ package com.example.managerbookfreelancer.core.repository
 
 import com.example.managerbookfreelancer.core.dataBase.dao.JobDAO
 import com.example.managerbookfreelancer.core.entity.JobEntity
+import javax.inject.Inject
 
-class JobsRepositoryImpl(
+class JobsRepositoryImpl @Inject constructor(
     private val jobDao: JobDAO
 ) : JobsRepository {
 

@@ -10,16 +10,13 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.managerbookfreelancer.R
-import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.entity.JobEntity
 import com.example.managerbookfreelancer.core.entity.ClientEntity
-import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
-import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
+import com.example.managerbookfreelancer.core.entity.JobEntity
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
 import com.example.managerbookfreelancer.utils.Utils
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
@@ -28,11 +25,12 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class FormNewJobFragment : Fragment() {
 
     private var _binding: FragmentFormNewJobBinding? = null
@@ -42,17 +40,13 @@ class FormNewJobFragment : Fragment() {
     private var professionalEntity: ClientEntity? = null
     private val args: FormNewJobFragmentArgs by navArgs()
 
+    private lateinit var viewModel: FormNewJobViewModel
 
-    private val viewModel: FormNewJobViewModel by activityViewModels(
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[FormNewJobViewModel::class.java]
+    }
 
-        factoryProducer = {
-            val database = JobAppDataBase.getInstance(requireContext())
-            FormNewJobViewModel.Factory(
-                repository = JobsRepositoryImpl(database.JobDAO()),
-                repositoryClient = ClientRepositoryImpl(database.ClientDAO())
-            )
-        }
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,

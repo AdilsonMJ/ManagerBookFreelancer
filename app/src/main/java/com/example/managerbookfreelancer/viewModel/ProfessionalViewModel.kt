@@ -3,9 +3,12 @@ package com.example.managerbookfreelancer.viewModel
 import androidx.lifecycle.*
 import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.core.repository.ClientRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfessionalViewModel(private val repository: ClientRepository) : ViewModel(){
+@HiltViewModel
+class ProfessionalViewModel @Inject constructor(private val repository: ClientRepository) : ViewModel(){
 
 
     fun getAllClients() : MutableLiveData<List<ClientEntity>> {
@@ -22,12 +25,6 @@ class ProfessionalViewModel(private val repository: ClientRepository) : ViewMode
     fun delete(professionalEntity: ClientEntity){
         viewModelScope.launch {
             repository.delete(professionalEntity)
-        }
-    }
-
-    class Factory(private val repository: ClientRepository) : ViewModelProvider.Factory{
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ProfessionalViewModel(repository) as T
         }
     }
 

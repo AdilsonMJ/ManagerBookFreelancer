@@ -6,18 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.managerbookfreelancer.adapter.AdapterListProfessional
-import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
+import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.ProfessionalViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class RecyclerViewProfessionalFragment : Fragment() {
 
     private var _binding: FragmentRecyclerViewProfessionalBinding? =null
@@ -25,29 +26,13 @@ class RecyclerViewProfessionalFragment : Fragment() {
     private lateinit var adapter: AdapterListProfessional
 
 
-    private val viewModel: ProfessionalViewModel by activityViewModels(
-        factoryProducer = {
-            val dataBase = JobAppDataBase.getInstance(requireContext())
-            ProfessionalViewModel.Factory(repository = ClientRepositoryImpl(dataBase.ClientDAO()))
-        }
-    )
-
+    private lateinit var viewModel: ProfessionalViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = AdapterListProfessional(onclick = {
-            AlertDialog.Builder(requireContext())
-                .setCancelable(true)
-                .setTitle("Do you want delete this Client? ")
-                .setMessage("Client: ${it.name}")
-                .setPositiveButton("Yes"){_,_ ->
-                    CoroutineScope(Dispatchers.IO).launch {
-                        viewModel.delete(it)
-                    }
-                }
-                .setNegativeButton("No") {_,_ ->}
-                .create()
-                .show()
 
+        viewModel = ViewModelProvider(this)[ProfessionalViewModel::class.java]
+        adapter = AdapterListProfessional(onclick = {
+            setAlertDialog(it)
         })
     }
 
@@ -73,5 +58,23 @@ class RecyclerViewProfessionalFragment : Fragment() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+    private fun setAlertDialog(it: ClientEntity) {
+        AlertDialog.Builder(requireContext())
+            .setCancelable(true)
+            .setTitle("Do you want delete this Client? ")
+            .setMessage("Client: ${it.name}")
+            .setPositiveButton("Yes") { _, _ ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    viewModel.delete(it)
+                }
+            }
+            .setNegativeButton("No") { _, _ -> }
+            .create()
+            .show()
+    }
 
 }

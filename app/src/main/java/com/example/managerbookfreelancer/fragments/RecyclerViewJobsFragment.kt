@@ -6,25 +6,23 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.adapter.AdapterListJobs
-import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
-import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
-import com.example.managerbookfreelancer.core.repository.JobsRepositoryImpl
-import com.example.managerbookfreelancer.core.useCase.GetJobsUseCaseImpl
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewJobsBinding
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class RecyclerViewJobsFragment : Fragment() {
 
     private var _binding: FragmentRecyclerViewJobsBinding? = null
@@ -33,19 +31,12 @@ class RecyclerViewJobsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     var showOldItens: Boolean = false
 
-    private val viewModel: JobsViewModel by activityViewModels(
-        factoryProducer = {
-            val database = JobAppDataBase.getInstance(requireContext())
-            JobsViewModel.Factory(
-                repository = JobsRepositoryImpl(database.JobDAO()),
-                getJobsUseCase = GetJobsUseCaseImpl(JobsRepositoryImpl(database.JobDAO()), ClientRepositoryImpl(database.ClientDAO()))
-            )
-        }
-    )
+    private lateinit var viewModel: JobsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDialogDelete()
+        viewModel = ViewModelProvider(this)[JobsViewModel::class.java]
     }
 
     private fun setDialogDelete() {

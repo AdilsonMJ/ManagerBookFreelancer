@@ -2,27 +2,29 @@ package com.example.managerbookfreelancer.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.core.entity.JobEntity
 import com.example.managerbookfreelancer.core.repository.ClientRepository
 import com.example.managerbookfreelancer.core.repository.JobsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FormNewJobViewModel(
+@HiltViewModel
+class FormNewJobViewModel @Inject constructor(
     private val repository: JobsRepository,
     private val repositoryClient: ClientRepository
-) : ViewModel(){
+) : ViewModel() {
 
-     fun getAllClients() : MutableLiveData<List<ClientEntity>> {
+    fun getAllClients(): MutableLiveData<List<ClientEntity>> {
 
-         val resultLiveData = MutableLiveData<List<ClientEntity>>()
+        val resultLiveData = MutableLiveData<List<ClientEntity>>()
         viewModelScope.launch {
             resultLiveData.postValue(repositoryClient.fetchClient())
         }
 
-         return resultLiveData
+        return resultLiveData
     }
 
     suspend fun getJobById(idJob: Long): JobEntity = repository.getJobById(idJob)
@@ -35,11 +37,4 @@ class FormNewJobViewModel(
         }
 
     }
-
-    class Factory(private val repository: JobsRepository, private val repositoryClient: ClientRepository) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FormNewJobViewModel(repository, repositoryClient) as T
-        }
-    }
-
 }

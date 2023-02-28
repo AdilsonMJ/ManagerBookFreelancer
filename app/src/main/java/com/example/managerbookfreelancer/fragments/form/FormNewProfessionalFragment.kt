@@ -6,34 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.managerbookfreelancer.R
-import com.example.managerbookfreelancer.core.dataBase.JobAppDataBase
 import com.example.managerbookfreelancer.core.entity.ClientEntity
-import com.example.managerbookfreelancer.core.repository.ClientRepositoryImpl
 import com.example.managerbookfreelancer.databinding.FragmentFormNewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.FormNewProfessionalViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class FormNewProfessionalFragment : Fragment() {
 
     private var _binding: FragmentFormNewProfessionalBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FormNewProfessionalViewModel by activityViewModels(
-        factoryProducer = {
-            val database = JobAppDataBase.getInstance(requireContext())
+    private lateinit var viewModel: FormNewProfessionalViewModel
 
-            FormNewProfessionalViewModel.Factory(
-                repository = ClientRepositoryImpl(database.ClientDAO())
-            )
 
-        })
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(this)[FormNewProfessionalViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

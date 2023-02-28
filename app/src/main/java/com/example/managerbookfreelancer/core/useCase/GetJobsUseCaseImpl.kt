@@ -6,9 +6,10 @@ import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.core.repository.ClientRepository
 import com.example.managerbookfreelancer.core.repository.JobsRepository
 import com.example.managerbookfreelancer.utils.Utils
+import javax.inject.Inject
 
 
-class GetJobsUseCaseImpl(
+class GetJobsUseCaseImpl @Inject constructor(
     private val jobsRepository: JobsRepository, private val clientRepository: ClientRepository
 ) : GetJobsUseCase {
 

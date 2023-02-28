@@ -3,7 +3,9 @@ package com.example.managerbookfreelancer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.managerbookfreelancer.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy{
