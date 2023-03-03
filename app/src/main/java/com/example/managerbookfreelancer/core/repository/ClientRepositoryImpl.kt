@@ -28,6 +28,27 @@ class ClientRepositoryImpl @Inject constructor(
         dao.insert(clientEntity = clientEntity)
     }
 
+    override suspend fun getClientByID(clientID: Long): ClientModelItem {
+        val item = dao.getClientByID(clientID)
+
+        if (item != null ){
+            return ClientModelItem(
+                idClient = item.idClient,
+                name = item.name,
+                contact = item.contact,
+                email = item.email
+            )
+        }else{
+            return ClientModelItem(
+                idClient = 0,
+                "Not Exist",
+                "",
+                ""
+            )
+        }
+
+    }
+
     override suspend fun delete(id: Long) {
         dao.delete(id)
     }

@@ -10,8 +10,12 @@ interface ClientDAO {
 
     @Query("Select * FROM client ORDER BY name ASC")
     fun getAll(): Flow<List<ClientEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(clientEntity: ClientEntity)
+
+    @Query("SELECT * FROM client WHERE id_Client = :id")
+    suspend fun getClientByID(id: Long) : ClientEntity
 
     @Query("DELETE FROM client WHERE id_Client = :id")
     suspend fun delete(id: Long)

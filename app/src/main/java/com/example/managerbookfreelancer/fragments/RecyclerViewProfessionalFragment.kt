@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.managerbookfreelancer.adapter.AdapterListProfessional
+import com.example.managerbookfreelancer.adapter.OnButtonClickListener
 import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.ProfessionalViewModel
@@ -31,9 +33,8 @@ class RecyclerViewProfessionalFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(this)[ProfessionalViewModel::class.java]
-        adapter = AdapterListProfessional(onclick = {
-            setAlertDialog(it)
-        })
+        setAlertDialog()
+
     }
 
     override fun onCreateView(
@@ -62,22 +63,39 @@ class RecyclerViewProfessionalFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-    private fun setAlertDialog(it: ClientModelItem) {
-        AlertDialog.Builder(requireContext())
-            .setCancelable(true)
-            .setTitle("Do you want delete this Client? ")
-            .setMessage("Client: ${it.name}")
-            .setPositiveButton("Yes") { _, _ ->
+    private fun setAlertDialog() {
 
-                if (it.idClient != null){
-                    CoroutineScope(Dispatchers.IO).launch {
-                        viewModel.delete(it.idClient)
+        adapter = AdapterListProfessional(object : OnButtonClickListener{
+            override fun onButtonClick(item: Any) {
+
+                val client = item as ClientModelItem
+
+                AlertDialog.Builder(requireContext())
+                    .setCancelable(true)
+                    .setTitle("Do you want delete this Client? ")
+                    .setMessage("Client: ${client.name}")
+                    .setPositiveButton("Edit") { _, _ ->
+                        val action = RecyclerViewProfessionalFragmentDirections.actionRecyclerViewProfessionalFragmentToNewProfessional(
+                            clientID = client.idClient!!
+                        )
+                        findNavController().navigate(action)
                     }
-                }
+                    .setNegativeButton("Delete") { _, _ ->
+                        if (client.idClient != 0L){
+                            CoroutineScope(Dispatchers.IO).launch {
+                                viewModel.delete(client.idClient!!)
+                            }
+                        }
+                    }
+                    .setNeutralButton("Cancel"){_,_ ->}
+                    .create()
+                    .show()
+
             }
-            .setNegativeButton("No") { _, _ -> }
-            .create()
-            .show()
+
+        })
+
+
     }
 
 }

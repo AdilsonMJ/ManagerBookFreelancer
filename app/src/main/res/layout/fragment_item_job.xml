@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/cardViewHomeBTNNewJob"
     style="@style/Base.CardView"
-    app:cardUseCompatPadding="true"
-
     android:layout_width="match_parent"
+
     android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -18,14 +17,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imgViewItemJobIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/job_icon" />
@@ -49,6 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvItemJobClient"
             tools:text="25/12/2032" />
 
+
         <ImageView
             android:id="@+id/imgViewItemJobIconHours"
             android:layout_width="wrap_content"
@@ -58,7 +59,6 @@
             app:layout_constraintStart_toStartOf="@+id/tvItemJobDateEvent"
             app:layout_constraintTop_toBottomOf="@+id/tvItemJobDateEvent"
             app:srcCompat="@drawable/hours" />
-
 
         <TextView
             android:id="@+id/tvItemJobTimeEvent"
@@ -74,12 +74,54 @@
             android:id="@+id/tvItemJobLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:maxLength="10"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemJobTimeEvent"
+            tools:text="Betimmmmmmmmmmmm" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="21dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/imgViewItemJobIconHours"
+            app:layout_constraintTop_toBottomOf="@+id/imgViewItemJobIconHours"
+            app:srcCompat="@drawable/baseline_add_location_alt_24" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            app:srcCompat="@drawable/baseline_family_restroom_24" />
+
+        <TextView
+            android:id="@+id/tvItemJobCustomerEndUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemJobLocation"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="Fernanda e Joao" />
+
+        <ImageView
+            android:id="@+id/IMGJobButtonAction"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Betimmmmmmmmmmmm" />
+            app:srcCompat="@drawable/baseline_more_vert_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

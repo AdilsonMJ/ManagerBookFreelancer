@@ -9,7 +9,7 @@ import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.databinding.FragmentItemJobBinding
 
 class AdapterListJobs(
-    private val onClick: (JobModelItem) -> Unit,
+    private val listener: OnButtonClickListener
 ): RecyclerView.Adapter<AdapterListJobs.viewHolder>() {
 
     private val asyncListDiff : AsyncListDiffer<JobModelItem> = AsyncListDiffer(this, DiffCalback)
@@ -18,15 +18,16 @@ class AdapterListJobs(
         private val binding: FragmentItemJobBinding,
     ): RecyclerView.ViewHolder(binding.root)  {
 
-        fun bind(jobModel: JobModelItem, onClick: (JobModelItem) -> Unit) {
+        fun bind(jobModel: JobModelItem, listener: OnButtonClickListener) {
 
             binding.tvItemJobDateEvent.text = jobModel.date
             binding.tvItemJobTimeEvent.text = jobModel.time
             binding.tvItemJobClient.text = jobModel.clientName
             binding.tvItemJobLocation.text = jobModel.city
+            binding.tvItemJobCustomerEndUser.text = jobModel.customerEndUser
 
-            binding.root.setOnClickListener(){
-                onClick(jobModel)
+            binding.IMGJobButtonAction.setOnClickListener(){
+                listener.onButtonClick(jobModel)
             }
         }
     }
@@ -40,7 +41,7 @@ class AdapterListJobs(
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        holder.bind(asyncListDiff.currentList[position], onClick)
+        holder.bind(asyncListDiff.currentList[position], listener)
     }
 
     override fun getItemCount(): Int = asyncListDiff.currentList.size

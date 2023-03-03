@@ -1,58 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:padding="20dp"
-    style="@style/Base.CardView"
-    android:background="@color/teal_200">
+ <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     style="@style/Base.CardView"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_margin="10dp"
+     android:background="@color/teal_200"
+     android:padding="20dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tvItemProfessionalName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:height="48dp"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nilton Reis" />
+         <TextView
+             android:id="@+id/tvItemProfessionalName"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="16dp"
+             android:layout_marginTop="8dp"
+             android:height="48dp"
+             android:gravity="center"
+             android:textSize="24sp"
+             app:layout_constraintStart_toEndOf="@+id/imageView6"
+             app:layout_constraintTop_toTopOf="parent"
+             tools:text="Nilton Reis" />
 
-        <TextView
-            android:id="@+id/tvItemProfessionalCellphone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            tools:text="9999995999"
-            android:autoLink="phone"
-            android:textSize="24sp"
-            android:height="48dp"
-            android:linksClickable="true"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tvItemProfessionalName"
-            app:layout_constraintStart_toEndOf="@+id/tvItemProfessionalName" />
+         <TextView
+             android:id="@+id/tvItemProfessionalCellphone"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:height="48dp"
+             android:autoLink="phone"
+             android:clickable="true"
+             android:focusable="true"
+             android:gravity="center"
+             android:linksClickable="true"
+             android:textSize="24sp"
+             app:layout_constraintStart_toStartOf="@+id/tvItemProfessionalName"
+             app:layout_constraintTop_toBottomOf="@+id/tvItemProfessionalName"
+             tools:text="9999995999" />
 
-        <TextView
-            android:id="@+id/tvItemProfessionalEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:height="48dp"
-            android:maxHeight="20dp"
-            tools:text="niltonReais@gmail.com"
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="@+id/tvItemProfessionalName"
-            app:layout_constraintTop_toBottomOf="@+id/tvItemProfessionalName" />
+         <TextView
+             android:id="@+id/tvItemProfessionalEmail"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:height="48dp"
+             android:maxHeight="20dp"
+             android:textSize="17sp"
+             android:gravity="center"
+             app:layout_constraintStart_toStartOf="@+id/tvItemProfessionalName"
+             app:layout_constraintTop_toBottomOf="@+id/tvItemProfessionalCellphone"
+             tools:text="niltonReais@gmail.com" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+         <ImageView
+             android:id="@+id/imageView3"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:layout_constraintBottom_toBottomOf="@+id/tvItemProfessionalEmail"
+             app:layout_constraintStart_toStartOf="@+id/imageView8"
+             app:layout_constraintTop_toTopOf="@+id/tvItemProfessionalEmail"
+             app:layout_constraintVertical_bias="0.583"
+             app:srcCompat="@drawable/baseline_email_24" />
+
+         <ImageView
+             android:id="@+id/imageView6"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:layout_constraintBottom_toBottomOf="@+id/tvItemProfessionalName"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="@+id/tvItemProfessionalName"
+             app:srcCompat="@drawable/baseline_person_24" />
+
+         <ImageView
+             android:id="@+id/imageView8"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:layout_constraintBottom_toBottomOf="@+id/tvItemProfessionalCellphone"
+             app:layout_constraintStart_toStartOf="@+id/imageView6"
+             app:layout_constraintTop_toTopOf="@+id/tvItemProfessionalCellphone"
+             app:srcCompat="@drawable/baseline_phone_iphone_24" />
+
+         <ImageView
+             android:id="@+id/IMGClientBTNAction"
+             android:layout_width="40dp"
+             android:layout_height="50dp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             app:srcCompat="@drawable/baseline_more_vert_24" />
+
+     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.cardview.widget.CardView>
+ </androidx.cardview.widget.CardView>

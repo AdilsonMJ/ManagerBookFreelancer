@@ -10,6 +10,8 @@ interface ClientRepository {
 
     suspend fun insert(clientEntity: ClientEntity)
 
+    suspend fun getClientByID(clientID: Long) : ClientModelItem
+
     suspend fun delete(id: Long)
 
 }

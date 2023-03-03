@@ -10,7 +10,7 @@ import com.example.managerbookfreelancer.databinding.FragmentItemProfessionalBin
 
 
 class AdapterListProfessional(
-    private val onclick: (ClientModelItem) -> Unit
+    private val onButtonClickListener: OnButtonClickListener
 ) : RecyclerView.Adapter<AdapterListProfessional.viewHolder>()  {
 
     private val asyncListDiff : AsyncListDiffer<ClientModelItem> = AsyncListDiffer(this, DiffCalback)
@@ -19,12 +19,12 @@ class AdapterListProfessional(
         private val binding: FragmentItemProfessionalBinding
         ) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(clientModelItem: ClientModelItem, onclick: (ClientModelItem) -> Unit){
+        fun bind(clientModelItem: ClientModelItem, listener: OnButtonClickListener){
             binding.tvItemProfessionalName.text = clientModelItem.name
             binding.tvItemProfessionalCellphone.text = clientModelItem.contact
             binding.tvItemProfessionalEmail.text = clientModelItem.email
-            binding.root.setOnClickListener {
-                onclick(clientModelItem)
+            binding.IMGClientBTNAction.setOnClickListener {
+                listener.onButtonClick(clientModelItem)
             }
         }
 
@@ -39,7 +39,7 @@ class AdapterListProfessional(
     override fun getItemCount(): Int = asyncListDiff.currentList.size
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        holder.bind(asyncListDiff.currentList[position], onclick)
+        holder.bind(asyncListDiff.currentList[position], onButtonClickListener)
     }
 
     fun upDateProfessional(clientModelItem: List<ClientModelItem>){

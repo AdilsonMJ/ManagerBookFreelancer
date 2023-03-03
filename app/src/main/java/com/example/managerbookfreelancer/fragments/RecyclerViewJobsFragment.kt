@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.adapter.AdapterListJobs
+import com.example.managerbookfreelancer.adapter.OnButtonClickListener
+import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewJobsBinding
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,31 +38,6 @@ class RecyclerViewJobsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setDialogDelete()
         viewModel = ViewModelProvider(this)[JobsViewModel::class.java]
-    }
-
-    private fun setDialogDelete() {
-        adapter = AdapterListJobs(onClick = {
-            val dialog = AlertDialog.Builder(requireContext())
-                .setCancelable(true)
-                .setTitle("Do you want to delete or edite this job")
-                .setMessage("Client: ${it.clientName} - Date: ${it.date}")
-                .setPositiveButton("Delete") { _, _ ->
-                    CoroutineScope(Dispatchers.IO).launch {
-                        viewModel.delete(id = it.idJob)
-                    }
-                }.setNeutralButton("Cancel") { _, _ ->
-                }
-                .setNegativeButton("Edite") { _, _ ->
-                    val action =
-                        RecyclerViewJobsFragmentDirections.actionRecyclerViewJobsFragmentToFormNewJobFragment(
-                            it.idJob
-                        )
-                    findNavController().navigate(action)
-                }.create()
-
-            dialog.show()
-
-        })
     }
 
     override fun onCreateView(
@@ -121,6 +98,42 @@ class RecyclerViewJobsFragment : Fragment() {
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+
+    private fun setDialogDelete() {
+        adapter = AdapterListJobs(object : OnButtonClickListener {
+            override fun onButtonClick(item: Any) {
+
+                val job = item as JobModelItem
+
+                val dialog = AlertDialog.Builder(requireContext())
+                    .setCancelable(true)
+                    .setTitle("Do you want to delete or edite this job")
+                    .setMessage("Client: ${job.clientName} - Date: ${job.date}")
+                    .setPositiveButton("Edit") { _, _ ->
+                        CoroutineScope(Dispatchers.IO).launch {
+                            viewModel.delete(id = job.idJob)
+                        }
+                    }.setNeutralButton("Cancel") { _, _ ->
+                        val action =
+                            RecyclerViewJobsFragmentDirections.actionRecyclerViewJobsFragmentToFormNewJobFragment(
+                                job.idJob
+                            )
+                        findNavController().navigate(action)
+                    }
+                    .setNegativeButton("Delete") { _, _ ->
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            viewModel.delete(id = job.idJob)
+                        }
+
+                    }.create()
+
+                dialog.show()
+            }
+
+        })
     }
 
     override fun onDestroy() {

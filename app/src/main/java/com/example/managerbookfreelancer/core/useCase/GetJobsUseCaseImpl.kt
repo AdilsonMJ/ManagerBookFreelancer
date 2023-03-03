@@ -7,7 +7,6 @@ import com.example.managerbookfreelancer.core.repository.ClientRepository
 import com.example.managerbookfreelancer.core.repository.JobsRepository
 import com.example.managerbookfreelancer.utils.Utils
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -24,14 +23,15 @@ class GetJobsUseCaseImpl @Inject constructor(
             .map { jobList ->
                 jobList.map { job ->
 
-                    val client: ClientModelItem = findClient(job.idClient)
+                    val client: ClientModelItem = clientRepository.getClientByID(job.idClient)
 
                     JobModelItem(
                         idJob = job.idJob,
                         clientName = client.name,
                         date = Utils.formatDate(job.dateOfEvent),
                         time = job.timeOfEvent,
-                        city = job.locationOfEvent
+                        city = job.locationOfEvent,
+                        customerEndUser = job.customerEndUser
                     )
 
                 }
@@ -45,14 +45,15 @@ class GetJobsUseCaseImpl @Inject constructor(
 
         return if (job != null) {
 
-            val client: ClientModelItem = findClient(job.idClient)
+            val client: ClientModelItem = clientRepository.getClientByID(job.idClient)
 
             JobModelItem(
                 idJob = job.idJob,
                 clientName = client.name,
                 date = Utils.formatDate(job.dateOfEvent),
                 time = job.timeOfEvent,
-                city = job.locationOfEvent
+                city = job.locationOfEvent,
+                customerEndUser = job.customerEndUser
 
             )
         } else {
@@ -62,29 +63,5 @@ class GetJobsUseCaseImpl @Inject constructor(
                 date = "null"
             )
         }
-    }
-
-    private suspend fun findClient(idClient: Long): ClientModelItem {
-        val clients = clientRepository.fetchClient().firstOrNull() ?: return ClientModelItem(
-            idClient = -1,
-            name = "Não encontrado",
-            contact = "",
-            email = ""
-        )
-
-        return clients.firstOrNull { client -> client.idClient == idClient }
-            ?.let { client ->
-                ClientModelItem(
-                    idClient = client.idClient,
-                    name = client.name,
-                    contact = client.contact,
-                    email = client.email
-                )
-            } ?: ClientModelItem(
-            idClient = -1,
-            name = "Client not found ",
-            contact = "",
-            email = ""
-        )
     }
 }

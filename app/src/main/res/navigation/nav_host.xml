@@ -36,7 +36,11 @@
         android:id="@+id/recyclerViewProfessionalFragment"
         android:name="com.example.managerbookfreelancer.fragments.RecyclerViewProfessionalFragment"
         android:label="fragment_recycler_view_professional"
-        tools:layout="@layout/fragment_recycler_view_professional" />
+        tools:layout="@layout/fragment_recycler_view_professional" >
+        <action
+            android:id="@+id/action_recyclerViewProfessionalFragment_to_newProfessional"
+            app:destination="@id/newProfessional" />
+    </fragment>
     <fragment
         android:id="@+id/newProfessional"
         android:name="com.example.managerbookfreelancer.fragments.form.FormNewProfessionalFragment"
@@ -46,6 +50,10 @@
             android:id="@+id/action_newProfessional_to_recyclerViewProfessionalFragment"
             app:destination="@id/recyclerViewProfessionalFragment"
             app:popUpTo="@id/homeFragment" />
+        <argument
+            android:name="clientID"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
     <fragment
         android:id="@+id/formNewJobFragment"

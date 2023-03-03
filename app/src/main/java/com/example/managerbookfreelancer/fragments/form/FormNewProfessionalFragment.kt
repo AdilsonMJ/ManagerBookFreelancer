@@ -7,18 +7,23 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.databinding.FragmentFormNewProfessionalBinding
 import com.example.managerbookfreelancer.viewModel.FormNewProfessionalViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FormNewProfessionalFragment : Fragment() {
 
     private var _binding: FragmentFormNewProfessionalBinding? = null
     private val binding get() = _binding!!
+
+    private val args: FormNewProfessionalFragmentArgs by navArgs()
 
     private lateinit var viewModel: FormNewProfessionalViewModel
 
@@ -43,6 +48,8 @@ class FormNewProfessionalFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        setDateOnFields()
+
         binding.btnSave.setOnClickListener {
             val name = binding.editTextName.requireText()
             val cellphone = binding.editTextCellphone.requireText()
@@ -50,6 +57,7 @@ class FormNewProfessionalFragment : Fragment() {
 
 
             val professional = ClientEntity(
+                idClient = args.clientID,
                 name = name,
                 contact = cellphone,
                 email = email
@@ -61,6 +69,21 @@ class FormNewProfessionalFragment : Fragment() {
 
         }
 
+    }
+
+    private fun setDateOnFields() {
+        if (args.clientID != 0L){
+            viewLifecycleOwner.lifecycleScope.launch{
+                val client = viewModel.getClientById(args.clientID)
+
+
+                binding.editTextName.setText(client.name)
+                binding.editTextCellphone.setText(client.contact)
+                binding.editTextEmail.setText(client.email)
+
+
+            }
+        }
     }
 
     fun EditText.requireText(): String {
