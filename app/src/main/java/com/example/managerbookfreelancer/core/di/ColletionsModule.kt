@@ -15,7 +15,6 @@ import javax.inject.Singleton
 @Module
 object ColletionsModule {
 
-
     @Singleton
     @Provides
     fun providesGetUseCase(

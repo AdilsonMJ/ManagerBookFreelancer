@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[JobsViewModel::class.java]
+       viewModel = ViewModelProvider(this)[JobsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -54,10 +54,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
         viewLifecycleOwner.lifecycleScope.launch {
             val nextEvent = viewModel.getNextEvent()
             upDateUi(nextEvent)
-
         }
 
         setUpNavigation()

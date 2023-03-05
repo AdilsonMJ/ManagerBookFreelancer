@@ -27,7 +27,8 @@
     <!-- Strings from menus -->
     <string name="menu_option_item_edite_job">Edite</string>
     <string name="menu_option_item_delete_job">Delete</string>
-
+    <string name="BTNRecyclerViewNewJob">New Job</string>
+    <string name="new_professional">New Professional</string>
 
 
 </resources>

@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.adapter.AdapterListProfessional
 import com.example.managerbookfreelancer.adapter.OnButtonClickListener
 import com.example.managerbookfreelancer.core.model.ClientModelItem
@@ -52,11 +54,25 @@ class RecyclerViewProfessionalFragment : Fragment() {
 
         binding.RCFragmentListProfessional.layoutManager = LinearLayoutManager(requireContext())
         binding.RCFragmentListProfessional.adapter = adapter
-        
-        viewModel.getAllClients().observe(viewLifecycleOwner){state ->
-            adapter.upDateProfessional(state)
-        }
 
+        observeProfessional()
+
+    }
+
+    private fun observeProfessional() {
+        viewModel.getAllClients().observe(viewLifecycleOwner) { state ->
+
+            if (state.isNullOrEmpty()){
+                binding.constraintLayoutRCProfessionalEmptList.visibility = View.VISIBLE
+                binding.BTNRecyclerViewNewProfessional.setOnClickListener (
+                    Navigation.createNavigateOnClickListener(R.id.action_recyclerViewProfessionalFragment_to_newProfessional)
+                    )
+            } else{
+                binding.constraintLayoutRCProfessionalEmptList.visibility = View.GONE
+                adapter.upDateProfessional(state)
+            }
+
+        }
     }
 
     override fun onDestroy() {

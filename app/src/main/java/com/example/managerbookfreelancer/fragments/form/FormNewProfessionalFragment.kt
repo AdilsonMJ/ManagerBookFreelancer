@@ -50,7 +50,7 @@ class FormNewProfessionalFragment : Fragment() {
 
         setDateOnFields()
 
-        binding.btnSave.setOnClickListener {
+        binding.BTNRecyclerViewNewProfessional.setOnClickListener {
             val name = binding.editTextName.requireText()
             val cellphone = binding.editTextCellphone.requireText()
             val email = binding.editTextEmail.requireText()

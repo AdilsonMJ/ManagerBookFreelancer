@@ -28,7 +28,8 @@
     <string name="menu_option_item_edite_job">Edite</string>
     <string name="menu_option_item_delete_job">Delete</string>
     <string name="hint_form_new_Job_Button_Save_DESCRIPTION">Save all dates and go to list of jobs</string>
-
+    <string name="BTNRecyclerViewNewJob">New Job</string>
+    <string name="new_professional">New Professional</string>
 
 
 </resources>

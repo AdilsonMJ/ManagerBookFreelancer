@@ -8,6 +8,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +37,7 @@ class RecyclerViewJobsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setDialogDelete()
+        setDialogActions()
         viewModel = ViewModelProvider(this)[JobsViewModel::class.java]
     }
 
@@ -74,7 +75,17 @@ class RecyclerViewJobsFragment : Fragment() {
 
     private fun observeJobs() {
         viewModel.getAllJobs(showOldItens).observe(viewLifecycleOwner){
-            adapter.upDateJobs(it)
+
+           if(it.isNotEmpty()){
+               binding.constraintLayoutRCJobProfessional.visibility = View.GONE
+               adapter.upDateJobs(it)
+
+           } else{
+               binding.constraintLayoutRCJobProfessional.visibility = View.VISIBLE
+               binding.BTNRecyclerViewNewJob.setOnClickListener(
+                   Navigation.createNavigateOnClickListener(R.id.action_recyclerViewJobsFragment_to_formNewJobFragment)
+               )
+           }
         }
     }
 
@@ -101,7 +112,7 @@ class RecyclerViewJobsFragment : Fragment() {
     }
 
 
-    private fun setDialogDelete() {
+    private fun setDialogActions() {
         adapter = AdapterListJobs(object : OnButtonClickListener {
             override fun onButtonClick(item: Any) {
 
@@ -112,15 +123,12 @@ class RecyclerViewJobsFragment : Fragment() {
                     .setTitle("Do you want to delete or edite this job")
                     .setMessage("Client: ${job.clientName} - Date: ${job.date}")
                     .setPositiveButton("Edit") { _, _ ->
-                        CoroutineScope(Dispatchers.IO).launch {
-                            viewModel.delete(id = job.idJob)
-                        }
-                    }.setNeutralButton("Cancel") { _, _ ->
                         val action =
                             RecyclerViewJobsFragmentDirections.actionRecyclerViewJobsFragmentToFormNewJobFragment(
                                 job.idJob
                             )
                         findNavController().navigate(action)
+                    }.setNeutralButton("Cancel") { _, _ ->
                     }
                     .setNegativeButton("Delete") { _, _ ->
 
