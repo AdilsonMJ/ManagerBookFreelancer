@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "305491768555",
+    "project_id": "freelancer-books",
+    "storage_bucket": "freelancer-books.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305491768555:android:6cb8d716fb20d99d86faae",
+        "android_client_info": {
+          "package_name": "com.example.managerbookfreelancer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305491768555-bc24j1obnk68g8o0ivcn2jbjvf8ho6qe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.managerbookfreelancer",
+            "certificate_hash": "fce3182f66b6d81c39b66c25c1ca8fb01c2bdf96"
+          }
+        },
+        {
+          "client_id": "305491768555-2ceoqb4ec1smjsuak8ni2pvdluqge214.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrjM8hFWs7Isah7b-9_70quh4Y2C91m-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305491768555-2ceoqb4ec1smjsuak8ni2pvdluqge214.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Freelance Planner</string>
-    <string name="TvRCTitleName">Future Jobs</string>
+    <string name="TvRCTitleName">Next Jobs</string>
 
     <!-- titles to Card View from fragment_home -->
     <string name="TV_Home_Title_Card_New_Job">New Job</string>
@@ -29,6 +29,7 @@
     <string name="menu_option_item_delete_job">Delete</string>
     <string name="BTNRecyclerViewNewJob">New Job</string>
     <string name="new_professional">New Professional</string>
+    <string name="title_activity_login_and_register">LoginAndRegisterActivity</string>
 
 
 </resources>

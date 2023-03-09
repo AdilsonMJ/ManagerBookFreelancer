@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Freelance Planner</string>
-    <string name="TvRCTitleName">Future Jobs</string>
+    <string name="TvRCTitleName">Next Jobs</string>
 
     <!-- titles to Card View from fragment_home -->
     <string name="TV_Home_Title_Card_New_Job">New Job</string>

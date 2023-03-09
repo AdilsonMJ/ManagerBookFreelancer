@@ -1,4 +1,4 @@
-import com.example.managerbookfreelancer.utils.Utils
+import com.example.managerbookfreelancer.main.utils.Utils
 import org.junit.Assert.*
 import org.junit.Test
 

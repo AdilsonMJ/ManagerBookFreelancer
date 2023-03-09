@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ice_white_backgroud_buttons_home"
-    tools:context=".fragments.RecyclerViewProfessionalFragment">
+    tools:context=".main.fragments.RecyclerViewProfessionalFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RCFragmentListProfessional"
@@ -71,4 +71,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
