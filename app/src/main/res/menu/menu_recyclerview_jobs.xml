@@ -2,13 +2,20 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/showOlditens"
-        android:title="Show Old Jobs"
-        android:contentDescription="old Itens"
-        app:showAsAction="never"
-        android:checkable="true"
-        android:checked="false"
+    <group
+        android:id="@+id/group_sort_list_menu"
+        android:checkableBehavior="single">
 
-        />
+        <item
+            android:id="@+id/showOldJobs"
+            android:title="@string/menu_show_old_jobs"
+            android:contentDescription="@string/menu_cond_old_itens_only"
+            app:showAsAction="never"
+            android:checkable="true"
+            android:checked="false"
+            />
+
+
+    </group>
+
 </menu>

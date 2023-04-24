@@ -24,7 +24,6 @@ class JobsViewModel @Inject constructor(
 
     suspend fun getNextEvent(): JobModelItem = getJobsUseCase.invokeNexEvent()
 
-
     fun delete(id: Long) {
         viewModelScope.launch {
             repository.delete(id)

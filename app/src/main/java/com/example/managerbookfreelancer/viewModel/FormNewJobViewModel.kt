@@ -24,7 +24,6 @@ class FormNewJobViewModel @Inject constructor(
 
 
     fun insert(jobEntity: JobEntity) {
-
         viewModelScope.launch {
             repository.insert(jobEntity)
         }

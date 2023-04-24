@@ -1,4 +1,4 @@
-package com.example.managerbookfreelancer
+package com.example.managerbookfreelancer.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
 

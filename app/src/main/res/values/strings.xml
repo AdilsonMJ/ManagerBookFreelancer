@@ -29,6 +29,8 @@
     <string name="menu_option_item_delete_job">Delete</string>
     <string name="BTNRecyclerViewNewJob">New Job</string>
     <string name="new_professional">New Professional</string>
+    <string name="menu_show_old_jobs">Show Old Jobs</string>
+    <string name="menu_cond_old_itens_only">Old Itens Only</string>
 
 
 </resources>

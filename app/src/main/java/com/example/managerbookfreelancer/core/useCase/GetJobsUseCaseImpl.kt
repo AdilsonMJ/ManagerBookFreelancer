@@ -5,6 +5,7 @@ import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.core.repository.ClientRepository
 import com.example.managerbookfreelancer.core.repository.JobsRepository
+import com.example.managerbookfreelancer.utils.Constants.Companion.IDTOEMPTYOBJECT
 import com.example.managerbookfreelancer.utils.Utils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -58,7 +59,7 @@ class GetJobsUseCaseImpl @Inject constructor(
             )
         } else {
             JobModelItem(
-                idJob = -1L,
+                idJob = IDTOEMPTYOBJECT.toLong(),
                 clientName = null,
                 date = "null"
             )

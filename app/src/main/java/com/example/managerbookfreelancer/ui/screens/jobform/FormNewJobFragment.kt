@@ -1,16 +1,17 @@
-package com.example.managerbookfreelancer.fragments.form
+package com.example.managerbookfreelancer.ui.screens.jobform
 
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,6 +19,10 @@ import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.entity.JobEntity
 import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
+import com.example.managerbookfreelancer.ui.screens.jobform.FormNewJobFragmentArgs
+import com.example.managerbookfreelancer.utils.Constants.Companion.IDTOEMPTYOBJECT
+import com.example.managerbookfreelancer.utils.Constants.Companion.STANDARDTIME
+import com.example.managerbookfreelancer.utils.Extensions.Companion.setActionBarTitle
 import com.example.managerbookfreelancer.utils.Utils
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
 import com.google.android.material.datepicker.CalendarConstraints
@@ -33,18 +38,14 @@ class FormNewJobFragment : Fragment() {
 
     private var _binding: FragmentFormNewJobBinding? = null
     private val binding get() = _binding!!
-    private var weddingTimePickup: String = "00:00 AM"
+
+    private var weddingTimePickup: String = STANDARDTIME
     private var weddingDatePickup: Long? = null
     private var professionalEntity: ClientModelItem? = null
+
+
     private val args: FormNewJobFragmentArgs by navArgs()
-
-    private lateinit var viewModel: FormNewJobViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[FormNewJobViewModel::class.java]
-    }
-
+    private val viewModel by viewModels<FormNewJobViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,37 +53,52 @@ class FormNewJobFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFormNewJobBinding.inflate(inflater, container, false)
+
+        // Show action bar
+        val activity = activity as AppCompatActivity?
+        if (activity != null) {
+            activity.supportActionBar?.show()
+            setActionBarTitle("Register New Job")
+        }
         return binding.root
     }
 
+
     override fun onResume() {
         super.onResume()
-        setSpinner(idClient = null)
+        spinner(idClient = null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.datePickerButton.setOnClickListener { getDate() }
 
-        getDate()
         getTime()
         setDateOnFields()
+        setupMenuButtonBack()
+        listenerButtonSave()
+    }
 
+    private fun listenerButtonSave() {
         binding.BTNSave.setOnClickListener {
 
             val customers = binding.editTextCoupleName.requireText()
             val location = binding.editTextLocation.requireText()
 
-
-            if (professionalEntity?.contact == "-1") {
+            if (professionalEntity?.contact == IDTOEMPTYOBJECT.toString()) {
                 binding.spinnerProfessional.requestFocus()
-                Toast.makeText(
-                    requireContext(),
-                    "Select or creat a professional",
-                    Toast.LENGTH_LONG
-                ).show()
+                toastEmptyFillds("Select or create new professional")
                 return@setOnClickListener
             }
+
+            if (weddingDatePickup == null) {
+                binding.datePickerButton.requestFocus()
+                toastEmptyFillds("Select an data")
+                getDate()
+                return@setOnClickListener
+            }
+
 
             val jobModel = JobEntity(
                 idJob = args.jobId,
@@ -92,13 +108,38 @@ class FormNewJobFragment : Fragment() {
                 locationOfEvent = location,
                 idClient = professionalEntity?.idClient!!
             )
-
             viewModel.insert(jobEntity = jobModel)
             findNavController().navigate(R.id.action_formNewJobFragment_to_recyclerViewFragment)
         }
     }
 
-    fun EditText.requireText(): String {
+    private fun toastEmptyFillds(msg: String) {
+        Toast.makeText(
+            requireContext(),
+            msg,
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun setupMenuButtonBack() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        findNavController().navigateUp()
+                        return true
+                    }
+                }
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun EditText.requireText(): String {
         val text = this.text.toString().trim()
         if (text.isEmpty()) {
             this.error = "Please fill this field"
@@ -117,13 +158,12 @@ class FormNewJobFragment : Fragment() {
                 binding.timePickerButton.text = job.timeOfEvent
                 weddingTimePickup = job.timeOfEvent.toString()
                 binding.datePickerButton.text = Utils.formatDate(job.dateOfEvent)
-                setSpinner(idClient = job.idClient)
-
+                spinner(idClient = job.idClient)
             }
         }
     }
 
-    private fun setSpinner(idClient: Long?) {
+    private fun spinner(idClient: Long?) {
 
         val listSppiner = ArrayList<ClientModelItem>()
         listSppiner.clear()
@@ -140,7 +180,7 @@ class FormNewJobFragment : Fragment() {
             if (p.isEmpty()) {
                 listSppiner.add(
                     index = 0,
-                    ClientModelItem(name = "Create a new Usuario.", contact = "-1", email = "-1")
+                    ClientModelItem(name = "Create a new Usuario.", contact = "0", email = "0")
                 )
             }
 
@@ -197,38 +237,37 @@ class FormNewJobFragment : Fragment() {
             picker.addOnPositiveButtonClickListener {
 
                 this.weddingTimePickup =
-                    getFormattedTime(hours = picker.hour, minutes = picker.minute)
+                    Utils.getFormattedTime(hours = picker.hour, minutes = picker.minute)
                 binding.timePickerButton.text = weddingTimePickup
             }
         }
     }
 
-    private fun getFormattedTime(hours: Int, minutes: Int): String {
-        val hourString = if (hours < 10) "0$hours" else hours.toString()
-        val minuteString = if (minutes < 10) "0$minutes" else "$minutes"
-        val timeFormatted = "$hourString:$minuteString"
-        return if (hours < 12) "$timeFormatted AM" else "$timeFormatted PM"
-    }
-
     private fun getDate() {
 
-        binding.datePickerButton.setOnClickListener {
             val calendarConstraintBuild = CalendarConstraints.Builder()
-            calendarConstraintBuild.setValidator(DateValidatorPointForward.now())
+          //  calendarConstraintBuild.setValidator(DateValidatorPointForward.now())
 
 
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
                 .setCalendarConstraints(calendarConstraintBuild.build())
                 .build()
-
             datePicker.show(parentFragmentManager, "DatePicker")
 
             datePicker.addOnPositiveButtonClickListener {
                 this.weddingDatePickup = it
                 binding.datePickerButton.text = Utils.formatDate(it)
             }
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
 
+        val activity = activity as AppCompatActivity?
+        if (activity != null) {
+            activity.supportActionBar?.hide()
         }
     }
 }

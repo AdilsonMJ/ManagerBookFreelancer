@@ -1,4 +1,4 @@
-package com.example.managerbookfreelancer.fragments
+package com.example.managerbookfreelancer.ui.screens.viewHome
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.databinding.FragmentHomeBinding
+import com.example.managerbookfreelancer.utils.Constants.Companion.IDTOEMPTYOBJECT
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       viewModel = ViewModelProvider(this)[JobsViewModel::class.java]
+        viewModel = ViewModelProvider(this)[JobsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -53,8 +54,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         viewLifecycleOwner.lifecycleScope.launch {
             val nextEvent = viewModel.getNextEvent()
             upDateUi(nextEvent)
@@ -64,7 +63,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun upDateUi(nextEvent: JobModelItem) = if (nextEvent.idJob == -1L) {
+    private fun upDateUi(nextEvent: JobModelItem) = if (nextEvent.idJob == IDTOEMPTYOBJECT.toLong()) {
         binding.CardViewHomeNextJob.visibility = View.GONE
         binding.tvNextJobTitle.visibility = View.GONE
     } else {

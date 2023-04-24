@@ -18,7 +18,6 @@ class ProfessionalViewModel @Inject constructor(private val repository: ClientRe
         return repository.fetchClient().asLiveData()
     }
 
-
     fun delete(id: Long){
         viewModelScope.launch {
             repository.delete(id)
