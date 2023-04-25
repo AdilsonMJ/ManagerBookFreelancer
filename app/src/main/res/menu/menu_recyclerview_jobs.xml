@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <group
-        android:id="@+id/group_sort_list_menu"
-        android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/showOldJobs"
-            android:title="@string/menu_show_old_jobs"
-            android:contentDescription="@string/menu_cond_old_itens_only"
-            app:showAsAction="never"
-            android:checkable="true"
-            android:checked="false"
-            />
-
-
-    </group>
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/three_doots_menu"
+        android:title="Menu"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/showOldJobs"
+                android:title="@string/menu_show_old_jobs"
+                android:contentDescription="@string/menu_cond_old_itens_only"
+                android:icon="@drawable/baseline_remove_red_eye_24"
+                app:showAsAction="never"
+                android:checkable="true"
+                android:checked="false"
+                />
+        </menu>
+    </item>
 </menu>

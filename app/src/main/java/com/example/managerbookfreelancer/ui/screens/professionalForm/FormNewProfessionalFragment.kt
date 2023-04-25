@@ -16,7 +16,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.entity.ClientEntity
 import com.example.managerbookfreelancer.databinding.FragmentFormNewProfessionalBinding
-import com.example.managerbookfreelancer.utils.Extensions.Companion.setActionBarTitle
 import com.example.managerbookfreelancer.viewModel.FormNewProfessionalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -48,7 +47,6 @@ class FormNewProfessionalFragment : Fragment() {
         val activity = activity as AppCompatActivity?
         if (activity != null) {
             activity.supportActionBar?.show()
-            setActionBarTitle("New Costumer")
         }
 
         _binding = FragmentFormNewProfessionalBinding.inflate(inflater, container, false)

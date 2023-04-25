@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/recyclerViewJobsFragment"
         android:name="com.example.managerbookfreelancer.ui.screens.viewjobs.RecyclerViewJobsFragment"
-        android:label="RecyclerViewFragment"
+        android:label="Jobs"
         tools:layout="@layout/fragment_recycler_view_jobs">
         <action
             android:id="@+id/action_recyclerViewJobsFragment_to_formNewJobFragment"
@@ -35,8 +35,8 @@
     <fragment
         android:id="@+id/recyclerViewProfessionalFragment"
         android:name="com.example.managerbookfreelancer.ui.screens.viewProfessional.RecyclerViewProfessionalFragment"
-        android:label="fragment_recycler_view_professional"
-        tools:layout="@layout/fragment_recycler_view_professional" >
+        android:label="Clients"
+        tools:layout="@layout/fragment_recycler_view_professional">
         <action
             android:id="@+id/action_recyclerViewProfessionalFragment_to_newProfessional"
             app:destination="@id/newProfessional" />
@@ -44,25 +44,25 @@
     <fragment
         android:id="@+id/newProfessional"
         android:name="com.example.managerbookfreelancer.ui.screens.professionalForm.FormNewProfessionalFragment"
-        android:label="fragment_new_professional"
-        tools:layout="@layout/fragment_form_new_professional" >
+        android:label="New Client"
+        tools:layout="@layout/fragment_form_new_professional">
         <action
             android:id="@+id/action_newProfessional_to_recyclerViewProfessionalFragment"
             app:destination="@id/recyclerViewProfessionalFragment"
             app:popUpTo="@id/homeFragment" />
         <argument
             android:name="clientID"
-            app:argType="long"
-            android:defaultValue="0L" />
+            android:defaultValue="0L"
+            app:argType="long" />
         <action
             android:id="@+id/action_newProfessional_to_homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popEnterAnim="@animator/nav_default_exit_anim" />
+            app:popEnterAnim="@animator/nav_default_exit_anim"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/formNewJobFragment"
         android:name="com.example.managerbookfreelancer.ui.screens.jobform.FormNewJobFragment"
-        android:label="FormNewJobFragment"
+        android:label="New Job"
         tools:layout="@layout/fragment_form_new_job">
         <action
             android:id="@+id/action_formNewJobFragment_to_recyclerViewFragment"
@@ -70,7 +70,7 @@
             app:popUpTo="@id/homeFragment" />
         <argument
             android:name="jobId"
-            app:argType="long"
-            android:defaultValue="0L" />
+            android:defaultValue="0L"
+            app:argType="long" />
     </fragment>
 </navigation>

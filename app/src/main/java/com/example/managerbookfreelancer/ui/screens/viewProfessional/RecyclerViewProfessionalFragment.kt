@@ -15,7 +15,6 @@ import com.example.managerbookfreelancer.adapter.AdapterListProfessional
 import com.example.managerbookfreelancer.adapter.OnButtonClickListener
 import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewProfessionalBinding
-import com.example.managerbookfreelancer.utils.Extensions.Companion.setActionBarTitle
 import com.example.managerbookfreelancer.viewModel.ProfessionalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +40,6 @@ class RecyclerViewProfessionalFragment : Fragment() {
         val activity = activity as AppCompatActivity?
         if (activity != null) {
             activity.supportActionBar?.show()
-            setActionBarTitle("Costumers")
         }
 
         _binding = FragmentRecyclerViewProfessionalBinding.inflate(inflater, container, false)
@@ -54,24 +52,8 @@ class RecyclerViewProfessionalFragment : Fragment() {
 
         setupRecyclerView()
         observeProfessional()
-        setupToolBar()
-
     }
 
-    private fun setupToolBar() {
-        requireActivity().addMenuProvider(object : MenuProvider{
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                if (menuItem.itemId == android.R.id.home){
-                    findNavController().navigateUp()
-                    return true
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
 
     private fun setupRecyclerView() {
         adapter = AdapterListProfessional(object : OnButtonClickListener{

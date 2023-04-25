@@ -16,7 +16,7 @@
     <string name="form_New_Professional_Btn_Save">Save</string>
 
     <!-- Names to hint in form from fragment_form_new_Professional -->
-    <string name="hint_form_new_Job_name_Costumer">Names ( Ex: Fernanda and Jon )</string>
+    <string name="hint_form_new_Job_name_Costumer">Celebrants</string>
     <string name="hint_form_new_Job_Location">Location</string>
     <string name="hint_form_new_Job_Date">Date</string>
     <string name="hint_form_new_Job_Time">Time</string>

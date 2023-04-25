@@ -19,10 +19,8 @@ import com.example.managerbookfreelancer.R
 import com.example.managerbookfreelancer.core.entity.JobEntity
 import com.example.managerbookfreelancer.core.model.ClientModelItem
 import com.example.managerbookfreelancer.databinding.FragmentFormNewJobBinding
-import com.example.managerbookfreelancer.ui.screens.jobform.FormNewJobFragmentArgs
 import com.example.managerbookfreelancer.utils.Constants.Companion.IDTOEMPTYOBJECT
 import com.example.managerbookfreelancer.utils.Constants.Companion.STANDARDTIME
-import com.example.managerbookfreelancer.utils.Extensions.Companion.setActionBarTitle
 import com.example.managerbookfreelancer.utils.Utils
 import com.example.managerbookfreelancer.viewModel.FormNewJobViewModel
 import com.google.android.material.datepicker.CalendarConstraints
@@ -58,7 +56,6 @@ class FormNewJobFragment : Fragment() {
         val activity = activity as AppCompatActivity?
         if (activity != null) {
             activity.supportActionBar?.show()
-            setActionBarTitle("Register New Job")
         }
         return binding.root
     }
@@ -71,12 +68,9 @@ class FormNewJobFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.datePickerButton.setOnClickListener { getDate() }
-
         getTime()
         setDateOnFields()
-        setupMenuButtonBack()
         listenerButtonSave()
     }
 
@@ -121,24 +115,6 @@ class FormNewJobFragment : Fragment() {
         ).show()
     }
 
-    private fun setupMenuButtonBack() {
-        requireActivity().addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().navigateUp()
-                        return true
-                    }
-                }
-                return true
-            }
-
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
-
     private fun EditText.requireText(): String {
         val text = this.text.toString().trim()
         if (text.isEmpty()) {
@@ -180,7 +156,7 @@ class FormNewJobFragment : Fragment() {
             if (p.isEmpty()) {
                 listSppiner.add(
                     index = 0,
-                    ClientModelItem(name = "Create a new Usuario.", contact = "0", email = "0")
+                    ClientModelItem(name = "Create a new User.", contact = "0", email = "0")
                 )
             }
 
@@ -246,8 +222,7 @@ class FormNewJobFragment : Fragment() {
     private fun getDate() {
 
             val calendarConstraintBuild = CalendarConstraints.Builder()
-          //  calendarConstraintBuild.setValidator(DateValidatorPointForward.now())
-
+            calendarConstraintBuild.setValidator(DateValidatorPointForward.now())
 
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")

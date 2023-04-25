@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
         // hider a action bar
         val activity = activity as AppCompatActivity?
         if (activity != null) {
@@ -58,9 +57,7 @@ class HomeFragment : Fragment() {
             val nextEvent = viewModel.getNextEvent()
             upDateUi(nextEvent)
         }
-
         setUpNavigation()
-
     }
 
     private fun upDateUi(nextEvent: JobModelItem) = if (nextEvent.idJob == IDTOEMPTYOBJECT.toLong()) {

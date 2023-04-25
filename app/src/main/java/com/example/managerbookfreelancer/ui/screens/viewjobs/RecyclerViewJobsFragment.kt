@@ -2,7 +2,6 @@ package com.example.managerbookfreelancer.ui.screens.viewjobs
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
@@ -18,7 +17,6 @@ import com.example.managerbookfreelancer.adapter.AdapterListJobs
 import com.example.managerbookfreelancer.adapter.OnButtonClickListener
 import com.example.managerbookfreelancer.core.model.JobModelItem
 import com.example.managerbookfreelancer.databinding.FragmentRecyclerViewJobsBinding
-import com.example.managerbookfreelancer.utils.Extensions.Companion.setActionBarTitle
 import com.example.managerbookfreelancer.viewModel.JobsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -52,7 +50,6 @@ class RecyclerViewJobsFragment : Fragment() {
         val activity = activity as AppCompatActivity?
         if (activity != null) {
             activity.supportActionBar?.show()
-            setActionBarTitle("Jobs")
         }
 
         _binding = FragmentRecyclerViewJobsBinding.inflate(inflater, container, false)
@@ -108,11 +105,6 @@ class RecyclerViewJobsFragment : Fragment() {
                         menuItem.isChecked = !menuItem.isChecked
                         showOldItens = !showOldItens
                         observeJobs()
-                        return true
-                    }
-
-                    android.R.id.home -> {
-                        findNavController().navigateUp()
                         return true
                     }
                 }

@@ -16,11 +16,11 @@ class GetJobsUseCaseImpl @Inject constructor(
     private val jobsRepository: JobsRepository, private val clientRepository: ClientRepository
 ) : GetJobsUseCase {
 
-    private val time = Utils.getDateInMillesWithoutTime()
+    private val data = Utils.getDateInMillesWithoutTime()
 
     override fun invoke(showOlditens: Boolean): Flow<List<JobModelItem>> {
 
-        return jobsRepository.fetchJobs(time, showOlditens)
+        return jobsRepository.fetchJobs(data, showOlditens)
             .map { jobList ->
                 jobList.map { job ->
 
@@ -41,7 +41,7 @@ class GetJobsUseCaseImpl @Inject constructor(
 
     override suspend fun invokeNexEvent(): JobModelItem {
 
-        val job: JobEntity = jobsRepository.getNextJob(time)
+        val job: JobEntity = jobsRepository.getNextJob(data)
 
 
         return if (job != null) {
