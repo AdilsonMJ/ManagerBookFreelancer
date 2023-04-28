@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.managerbookfreelancer.ui.screens.viewHome.HomeFragment"
+        android:name="com.example.managerbookfreelancer.main.ui.screens.viewHome.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/recyclerViewJobsFragment"
-        android:name="com.example.managerbookfreelancer.ui.screens.viewjobs.RecyclerViewJobsFragment"
+        android:name="com.example.managerbookfreelancer.main.ui.screens.viewjobs.RecyclerViewJobsFragment"
         android:label="Jobs"
         tools:layout="@layout/fragment_recycler_view_jobs">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/recyclerViewProfessionalFragment"
-        android:name="com.example.managerbookfreelancer.ui.screens.viewProfessional.RecyclerViewProfessionalFragment"
+        android:name="com.example.managerbookfreelancer.main.ui.screens.viewProfessional.RecyclerViewProfessionalFragment"
         android:label="Clients"
         tools:layout="@layout/fragment_recycler_view_professional">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/newProfessional"
-        android:name="com.example.managerbookfreelancer.ui.screens.professionalForm.FormNewProfessionalFragment"
+        android:name="com.example.managerbookfreelancer.main.ui.screens.professionalForm.FormNewProfessionalFragment"
         android:label="New Client"
         tools:layout="@layout/fragment_form_new_professional">
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/formNewJobFragment"
-        android:name="com.example.managerbookfreelancer.ui.screens.jobform.FormNewJobFragment"
+        android:name="com.example.managerbookfreelancer.main.ui.screens.jobform.FormNewJobFragment"
         android:label="New Job"
         tools:layout="@layout/fragment_form_new_job">
         <action

@@ -4,16 +4,17 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
     namespace 'com.example.managerbookfreelancer'
-    compileSdk 33
+    compileSdk rootProject.ext.sdkVersion
 
     defaultConfig {
         applicationId "com.example.managerbookfreelancer"
-        minSdk 24
-        targetSdk 33
+        minSdk rootProject.ext.minVersion
+        targetSdk rootProject.ext.targetVersion
         versionCode 1
         versionName "2.0"
 
@@ -31,7 +32,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = JavaVersion.VERSION_11
     }
 
     buildFeatures{
@@ -48,55 +49,35 @@ android {
 
 dependencies {
 
+    implementation libs.hilt.android
+    implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    kapt libs.hilt.compiler
+    implementation libs.firebase.database
+    implementation libs.firebase.auth
+    implementation libs.androidx.room.ktx
+    kapt libs.kapt.room.compiler
+    androidTestImplementation libs.androidx.room.testing
+    implementation libs.jetbrains.kotlin.stdlib
+    implementation libs.junit
+    testImplementation libs.junit
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.android.material
+    implementation libs.androidx.constraintlayout
+    androidTestImplementation libs.androidx.test.ext
+    testImplementation libs.androidx.test.ext.ktx
+    androidTestImplementation libs.androidx.test.espresso.core
+    testImplementation libs.androidx.test.core.ktx
+    testImplementation libs.mockito.core
+    testImplementation libs.mockito.kotlin
+    testImplementation libs.android.arch.core
+    implementation libs.firebase.bom
 
-
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-    implementation 'junit:junit:4.13.2'
-    implementation 'junit:junit:4.13.2'
-
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'androidx.test.ext:junit-ktx:1.1.5'
-    testImplementation 'androidx.test:core-ktx:1.5.0'
-    testImplementation 'org.mockito:mockito-core:5.1.1'
-    testImplementation 'org.mockito.kotlin:mockito-kotlin:4.1.0'
-    testImplementation 'android.arch.core:core-testing:1.1.1'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
-    // Lifecycle components
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.6.0"
-
-    // Kotlin components
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
-
-    // Room components
-    implementation "androidx.room:room-ktx:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
-    androidTestImplementation "androidx.room:room-testing:2.5.0"
-
-    //firebase
-    implementation 'com.google.firebase:firebase-database:20.1.0'
-    implementation 'android.arch.persistence.room:runtime:1.1.1'
-
-    implementation 'com.google.dagger:hilt-android:2.45'
-    kapt 'com.google.dagger:hilt-compiler:2.45'
+    api libs.bundles.coroutines
+    implementation libs.bundles.navigation
+    implementation libs.bundles.lifecycle
 
 }
 

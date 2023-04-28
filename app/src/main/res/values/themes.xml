@@ -22,7 +22,6 @@
         <item name="cardBackgroundColor">@color/white</item>
         <item name="cardCornerRadius">30dp</item>
         <item name="cardPreventCornerOverlap">true</item>
-
     </style>
 
 </resources>
