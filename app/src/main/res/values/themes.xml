@@ -23,5 +23,12 @@
         <item name="cardCornerRadius">30dp</item>
         <item name="cardPreventCornerOverlap">true</item>
     </style>
+    <style name="Theme.ManagerBookFreelancer.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.ManagerBookFreelancer.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.ManagerBookFreelancer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

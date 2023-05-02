@@ -20,8 +20,7 @@ object ColletionsModule {
     fun providesGetUseCase(
         jobsRepository: JobsRepository,
         clientRepository: ClientRepository
-    ): GetJobsUseCase{
-        return GetJobsUseCaseImpl(jobsRepository, clientRepository)
-    }
+    ): GetJobsUseCase = GetJobsUseCaseImpl(jobsRepository, clientRepository)
+
 
 }
